@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Library\App.cpp">
       <Filter>Library</Filter>
     </ClCompile>
@@ -10,12 +9,6 @@
     </ClCompile>
     <ClCompile Include="Source\BootScene.cpp">
       <Filter>BootScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TitleScene.cpp">
-      <Filter>TitleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\PlayScene.cpp">
-      <Filter>PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
       <Filter>ImGui</Filter>
@@ -50,10 +43,30 @@
     <ClCompile Include="Library\Time.cpp">
       <Filter>Library</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneFactory.cpp">
+      <Filter>SceneFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BattleSystem.cpp">
+      <Filter>BattleScene\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BattleScene.cpp">
+      <Filter>BattleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TitleScene.cpp">
+      <Filter>TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CommandSystem.cpp">
+      <Filter>BattleScene\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ImageLoader.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
-    <ClInclude Include="Source\SceneFactory.h" />
     <ClInclude Include="Library\App.h">
       <Filter>Library</Filter>
     </ClInclude>
@@ -65,12 +78,6 @@
     </ClInclude>
     <ClInclude Include="Source\BootScene.h">
       <Filter>BootScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\TitleScene.h">
-      <Filter>TitleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\PlayScene.h">
-      <Filter>PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
       <Filter>ImGui</Filter>
@@ -114,6 +121,27 @@
     <ClInclude Include="Library\myDxLib.h">
       <Filter>Library</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SceneFactory.h">
+      <Filter>SceneFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BattleSystem.h">
+      <Filter>BattleScene\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BattleScene.h">
+      <Filter>BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CommandSystem.h">
+      <Filter>BattleScene\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TitleScene.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ImageLoader.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
@@ -122,14 +150,26 @@
     <Filter Include="BootScene">
       <UniqueIdentifier>{4e7a122b-01b5-4a1f-bdd8-381c4cb2403d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TitleScene">
-      <UniqueIdentifier>{a52f9c67-9c6c-4376-8f4c-07a10ecbc3db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PlayScene">
-      <UniqueIdentifier>{8123ada4-16d1-40da-a8f3-3f9e93aafb30}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ImGui">
       <UniqueIdentifier>{a717257b-67b3-4bfa-834c-1e34032b33b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actors">
+      <UniqueIdentifier>{ff257d6b-79ad-4531-975c-0e1bd4e5f760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BattleScene">
+      <UniqueIdentifier>{3ac766b3-4542-4ab9-a52a-4e85988a37dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BattleScene\Systems">
+      <UniqueIdentifier>{ac656681-c366-4518-a0f7-95fe13650aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TitleScene">
+      <UniqueIdentifier>{2df74a3f-5b90-4e6d-8d48-d00c2dcbc84f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneFactory">
+      <UniqueIdentifier>{eda11885-ceb4-454a-b376-434f7ad0a5eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{775ec7a5-2eb0-4e4c-a65e-48da3e22951d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
