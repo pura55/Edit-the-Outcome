@@ -1,5 +1,6 @@
 #pragma once
 #include "../Library/SceneBase.h"
+#include "Common.h"
 
 /// <summary>
 /// タイトルシーン
@@ -13,4 +14,8 @@ public:
 	~TitleScene();
 	void Update() override;
 	void Draw() override;
+
+
+private:
+	Common* common = FindGameObject<Common>();
 };

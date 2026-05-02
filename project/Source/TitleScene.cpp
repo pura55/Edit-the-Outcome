@@ -2,6 +2,7 @@
 
 TitleScene::TitleScene()
 {
+	common = new Common();
 }
 
 TitleScene::~TitleScene()
@@ -11,7 +12,7 @@ TitleScene::~TitleScene()
 void TitleScene::Update()
 {
 	if (CheckHitKey(KEY_INPUT_P)) {
-		SceneManager::ChangeScene("PLAY");
+		SceneManager::ChangeScene("BATTLE");
 	}
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
 		SceneManager::Exit();
