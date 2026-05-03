@@ -2,7 +2,27 @@
 
 BattleScene::BattleScene()
 {
-	battleSystem = new BattleSystem();
+	// BattleSystemのインスタンスを探し、見つからなければ新しく作成する
+	battleSystem = FindGameObject<BattleSystem>();
+	if (!battleSystem)
+	{
+		battleSystem = new BattleSystem();
+	}
+
+	// CommandSystemのインスタンスを探し、見つからなければ新しく作成する
+	commandSystem = FindGameObject<CommandSystem>();
+	if (!commandSystem)
+	{
+		commandSystem = new CommandSystem();
+	}
+
+	// BattleUIのインスタンスを探し、見つからなければ新しく作成する
+	battleUI = FindGameObject<BattleUI>();
+	if (!battleUI)
+	{
+		battleUI = new BattleUI();
+	}
+
 	isBattleEnded = false;
 }
 

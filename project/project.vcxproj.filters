@@ -46,23 +46,26 @@
     <ClCompile Include="Source\SceneFactory.cpp">
       <Filter>SceneFactory</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BattleSystem.cpp">
-      <Filter>BattleScene\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="Source\BattleScene.cpp">
       <Filter>BattleScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\TitleScene.cpp">
       <Filter>TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CommandSystem.cpp">
-      <Filter>BattleScene\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ImageLoader.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="Source\Common.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BattleSystem.cpp">
+      <Filter>BattleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BattleUI.cpp">
+      <Filter>BattleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CommandSystem.cpp">
+      <Filter>BattleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,14 +127,8 @@
     <ClInclude Include="Source\SceneFactory.h">
       <Filter>SceneFactory</Filter>
     </ClInclude>
-    <ClInclude Include="Source\BattleSystem.h">
-      <Filter>BattleScene\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="Source\BattleScene.h">
       <Filter>BattleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CommandSystem.h">
-      <Filter>BattleScene\Systems</Filter>
     </ClInclude>
     <ClInclude Include="Source\TitleScene.h">
       <Filter>TitleScene</Filter>
@@ -141,6 +138,15 @@
     </ClInclude>
     <ClInclude Include="Source\Common.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BattleSystem.h">
+      <Filter>BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BattleUI.h">
+      <Filter>BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CommandSystem.h">
+      <Filter>BattleScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -153,14 +159,8 @@
     <Filter Include="ImGui">
       <UniqueIdentifier>{a717257b-67b3-4bfa-834c-1e34032b33b0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actors">
-      <UniqueIdentifier>{ff257d6b-79ad-4531-975c-0e1bd4e5f760}</UniqueIdentifier>
-    </Filter>
     <Filter Include="BattleScene">
       <UniqueIdentifier>{3ac766b3-4542-4ab9-a52a-4e85988a37dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="BattleScene\Systems">
-      <UniqueIdentifier>{ac656681-c366-4518-a0f7-95fe13650aaa}</UniqueIdentifier>
     </Filter>
     <Filter Include="TitleScene">
       <UniqueIdentifier>{2df74a3f-5b90-4e6d-8d48-d00c2dcbc84f}</UniqueIdentifier>

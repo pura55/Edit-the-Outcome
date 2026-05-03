@@ -1,7 +1,9 @@
 #pragma once
 #include "../Library/SceneBase.h"
 #include "BattleSystem.h"
-#include <string>
+#include "CommandSystem.h"
+#include "BattleUI.h"
+
 
 /// <summary>
 /// バトルシーン
@@ -11,15 +13,24 @@
 
 class BattleScene : public SceneBase
 {
+/// <summary>
+/// 基本的な関数
+/// </summary>
 public:
 	BattleScene();
 	~BattleScene();
 	void Update() override;
 	void Draw() override;
 
-	//バトルが終了したかどうかを設定する関数
-
 private:
 	bool isBattleEnded;
-	BattleSystem* battleSystem = FindGameObject<BattleSystem>();
+
+/// <summary>
+/// インスタンスを格納する変数
+/// </summary>
+private:
+	BattleSystem* battleSystem;
+	CommandSystem* commandSystem;
+	BattleUI* battleUI;
+
 };

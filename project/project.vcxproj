@@ -154,6 +154,7 @@
     <ClInclude Include="Library\Time.h" />
     <ClInclude Include="Source\BattleScene.h" />
     <ClInclude Include="Source\BattleSystem.h" />
+    <ClInclude Include="Source\BattleUI.h" />
     <ClInclude Include="Source\BootScene.h" />
     <ClInclude Include="Source\CommandSystem.h" />
     <ClInclude Include="Source\Common.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Library\Time.cpp" />
     <ClCompile Include="Source\BattleScene.cpp" />
     <ClCompile Include="Source\BattleSystem.cpp" />
+    <ClCompile Include="Source\BattleUI.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
     <ClCompile Include="Source\CommandSystem.cpp" />
     <ClCompile Include="Source\Common.cpp" />
