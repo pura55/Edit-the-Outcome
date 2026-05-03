@@ -24,5 +24,5 @@ public:
 /// 読み込んだ画像を格納する変数
 /// </summary>
 private:
-	int commandWindow;
+	int commandWindow;// コマンドウィンドウの画像ハンドル
 };
