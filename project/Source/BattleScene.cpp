@@ -32,6 +32,10 @@ BattleScene::~BattleScene()
 
 void BattleScene::Update()
 {
+	if (CheckHitKey(KEY_INPUT_ESCAPE))
+	{
+		SceneManager::Exit();
+	}
 	if (battleSystem->GetBattleEnd())
 	{
 		SceneManager::ChangeScene("TITLE");
