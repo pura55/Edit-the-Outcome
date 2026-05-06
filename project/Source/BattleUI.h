@@ -31,6 +31,8 @@ private:
 	const VECTOR2 Triangle_FirstPos = { commandWindowPos.x + 32 * 1, commandWindowPos.y + 32 };
 	const VECTOR2 Triangle_SecondPos = { commandWindowPos.x + 32 * 1, commandWindowPos.y + 32 + 16 };
 	const VECTOR2 Triangle_ThirdPos = { commandWindowPos.x + 32 * 1 + 16, commandWindowPos.y  + 32 + 8};
+	//コマンド選択のハンドル
+	bool isCommandDecide;
 
 	/// <summary>
 	/// インスタンスを格納する変数
