@@ -5,6 +5,8 @@ BattleSystem::BattleSystem()
 	state = BattleState::Init;
 	currentStateText = "Init";
 	isBattleEnd = false;
+
+	commandSystem = FindGameObject<CommandSystem>();
 }
 
 BattleSystem::~BattleSystem()
@@ -26,7 +28,7 @@ void BattleSystem::Update()
 	case BattleState::PlayerInput:
 		//プレイヤーが入力を終えたら、EnemyActionに移行する
 		//未確定の場合は留まる
-		if (PlayerInput())
+		PlayerInput();
 			state = BattleState::EnemyAction;
 		break;
 		
@@ -77,14 +79,9 @@ bool BattleSystem::Start()
 	return false;
 }
 
-bool BattleSystem::PlayerInput()
+void BattleSystem::PlayerInput()
 {
 	currentStateText = "PlayerInput";
-	if (CheckHitKey(KEY_INPUT_2))
-	{
-		return true;
-	}
-	return false;
 }
 
 bool BattleSystem::EnemyAction()
@@ -114,3 +111,4 @@ void BattleSystem::BattleEnd()
 		currentStateText = "BattleEnd";
 	}
 }
+
