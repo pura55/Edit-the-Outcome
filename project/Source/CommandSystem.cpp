@@ -24,7 +24,7 @@ void CommandSystem::Update()
 	switch (currentCommandState)
 	{
 	case CommandState::Init:
-		currentCommandState = CommandState::Active;
+		currentCommandState = CommandState::Idle;
 		break;
 		
 	case CommandState::Idle:
@@ -105,8 +105,7 @@ void CommandSystem::SelectCommand()
 			//[F]Key‚Å‘I‘ğéŒ¾‚ğ“Ç‚İI‚¦‚é
 			if (CheckHitKey(KEY_INPUT_F))
 			{
-				isCommandDecide = false;
-				isCommandConfirme = true;
+				SetIsCommandConfirme(true);
 				currentRecastTime = commandRecastTime;
 			}
 		}
@@ -129,4 +128,13 @@ void CommandSystem::RecastTimer()
 			isRecastEnd = true;
 		}
 	}
+}
+
+void CommandSystem::ResetCommand()
+{
+	SetIsCommandConfirme(false);
+	SetIsCommandDecide(false);
+	currentCommandIndex = 0;
+	currentRecastTime = 0.0f;
+	isRecastEnd = true;
 }

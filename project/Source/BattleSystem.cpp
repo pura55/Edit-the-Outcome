@@ -34,10 +34,6 @@ void BattleSystem::Update()
 		//プレイヤーが入力を終えたら、EnemyActionに移行する
 		//未確定の場合は留まる
 		StatePlayerInput();
-		if (isPlayerInputEnd)
-		{
-			state = BattleState::EnemyAction;
-		}
 		break;
 		
 	case BattleState::EnemyAction:
@@ -51,15 +47,6 @@ void BattleSystem::Update()
 		//ターン終了の処理が終わったら、PlayerInputに移行する
 		//バトルを終了する場合は、BattleEndに移行する
 		StateTurnEnd();
-		if (CheckHitKey(KEY_INPUT_4))
-		{
-			SetPlayerInputEnd(false);
-			state = BattleState::PlayerInput;
-		}
-		if (CheckHitKey(KEY_INPUT_5))
-		{
-			state = BattleState::BattleEnd;
-		}
 		break;
 
 	case BattleState::BattleEnd:
@@ -89,7 +76,8 @@ bool BattleSystem::StateStart()
 	currentStateText = "Start";
 	if (CheckHitKey(KEY_INPUT_1))
 	{
-	 return true;
+		commandSystem->SetStateActive();
+		return true;
 	}
 	return false;
 }
@@ -100,6 +88,10 @@ void BattleSystem::StatePlayerInput()
 	if(commandSystem->GetIsStateIdle())
 	{ 
 		commandSystem->SetStateActive();
+	}
+	if (isPlayerInputEnd)
+	{
+		state = BattleState::EnemyAction;
 	}
 }
 
@@ -116,6 +108,16 @@ bool BattleSystem::StateEnemyAction()
  void BattleSystem::StateTurnEnd()
 {
 	currentStateText = "TurnEnd";
+	if (CheckHitKey(KEY_INPUT_4))
+	{
+		SetPlayerInputEnd(false);
+		state = BattleState::PlayerInput;
+		commandSystem->ResetCommand();
+	}
+	if (CheckHitKey(KEY_INPUT_5))
+	{
+		state = BattleState::BattleEnd;
+	}
 }
 
 void BattleSystem::StateBattleEnd()

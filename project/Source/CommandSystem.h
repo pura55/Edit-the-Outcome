@@ -51,6 +51,12 @@ private:
 	void RecastTimer();
 
 /// <summary>
+/// Function関数
+/// </summary>
+public:
+	void ResetCommand();
+
+/// <summary>
 /// Getter関数/Setter関数
 /// </summary>
 public:
@@ -67,14 +73,30 @@ public:
 			return false;
 		}
 	}
+	//コマンドの状態がActiveかどうかを返す関数
+	bool GetIsStateActive() const
+	{
+		if (currentCommandState == CommandState::Active)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+	    }
+	}
 	//コマンドの状態をActiveにする関数
 	void SetStateActive() { currentCommandState = CommandState::Active; }
 	//コマンドの指数を返す関数
 	int GetCurrentCommandIndex() const { return currentCommandIndex; }
 	//コマンドが決定されたかどうかを返す関数
 	bool GetIsCommandDecide()const { return isCommandDecide; }
-	//コマンドが確定されたかどうかを返す関数
+	//コマンドが決定されたかどうかを設定する関数
+	void SetIsCommandDecide(bool decide) { isCommandDecide = decide; }
+	//コマンド確定の是非を返す関数
 	bool GetIsCommandConfirme() const { return isCommandConfirme; }
+	//コマンド確定の是非を設定する関数
+	void SetIsCommandConfirme(bool confirme) { isCommandConfirme = confirme; }
 
 /// <summary>
 /// 列挙型の変数

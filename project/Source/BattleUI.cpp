@@ -24,7 +24,7 @@ void BattleUI::Draw()
 	//X‚Ì”wŒi‚ð•`‰æ(Œ»Ý‚Í”ñ•\Ž¦)
 	//DrawRectGraph(0, 0, 0, 0, 1920, 1080, imageLoader->GetForestBg(), TRUE);
 	
-	if (!commandSystem->GetIsCommandConfirme())
+	if (commandSystem->GetIsStateActive())
 	{
 		//ƒRƒ}ƒ“ƒhƒEƒBƒ“ƒhƒE‚ð•`‰æ
 		DrawRectGraph(commandWindowPos.x, commandWindowPos.y, 0, 0, 512, 192, imageLoader->GetCommandWindow(), TRUE);
