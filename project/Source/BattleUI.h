@@ -1,7 +1,11 @@
 #pragma once
 #include "../Library/GameObject.h"
-#include "ImageLoader.h"
-#include "CommandSystem.h"
+
+///<summary>
+///前方宣言
+/// </summary>
+class CommandSystem;
+class ImageLoader;
 
 /// <summary>
 /// バトルUI
@@ -18,6 +22,12 @@ public:
 	~BattleUI();
 	void Update() override;
 	void Draw() override;
+	
+	/// <summary>
+	///Getter関数/Setter関数
+	/// </summary>
+public:
+	void SetReference();
 
 /// <summary>
 /// メンバー変数
@@ -35,9 +45,11 @@ private:
 	bool isCommandDecide;
 
 	/// <summary>
-	/// インスタンスを格納する変数
+	/// 参照
 	/// </summary>
 private:
-	ImageLoader* imageLoader;
+	// コマンドシステムを参照
 	CommandSystem* commandSystem;
+	//イメージローダーを参照
+	ImageLoader* imageLoader;
 };

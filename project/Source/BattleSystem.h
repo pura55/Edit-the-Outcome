@@ -1,6 +1,5 @@
 #pragma once
 #include "../Library/GameObject.h"
-#include "CommandSystem.h"
 #include <string>
 
 /// <summary>
@@ -17,6 +16,11 @@ enum class BattleState
 	TurnEnd,      // ターン終了
 	BattleEnd,    // バトル終了
 };
+
+/// <summary>
+/// 前方宣言
+/// </summary>
+class CommandSystem;
 
 /// <summary>
 /// バトルシステム
@@ -36,21 +40,22 @@ public:
 	void Draw() override;
 
 /// <summary>
-/// Getter関数
+/// Getter/Setter関数
 /// </summary>
 public:
+	void SetReference();
+	void SetPlayerInputEnd(bool inputEnd) { isPlayerInputEnd = inputEnd; }
 	bool GetBattleEnd() { return isBattleEnd; }
 
-/// <summary>
-/// バトルの状態に応じた処理を行う関数
-/// </summary>
+
 private:
-	void Init();
-	bool Start();
-	void PlayerInput();
-	bool EnemyAction();
-	void TurnEnd();
-	void BattleEnd();
+	/// バトルの状態に応じた処理を行う関数
+	void StateInit();
+	bool StateStart();
+	void StatePlayerInput();
+	bool StateEnemyAction();
+	void StateTurnEnd();
+	void StateBattleEnd();
 
 /// <summary>
 /// 列挙体の変数
@@ -62,9 +67,19 @@ private:
 /// メンバー変数
 /// </summary>
 private:
+	//現在のバトルステートを表示するテキスト
 	std::string currentStateText;
+	//プレイヤーの入力が終了したかどうかのフラグ
+	bool isPlayerInputEnd;
+	//敵の行動が狩猟したかどうかのフラグ
+	bool isEnemyActionEnd;
+	//バトルが終了したかどうかのフラグ
 	bool isBattleEnd;
 
+/// <summary>
+///参照
+/// </summary>
 private:
+	//コマンドシステムを参照
 	CommandSystem* commandSystem;
 };

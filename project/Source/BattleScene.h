@@ -1,9 +1,12 @@
 #pragma once
 #include "../Library/SceneBase.h"
-#include "BattleSystem.h"
-#include "CommandSystem.h"
-#include "BattleUI.h"
 
+/// <summary>
+/// 前方宣言
+/// </summary>
+class BattleSystem;
+class CommandSystem;
+class BattleUI;
 
 /// <summary>
 /// バトルシーン
@@ -26,11 +29,14 @@ private:
 	bool isBattleEnded;
 
 /// <summary>
-/// インスタンスを格納する変数
+/// 参照
 /// </summary>
 private:
+	//バトルシステムを参照
 	BattleSystem* battleSystem;
+	//コマンドシステムを参照
 	CommandSystem* commandSystem;
+	//バトルUIを参照
 	BattleUI* battleUI;
 
 };

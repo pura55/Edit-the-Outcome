@@ -1,9 +1,10 @@
 #include "CommandSystem.h"
+#include "BattleSystem.h"
 
-CommandSystem::CommandSystem()
+CommandSystem::CommandSystem() : battleSystem(nullptr)//参照をnullptrで初期化
 {
 	//列挙体の初期化
-	currentCommand = Command::Init;
+	currentCommandState = CommandState::Init;
 	currentCommandType = CommandType::Init;
 
 	//メンバー変数の初期化
@@ -11,10 +12,7 @@ CommandSystem::CommandSystem()
 	currentRecastTime = 0.0f;
 	isRecastEnd = true;
 	isCommandDecide = false;
-
-	//インスタンスを取得
-	imageLoader = FindGameObject<ImageLoader>();
-	
+	isCommandConfirme = false;
 }
 
 CommandSystem::~CommandSystem()
@@ -23,25 +21,38 @@ CommandSystem::~CommandSystem()
 
 void CommandSystem::Update()
 {
-	switch (currentCommand)
+	switch (currentCommandState)
 	{
-	case Command::Init:
-		currentCommand = Command::Active;
+	case CommandState::Init:
+		currentCommandState = CommandState::Active;
 		break;
 		
-	case Command::Idle:
-		currentCommandType = CommandType::Idle;
+	case CommandState::Idle:
+		currentCommandState = CommandState::Idle;
 		break;
 
-	case Command::Active:
+	case CommandState::Active:
 		SelectCommand();
-		RecastTimer();
+		if (isCommandConfirme)//コマンドが確定したら、Idleに移行する
+		{
+			currentCommandState = CommandState::Idle;
+			//プレイヤーの入力が終了したことを伝える
+			battleSystem->SetPlayerInputEnd(true);
+		}
 		break;
 	}
+	//リキャストタイマーを更新
+	RecastTimer();
 }
 
 void CommandSystem::Draw()
 {
+}
+
+void CommandSystem::SetReference()
+{
+	//// BattleSystem の参照を取得
+	battleSystem = FindGameObject<BattleSystem>();
 }
 
 void CommandSystem::SelectCommand()
@@ -91,10 +102,11 @@ void CommandSystem::SelectCommand()
 		//リキャスト時間が終了している場合、コマンドの選択を受け付ける
 		if (isRecastEnd)
 		{
-			//[F]Keyで読み終える
+			//[F]Keyで選択宣言を読み終える
 			if (CheckHitKey(KEY_INPUT_F))
 			{
 				isCommandDecide = false;
+				isCommandConfirme = true;
 				currentRecastTime = commandRecastTime;
 			}
 		}

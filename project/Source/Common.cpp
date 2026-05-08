@@ -3,11 +3,7 @@
 Common::Common()
 {
 	DontDestroyOnSceneChange();
-	imageLoader = FindGameObject<ImageLoader>();
-	if (!imageLoader)
-	{
-		imageLoader = new ImageLoader();
-	}
+	imageLoader = new ImageLoader();
 }
 
 Common::~Common()

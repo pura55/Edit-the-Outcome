@@ -1,27 +1,18 @@
 #include "BattleScene.h"
+#include "BattleSystem.h"
+#include "CommandSystem.h"
+#include "BattleUI.h"
 
 BattleScene::BattleScene()
 {
-	// BattleSystemのインスタンスを探し、見つからなければ新しく生成する
-	battleSystem = FindGameObject<BattleSystem>();
-	if (!battleSystem)
-	{
-		battleSystem = new BattleSystem();
-	}
+	battleSystem = new BattleSystem();
+	commandSystem = new CommandSystem();
+	battleUI = new BattleUI();
 
-	// CommandSystemのインスタンスを探し、見つからなければ新しく生成する
-	commandSystem = FindGameObject<CommandSystem>();
-	if (!commandSystem)
-	{
-		commandSystem = new CommandSystem();
-	}
-
-	// BattleUIのインスタンスを探し、見つからなければ新しく生成する
-	battleUI = FindGameObject<BattleUI>();
-	if (!battleUI)
-	{
-		battleUI = new BattleUI();
-	}
+	//参照の取得
+	battleSystem->SetReference();
+	commandSystem->SetReference();
+	battleUI->SetReference();
 
 	isBattleEnded = false;
 }
