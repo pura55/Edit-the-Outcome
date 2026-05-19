@@ -1,6 +1,7 @@
 ﻿# include <Siv3D.hpp> // Siv3D v0.6.16
 # include "Common.hpp"
 # include "TitleScene.hpp"
+# include "BattleScene.hpp"
 
 void Main()
 {
@@ -8,6 +9,7 @@ void Main()
 
 	ProjectApp manager;
 	manager.add<TitleScene>(State::TitleScene);
+	manager.add<BattleScene>(State::BattleScene);
 
 	while (System::Update())
 	{

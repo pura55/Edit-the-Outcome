@@ -1,13 +1,14 @@
 ﻿#pragma once
-# include <Siv3D.hpp>
-# include "GlobalData.hpp"
+#include <Siv3D.hpp>
+#include "GlobalData.hpp"
 
 ///<summary>
 /// シーンのステート
 ///</summary>
 enum class State
 {
-	TitleScene
+	TitleScene,
+	BattleScene
 };
 
 ///<summary>

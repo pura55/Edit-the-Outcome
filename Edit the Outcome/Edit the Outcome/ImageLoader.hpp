@@ -3,12 +3,13 @@
 
 class ImageLoader
 {
-private:
-	HashTable<String, Texture> m_imageTable;
-
 public:
 	ImageLoader();
 	void init();
+	void LoadTitleAssets();
+	void ClearTitleAssets();
+	void LoadBattleAssets();
+	void ClearBattleAssets();
 };
 
 

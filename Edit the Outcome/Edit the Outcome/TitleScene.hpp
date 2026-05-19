@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Common.hpp"
+#include "TitleUI.h"
 
 
 ///<summary>
@@ -11,4 +12,7 @@ public:
 	TitleScene(const InitData& init);
 	void update() override;
 	void draw() const override;
+
+private:
+	TitleUI m_ui;
 };

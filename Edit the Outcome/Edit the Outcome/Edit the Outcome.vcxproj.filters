@@ -134,6 +134,9 @@
     <Filter Include="1_TitleScene">
       <UniqueIdentifier>{a11b9f0a-464b-4418-8cc0-598c2f9f8185}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_BattleScene">
+      <UniqueIdentifier>{a5b4c684-b114-428f-ad48-73ea7451154f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -148,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="ImageLoader.cpp">
       <Filter>0_System</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleScene.cpp">
+      <Filter>2_BattleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleUI.cpp">
+      <Filter>1_TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -825,6 +834,12 @@
     </ClInclude>
     <ClInclude Include="ImageLoader.hpp">
       <Filter>0_System</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleScene.hpp">
+      <Filter>2_BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleUI.h">
+      <Filter>1_TitleScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

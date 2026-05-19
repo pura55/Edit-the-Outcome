@@ -7,6 +7,24 @@ ImageLoader::ImageLoader()
 
 void ImageLoader::init()
 {
-	m_imageTable[U"CommandWindow"] = Texture(U"./image/CommandWindow.png");
-	m_imageTable[U"BattleBg"] = Texture(U"./image/ForestBg.jpg");
+	
+}
+
+void ImageLoader::LoadTitleAssets()
+{
+}
+
+void ImageLoader::ClearTitleAssets()
+{
+}
+
+void ImageLoader::LoadBattleAssets()
+{
+	TextureAsset::Register(U"CommandWindow", U"./image/CommandWindow.png");
+	TextureAsset::Register(U"BattleBg", U"./image/ForestBg.jpg");
+}
+
+void ImageLoader::ClearBattleAssets()
+{
+	TextureAsset::UnregisterAll();
 }
