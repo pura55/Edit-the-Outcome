@@ -1,5 +1,6 @@
 ﻿#pragma once
 # include <Siv3D.hpp>
+# include "GlobalData.hpp"
 
 ///<summary>
 /// シーンのステート
@@ -14,6 +15,8 @@ enum class State
 ///</summary>
 struct GameData
 {
+	//グローバルデータ
+	GlobalData globalData;
 };
 
 using ProjectApp = SceneManager<State, GameData>;
