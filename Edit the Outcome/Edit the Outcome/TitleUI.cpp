@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-#include "TitleUI.h"
+#include "TitleUI.hpp"
 
 TitleUI::TitleUI()
 {

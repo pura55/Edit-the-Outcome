@@ -6,6 +6,7 @@
 void Main()
 {
 	FontAsset::Register(U"TitleFont", 30, Typeface::Medium);
+	FontAsset::Register(U"BattleSystem", 30, Typeface::Medium);
 
 	ProjectApp manager;
 	manager.add<TitleScene>(State::TitleScene);

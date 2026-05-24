@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "Common.hpp"
+#include "BattleSystem.hpp"
+#include "BattleUI.hpp"
 
 class BattleScene : public ProjectApp::Scene
 {
@@ -9,5 +11,8 @@ public:
 	void draw() const override;
 
 private:
-
+	//バトルシステムを保持
+	BattleSystem battleSystem;
+	//バトルUIを保持
+	BattleUI battleUI;
 };
