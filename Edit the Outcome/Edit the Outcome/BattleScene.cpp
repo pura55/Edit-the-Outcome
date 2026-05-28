@@ -5,6 +5,10 @@
 
 BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 {
+	//バトルシーンのアセットを読み込み
+	getData().globalData.imageLoader.LoadBattleAssets();
+	//参照を渡す
+	battleUI.SetReference(battleSystem, getData().globalData.imageLoader);
 }
 
 void BattleScene::update()

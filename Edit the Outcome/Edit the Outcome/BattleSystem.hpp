@@ -59,8 +59,28 @@ public:
 	/// </summary>
 public:
 	/*void SetReference();*/ //使用するかもしれないので仮コメント
-	void SetPlayerInputEnd(bool inputEnd) { isCommandInputEnd = inputEnd; }
-	bool GetBattleEnd() { return isBattleEnd; }
+
+	//コマンドインプットの終了状況を設定するsetter
+	void SetCommandInputEnd(bool inputEnd) { m_isCommandInputEnd = inputEnd; }
+
+	//バトルが終了しているかを伝えるgetter
+	bool GetBattleEnd() { return m_isBattleEnd; }
+
+	//CommandIndexをを取得するgetter
+	int32 GetCommandIndex(){ return m_currentCommandIndex; }
+
+	//
+	bool GetIsSkillMenu()
+	{
+		if (m_menuStack.top() == MenuState::Skill)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	/// <summary>
 	/// バトルの状態に応じた処理を行う関数
@@ -90,36 +110,37 @@ private:
 	/// </summary>
 private:
 	//バトルステート
-	BattleState state = { BattleState::Init };
+	BattleState m_state{ BattleState::Init };
 
 	//コマンドタイプ
-	CommandType type = { CommandType::Attack };
+	CommandType m_type{ CommandType::Attack };
 
 	//現在のバトルステートを表示するテキスト
-	String currentStateText = { U"Init" };
+	String m_currentStateText{ U"Init" };
 
 	//メニュー内のコマンド数
-	int MaxCommandIndex = { 3 };
+	int32 m_maxCommandIndex{ 3 };
+	int32 m_minCommandIndex{ 0 };
 	//現在選択されているコマンドのインデックス
-	int currentCommandIndex = { 0 };
+	int32 m_currentCommandIndex{ m_minCommandIndex };
 
 
 	//プレイヤーの入力が終了したかどうかのフラグ
-	bool isCommandInputEnd = { false };
+	bool m_isCommandInputEnd{ false };
 	//敵の行動が狩猟したかどうかのフラグ
-	bool isEnemyActionEnd = { false };
+	bool m_isEnemyActionEnd{ false };
 	//バトルが終了したかどうかのフラグ
-	bool isBattleEnd = { false };
+	bool m_isBattleEnd{ false };
 
 	/// <summary>
 	/// 構造体変数
 	/// </summary>
 private:
 	//コマンドメニューのスタック
-	std::stack<MenuState> menuStack;
+	std::stack<MenuState> m_menuStack;
 
 	//バトルの状態のキュー
-	std::queue<BattleState> battleQueue;
+	std::queue<BattleState> m_battleQueue;
 
 };
 

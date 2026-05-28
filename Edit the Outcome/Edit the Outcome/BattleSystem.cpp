@@ -7,7 +7,7 @@ BattleSystem::BattleSystem()
 
 void BattleSystem::update()
 {
-	switch (state)
+	switch (m_state)
 	{
 	case BattleState::Init:
 		StateInit();
@@ -15,7 +15,7 @@ void BattleSystem::update()
 
 	case BattleState::Start:
 		if (StateStart())
-			state = BattleState::CommandInput;
+			m_state = BattleState::CommandInput;
 		break;
 
 	case BattleState::CommandInput:
@@ -28,7 +28,7 @@ void BattleSystem::update()
 		//敵の行動が終わったら、TurnEndに移行する
 		//未確定の場合は留まる
 		if (StateEnemyAction())
-			state = BattleState::TurnEnd;
+			m_state = BattleState::TurnEnd;
 		break;
 
 	case BattleState::TurnEnd:
@@ -45,19 +45,19 @@ void BattleSystem::update()
 
 void BattleSystem::draw() const
 {
-	FontAsset(U"BattleSystem")(currentStateText)
+	FontAsset(U"BattleSystem")(m_currentStateText)
 		.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 100, Vec2{ 400, 100 });
 }
 
 void BattleSystem::StateInit()
 {
-	state = BattleState::Start;
-	menuStack.push(MenuState::Base);
+	m_state = BattleState::Start;
+	m_menuStack.push(MenuState::Base);
 }
 
 bool BattleSystem::StateStart()
 {
-	currentStateText = U"Start";
+	m_currentStateText = U"Start";
 	if (Key1.down())
 	{
 		return true;
@@ -67,74 +67,65 @@ bool BattleSystem::StateStart()
 
 void BattleSystem::StateCommandInput()
 {
-	currentStateText = U"CommandInput";
+	m_currentStateText = U"CommandInput";
 
-	if (menuStack.top() == MenuState::Base)//ベースメニュー時
+	if (m_menuStack.top() == MenuState::Base)//ベースメニュー時
 	{
 		//コマンド操作
 		SelectCommandIndex();
 		//	現在のコマンドインデックス
-		switch (currentCommandIndex)
+		switch (m_currentCommandIndex)
 		{
 		case 0: //攻撃
-			type = CommandType::Attack;
+			m_type = CommandType::Attack;
 			break;
 
 		case 1: //防御
-			type = CommandType::Diffence;
+			m_type = CommandType::Diffence;
 			break;
 
 		case 2: //スキル
-			type = CommandType::Skills;
+			m_type = CommandType::Skills;
 			break;
 		}
 
-		switch (type)
+		switch (m_type)
 		{
 		case CommandType::Attack: //攻撃選択時
 			if (KeySpace.down())
 			{
-				state = BattleState::EnemyAction;
+				m_state = BattleState::EnemyAction;
 			}
 			break;
 		case CommandType::Diffence: //防御を選択時
 			if (KeySpace.down())
 			{
-				state = BattleState::EnemyAction;
+				m_state = BattleState::EnemyAction;
 			}
 			break;
 		case CommandType::Skills: //スキルを選択時
 			if (KeySpace.down())
 			{
+				m_currentCommandIndex = 0;
 				//スキルのメニューへ移る
-				menuStack.push(MenuState::Skill);
+				m_menuStack.push(MenuState::Skill);
 			}
 			break;
 		}
 	}
-	else if (menuStack.top() == MenuState::Skill) //スキルメニュー時
+	else if (m_menuStack.top() == MenuState::Skill) //スキルメニュー時
 	{
 		//コマンド操作
 		SelectCommandIndex();
 		if (KeySpace.down())
 		{
-			state = BattleState::EnemyAction;
+			m_state = BattleState::EnemyAction;
 		}
 		if (KeyB.down())
 		{
+			m_currentCommandIndex = 1;
 			//ベースのメニューへ戻る
-			menuStack.pop();
-		}
-		else if (menuStack.top() == MenuState::Skill)
-		{
-			if (KeySpace.down())
-			{
-				state = BattleState::EnemyAction;
-			}
-			if (KeyB.down())
-			{
-				menuStack.push(MenuState::Base);
-			}
+			m_menuStack.pop();
 		}
 	}
 
@@ -142,7 +133,7 @@ void BattleSystem::StateCommandInput()
 
 bool BattleSystem::StateEnemyAction()
 {
-	currentStateText = U"EnemyAction";
+	m_currentStateText = U"EnemyAction";
 	if (Key3.down())
 	{
 		return true;
@@ -152,15 +143,15 @@ bool BattleSystem::StateEnemyAction()
 
 void BattleSystem::StateTurnEnd()
 {
-	currentStateText = U"TurnEnd";
+	m_currentStateText = U"TurnEnd";
 	if (Key4.down())
 	{
-		SetPlayerInputEnd(false);
-		state = BattleState::CommandInput;
+		SetCommandInputEnd(false);
+		m_state = BattleState::CommandInput;
 	}
 	if (Key5.down())
 	{
-		state = BattleState::BattleEnd;
+		m_state = BattleState::BattleEnd;
 	}
 }
 
@@ -168,48 +159,48 @@ void BattleSystem::StateBattleEnd()
 {
 	if (KeyT.down())
 	{
-		currentStateText = U"BattleEnd:now pushing T";
-		isBattleEnd = true;
+		m_currentStateText = U"BattleEnd:now pushing T";
+		m_isBattleEnd = true;
 	}
 	else
 	{
-		currentStateText = U"BattleEnd";
+		m_currentStateText = U"BattleEnd";
 	}
 }
 
 void BattleSystem::SelectCommandIndex()
 {
 	//コマンドメニュー内のコマンド数を設定
-	if (menuStack.top() == MenuState::Base)
+	if (m_menuStack.top() == MenuState::Base)
 	{
-		MaxCommandIndex = 3;
+		m_maxCommandIndex = 2;
 	}
 	else
 	{
-		MaxCommandIndex = 1;
+		m_maxCommandIndex = 2;
 	}
 
 	//[W]Keyでコマンドを上に移動、[S]Keyでコマンドを下に移動
 	if (KeyW.down())
 	{
 		//コマンドのインデックスを減らす
-		currentCommandIndex -= 1;
+		m_currentCommandIndex -= 1;
 
-		//コマンドのインデックスが0未満にならないようにする
-		if (currentCommandIndex < MaxCommandIndex-1)
+		//コマンドのインデックスが1未満にならないようにする
+		if (m_currentCommandIndex < m_minCommandIndex)
 		{
-			currentCommandIndex = MaxCommandIndex;
+			m_currentCommandIndex = m_minCommandIndex;
 		}
 	}
 	if (KeyS.down())
 	{
 		//コマンドのインデックスを増やす
-		currentCommandIndex += 1;
+		m_currentCommandIndex += 1;
 
 		//コマンドのインデックスが2より大きくならないようにする
-		if (currentCommandIndex > MaxCommandIndex-1)
+		if (m_currentCommandIndex > m_maxCommandIndex-1)
 		{
-			currentCommandIndex = MaxCommandIndex;
+			m_currentCommandIndex = m_maxCommandIndex;
 		}
 	}
 }

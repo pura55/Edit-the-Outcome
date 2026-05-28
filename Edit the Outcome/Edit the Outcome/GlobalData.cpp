@@ -3,10 +3,14 @@
 
 GlobalData::GlobalData()
 {
-	imageLoader.init();
 }
 
 void GlobalData::update()
 {
 
+}
+
+void GlobalData::init()
+{
+	imageLoader.init();
 }
