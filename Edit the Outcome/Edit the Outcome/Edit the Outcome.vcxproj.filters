@@ -164,6 +164,12 @@
     <ClCompile Include="BattleUI.cpp">
       <Filter>2_BattleScene</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterRenderer.cpp">
+      <Filter>2_BattleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleBgRenderer.cpp">
+      <Filter>2_BattleScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -852,6 +858,18 @@
     </ClInclude>
     <ClInclude Include="BattleUI.hpp">
       <Filter>2_BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>0_System</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterRenderer.hpp">
+      <Filter>2_BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleBgRenderer.hpp">
+      <Filter>2_BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.hpp">
+      <Filter>0_System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

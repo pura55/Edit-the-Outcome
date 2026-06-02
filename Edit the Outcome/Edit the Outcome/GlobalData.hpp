@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "ImageLoader.hpp"
+#include "Player.hpp"
+#include "Enemy.hpp"
 
 class GlobalData
 {
@@ -10,4 +12,6 @@ public:
 
 public:
 	ImageLoader imageLoader;
+	Player player;
+	Enemy enemy;
 };

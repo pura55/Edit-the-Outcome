@@ -1,5 +1,7 @@
 ﻿#include "stdafx.h"
 #include "BattleSystem.hpp"
+#include "Player.hpp"
+#include "Enemy.hpp"
 
 BattleSystem::BattleSystem()
 {
@@ -49,10 +51,21 @@ void BattleSystem::draw() const
 		.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 100, Vec2{ 400, 100 });
 }
 
+void BattleSystem::SetReference(Player& player, Enemy& enemy)
+{
+	// プレイヤーの参照を取得
+	m_player = &player;
+
+	// エネミーの参照を取得
+	m_enemy = &enemy;
+}
+
 void BattleSystem::StateInit()
 {
 	m_state = BattleState::Start;
 	m_menuStack.push(MenuState::Base);
+	m_playerHp = m_player->GetPlayerHp();
+	m_enemyHp = m_enemy->GetEnemyHp();
 }
 
 bool BattleSystem::StateStart()
@@ -94,6 +107,7 @@ void BattleSystem::StateCommandInput()
 		case CommandType::Attack: //攻撃選択時
 			if (KeySpace.down())
 			{
+				m_enemyHp--;
 				m_state = BattleState::EnemyAction;
 			}
 			break;
@@ -136,6 +150,7 @@ bool BattleSystem::StateEnemyAction()
 	m_currentStateText = U"EnemyAction";
 	if (Key3.down())
 	{
+		m_playerHp--;
 		return true;
 	}
 	return false;
@@ -144,15 +159,22 @@ bool BattleSystem::StateEnemyAction()
 void BattleSystem::StateTurnEnd()
 {
 	m_currentStateText = U"TurnEnd";
-	if (Key4.down())
-	{
-		SetCommandInputEnd(false);
-		m_state = BattleState::CommandInput;
-	}
-	if (Key5.down())
+	// 敵のHpが0だったらバトルを終了
+	if (m_enemyHp == 0)
 	{
 		m_state = BattleState::BattleEnd;
+		return;
 	}
+	// プレイヤーのHpが0だったらバトルを終了
+	if (m_playerHp == 0)
+	{
+		m_state = BattleState::BattleEnd;
+		return;
+	}
+
+	SetCommandInputEnd(false);
+	m_state = BattleState::CommandInput;
+	
 }
 
 void BattleSystem::StateBattleEnd()
@@ -204,3 +226,5 @@ void BattleSystem::SelectCommandIndex()
 		}
 	}
 }
+
+

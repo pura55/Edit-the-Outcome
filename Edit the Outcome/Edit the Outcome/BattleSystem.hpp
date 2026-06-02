@@ -3,6 +3,10 @@
 #include <stack>
 #include <queue>
 
+// 前方宣言
+class Player;
+class Enemy;
+
 /// <summary>
 /// バトルステート
 /// 
@@ -47,29 +51,26 @@ enum class CommandType
 class BattleSystem  
 {
 	/// <summary>
-	/// 基本的な関数
+	/// public関数
 	/// </summary>
 public:
 	BattleSystem();
 	void update() ;
 	void draw() const;
 
-	/// <summary>
-	/// Getter/Setter関数
-	/// </summary>
-public:
-	/*void SetReference();*/ //使用するかもしれないので仮コメント
+	/// @brief 参照を取得する関数
+	void SetReference(Player& player , Enemy& enemy);
 
-	//コマンドインプットの終了状況を設定するsetter
+	/// @brief コマンドインプットの終了状況を設定する関数
 	void SetCommandInputEnd(bool inputEnd) { m_isCommandInputEnd = inputEnd; }
 
-	//バトルが終了しているかを伝えるgetter
+	/// @brief バトルが終了しているかを伝える関数
 	bool GetBattleEnd() { return m_isBattleEnd; }
 
-	//CommandIndexをを取得するgetter
+	/// @brief CommandIndexを取得する関数
 	int32 GetCommandIndex(){ return m_currentCommandIndex; }
 
-	//
+	/// @brief メニュースタックがスキルの状態か確認する関数
 	bool GetIsSkillMenu()
 	{
 		if (m_menuStack.top() == MenuState::Skill)
@@ -82,65 +83,95 @@ public:
 		}
 	}
 
+	/// @brief 現在のプレイヤーのHpを取得する関数
+	int32 GetCurrentPlayerHp() { return m_playerHp; }
+
+	/// @brief 現在のプレイヤーのHpを取得する関数
+	int32 GetCurrentEnemyHp() { return m_enemyHp; }
+
+
 	/// <summary>
-	/// バトルの状態に応じた処理を行う関数
+	/// private関数
 	/// </summary>
 private:
-	//ステート初期化関数
+	/// @brief ステート初期化関数
 	void StateInit();
-	//スタート関数
+
+	/// @brief スタート関数
 	bool StateStart();
-	//コマンドインプット関数
+
+	/// @brief コマンドインプット関数
 	void StateCommandInput();
-	//敵の行動関数
+
+	/// @brief 敵の行動関数
 	bool StateEnemyAction();
-	//ターンエンド関数
+
+	/// @brief ターンエンド関数
 	void StateTurnEnd();
-	//バトル終了関数
+
+	/// @brief バトル終了関数
 	void StateBattleEnd();
 
-	/// <summary>
-	/// 機能関数
-	/// </summary>
-private:
+	/// @brief コマンドの入力をする関数
 	void SelectCommandIndex();
 
+	
+
 	/// <summary>
-	/// 一般型名変数
+	/// 変数
 	/// </summary>
 private:
+
+	/// 列挙体 ///
+#pragma region Enum
 	//バトルステート
 	BattleState m_state{ BattleState::Init };
 
 	//コマンドタイプ
 	CommandType m_type{ CommandType::Attack };
+#pragma endregion
 
-	//現在のバトルステートを表示するテキスト
+	// 現在のバトルステートを表示するテキスト
 	String m_currentStateText{ U"Init" };
 
-	//メニュー内のコマンド数
+	// メニュー内のコマンド数
 	int32 m_maxCommandIndex{ 3 };
 	int32 m_minCommandIndex{ 0 };
-	//現在選択されているコマンドのインデックス
+	// 現在選択されているコマンドのインデックス
 	int32 m_currentCommandIndex{ m_minCommandIndex };
 
+	int32 m_playerHp{ 1 };
 
-	//プレイヤーの入力が終了したかどうかのフラグ
+	int32 m_enemyHp{ 1 };
+
+	// プレイヤーの入力が終了したかどうかのフラグ
 	bool m_isCommandInputEnd{ false };
-	//敵の行動が狩猟したかどうかのフラグ
+
+	// 敵の行動が狩猟したかどうかのフラグ
 	bool m_isEnemyActionEnd{ false };
-	//バトルが終了したかどうかのフラグ
+
+	// バトルが終了したかどうかのフラグ
 	bool m_isBattleEnd{ false };
 
-	/// <summary>
-	/// 構造体変数
-	/// </summary>
-private:
+
+	/// 構造体変数 ///
+#pragma region StructureVariable
 	//コマンドメニューのスタック
 	std::stack<MenuState> m_menuStack;
 
 	//バトルの状態のキュー
 	std::queue<BattleState> m_battleQueue;
+#pragma endregion
+
+
+	/// ポインタの保持 ///
+#pragma region Pointer
+	// プレイヤーのポインタを保持
+	Player* m_player{ nullptr };
+
+	// エネミーのポインタを保持
+	Enemy* m_enemy{ nullptr };
+#pragma endregion
 
 };
 

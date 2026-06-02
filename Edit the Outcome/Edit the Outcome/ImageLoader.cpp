@@ -23,6 +23,7 @@ void ImageLoader::LoadBattleAssets()
 	TextureAsset::Register(U"CommandWindow", U"./image/CommandWindowSmall.png");
 	TextureAsset::Register(U"SubCommandWindow", U"./image/CommandWindow.png");
 	TextureAsset::Register(U"BattleBg", U"./image/ForestBg.jpg");
+	TextureAsset::Register(U"Swordsman", U"./image/Swordsman/Swordsman_with_shadows/Swordsman.png");
 }
 
 void ImageLoader::ClearBattleAssets()

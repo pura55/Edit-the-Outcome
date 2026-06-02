@@ -6,14 +6,19 @@ class ImageLoader
 public:
 	ImageLoader();
 	void init();
-	//タイトルのイメージをロードする関数
+
+	/// @brief タイトルの画像をロードする関数
 	void LoadTitleAssets();
-	//タイトルのイメージをクリアする関数
+
+	/// @brief タイトルの画像をクリアする関数
 	void ClearTitleAssets();
-	//バトル時のイメージをロードする関数
+
+	/// @brief バトル時の画像をロードする関数
 	void LoadBattleAssets();
-	//バトル時のイメージをクリアする関数
+
+	/// @brief バトル時の画像をクリアする関数
 	void ClearBattleAssets();
+
 };
 
 

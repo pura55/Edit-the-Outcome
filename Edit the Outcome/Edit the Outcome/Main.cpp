@@ -11,15 +11,19 @@ void Main()
 	//ウィンドウ状態を設定
 	const bool isFullscreen{ false };
 
+	//スクリーンサイズ変更
+	Scene::Resize(windowWidth, windowHeight);
+
 	//ウィンドウサイズを変更
 	Window::Resize(windowWidth, windowHeight);
-	//フルスクリーンを設定
-	Window::SetFullscreen(false);
+	//スクリーン状態を設定
+	Window::SetFullscreen(isFullscreen);
 
 
 	//フォント名を定義
 	FontAsset::Register(U"TitleFont", 30, Typeface::Medium);
 	FontAsset::Register(U"BattleSystem", 30, Typeface::Medium);
+	FontAsset::Register(U"HUD", 18, Typeface::Regular);
 
 	
 	ProjectApp manager;

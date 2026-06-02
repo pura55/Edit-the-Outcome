@@ -2,13 +2,12 @@
 #include "BattleUI.hpp"
 #include "BattleSystem.hpp"
 
-BattleUI::BattleUI() :m_battleSystem(nullptr)
+BattleUI::BattleUI()
 {
 }
 
 void BattleUI::update()
 {
-	
 	if (!m_battleSystem->GetIsSkillMenu())
 	{
 		UpdateCursorPos();
@@ -21,10 +20,18 @@ void BattleUI::update()
 
 void BattleUI::draw() const
 {
-	//背景
-	TextureAsset(U"BattleBg").drawAt(Scene::Center());
+	/// ステータス ///
+	{
+		// プレイヤーのHp
+		FontAsset(U"HUD")(U"{}"_fmt(m_battleSystem->GetCurrentPlayerHp()))
+			.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 50, Vec2{ 600, 400 });
 
-	//コマンドウィンドウ
+		// エネミーのHp
+		FontAsset(U"HUD")(U"{}"_fmt(m_battleSystem->GetCurrentEnemyHp()))
+			.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 50, Vec2{ 1200, 400 });
+	}
+
+	/// コマンドウィンドウ ///
 	{
 		TextureAsset(U"CommandWindow").drawAt(m_commandWindowPos);
 		Triangle(m_movedFirstPos, m_movedSecondPos, m_movedThirdPos).draw(Palette::White);
@@ -36,14 +43,14 @@ void BattleUI::draw() const
 		}
 	}
 
+	/// デバッグ確認用 ///
 	FontAsset(U"BattleSystem")(U"{}"_fmt(m_currentCommandIndex))
 		.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 100, Vec2{ 400, 300 });
 }
 
-void BattleUI::SetReference(BattleSystem& battleSystem, ImageLoader& imageLoader)
+void BattleUI::SetReference(BattleSystem& battleSystem)
 {
 	m_battleSystem = &battleSystem;
-	m_imageLoader = &imageLoader;
 }
 
 void BattleUI::UpdateCursorPos()
