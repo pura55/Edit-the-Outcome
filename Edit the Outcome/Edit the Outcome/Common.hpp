@@ -7,8 +7,9 @@
 ///</summary>
 enum class State
 {
-	TitleScene,
-	BattleScene
+	BootScene,   // bootシーン
+	TitleScene,  // タイトルシーン
+	BattleScene  // バトルシーン
 };
 
 ///<summary>

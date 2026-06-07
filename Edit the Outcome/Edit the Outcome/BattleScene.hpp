@@ -2,8 +2,9 @@
 #include "Common.hpp"
 #include "BattleSystem.hpp"
 #include "BattleBgRenderer.hpp"
-#include "CharacterRenderer.hpp"
 #include "BattleUI.hpp"
+#include "Player.hpp"
+#include "Enemy.hpp"
 
 class BattleScene : public ProjectApp::Scene
 {
@@ -20,8 +21,13 @@ private:
 	BattleSystem battleSystem;
 	//バトルシーンBgレンダラーを保持
 	BattleBgRenderer battleBgRenderer;
-	//キャラクターレンダラーを保持
-	CharacterRenderer characterRenderer;
 	//バトルUIを保持
 	BattleUI battleUI;
+
+	//プレイヤーを保持
+	// スマートポインタを使用しエラーを防止
+	std::unique_ptr<Player> m_player;
+
+	//エネミーを保持
+	std::vector<Enemy> m_activeEnemies;
 };

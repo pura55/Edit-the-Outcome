@@ -131,10 +131,13 @@
     <Filter Include="0_System">
       <UniqueIdentifier>{8de44f24-e670-4d3b-a143-c6fb6f4b2b1c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_TitleScene">
+    <Filter Include="1_BootScene">
+      <UniqueIdentifier>{30c649c1-ef54-413d-9f62-4316da998913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_TitleScene">
       <UniqueIdentifier>{a11b9f0a-464b-4418-8cc0-598c2f9f8185}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_BattleScene">
+    <Filter Include="3_BattleScene">
       <UniqueIdentifier>{a5b4c684-b114-428f-ad48-73ea7451154f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -144,7 +147,7 @@
       <Filter>0_System</Filter>
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
-      <Filter>1_TitleScene</Filter>
+      <Filter>2_TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="GlobalData.cpp">
       <Filter>0_System</Filter>
@@ -153,22 +156,28 @@
       <Filter>0_System</Filter>
     </ClCompile>
     <ClCompile Include="BattleScene.cpp">
-      <Filter>2_BattleScene</Filter>
+      <Filter>3_BattleScene</Filter>
     </ClCompile>
     <ClCompile Include="TitleUI.cpp">
-      <Filter>1_TitleScene</Filter>
+      <Filter>2_TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="BattleSystem.cpp">
-      <Filter>2_BattleScene</Filter>
+      <Filter>3_BattleScene</Filter>
     </ClCompile>
     <ClCompile Include="BattleUI.cpp">
-      <Filter>2_BattleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterRenderer.cpp">
-      <Filter>2_BattleScene</Filter>
+      <Filter>3_BattleScene</Filter>
     </ClCompile>
     <ClCompile Include="BattleBgRenderer.cpp">
-      <Filter>2_BattleScene</Filter>
+      <Filter>3_BattleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="BootScene.cpp">
+      <Filter>1_BootScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>3_BattleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>3_BattleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -839,7 +848,7 @@
       <Filter>0_System</Filter>
     </ClInclude>
     <ClInclude Include="TitleScene.hpp">
-      <Filter>1_TitleScene</Filter>
+      <Filter>2_TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="GlobalData.hpp">
       <Filter>0_System</Filter>
@@ -848,28 +857,34 @@
       <Filter>0_System</Filter>
     </ClInclude>
     <ClInclude Include="BattleScene.hpp">
-      <Filter>2_BattleScene</Filter>
+      <Filter>3_BattleScene</Filter>
     </ClInclude>
     <ClInclude Include="TitleUI.hpp">
-      <Filter>1_TitleScene</Filter>
+      <Filter>2_TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="BattleSystem.hpp">
-      <Filter>2_BattleScene</Filter>
+      <Filter>3_BattleScene</Filter>
     </ClInclude>
     <ClInclude Include="BattleUI.hpp">
-      <Filter>2_BattleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.hpp">
-      <Filter>0_System</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterRenderer.hpp">
-      <Filter>2_BattleScene</Filter>
+      <Filter>3_BattleScene</Filter>
     </ClInclude>
     <ClInclude Include="BattleBgRenderer.hpp">
-      <Filter>2_BattleScene</Filter>
+      <Filter>3_BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="BootScene.hpp">
+      <Filter>1_BootScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyData.hpp">
+      <Filter>0_System</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.hpp">
+      <Filter>3_BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerProgressData.hpp">
       <Filter>0_System</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>3_BattleScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

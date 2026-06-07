@@ -3,6 +3,7 @@
 
 // 前方宣言
 class BattleSystem;
+class Player;
 
 /// <summary>
 /// バトルUI
@@ -24,7 +25,7 @@ public:
 	/// </summary>
 public:
 	/// @brief 参照を取得する関数
-	void SetReference(BattleSystem& battleSystem);
+	void SetReference(BattleSystem& battleSystem, Player* player);
 
 	/// <summary>
 	/// 機能関数
@@ -49,6 +50,13 @@ private:
 	double m_width{ 1920.0 };
 	double m_height{ 1080.0 };
 
+	/// ステータス ///
+	const int32 fullHealthPct{ 100 };           // 体力の割合
+	int32 playerHealthPct{ fullHealthPct }; // プレイヤーの割合
+	int32 enemyHealthPct{ fullHealthPct };  // エネミーの割合
+	double playerHealth{ 50.0f };
+	double enemyHealth{ 20.0f };
+
 	///コマンドウィンドウ///
 
 #pragma region CommandWindow
@@ -56,9 +64,9 @@ private:
 	const Vec2 m_commandWindowPos{ m_width * 0.25, m_height * 0.8 };
 
 	//矢印の三点の基本座標
-	const Vec2 m_cursorFirstPos{ m_commandWindowPos.x - 128.0 + 32.0, m_commandWindowPos.y - 96.0 + 32.0};
-	const Vec2 m_cursorSecondPos{ m_commandWindowPos.x - 128.0 + 32.0, m_commandWindowPos.y - 96.0 + 48.0};
-	const Vec2 m_cursorThirdPos{ m_commandWindowPos.x - 128.0 + 32.0 + 16.0, m_commandWindowPos.y - 96.0 + 40.0};
+	const Vec2 m_cursorFirstPos{ m_commandWindowPos.x - 128.0 + 32.0, m_commandWindowPos.y - 96.0 + 38.0};
+	const Vec2 m_cursorSecondPos{ m_commandWindowPos.x - 128.0 + 32.0, m_commandWindowPos.y - 96.0 + 54.0};
+	const Vec2 m_cursorThirdPos{ m_commandWindowPos.x - 128.0 + 32.0 + 16.0, m_commandWindowPos.y - 96.0 + 46.0};
 
 	//矢印の移動後の三点の基本座標
 	Vec2 m_movedFirstPos{ 0, 0 };
@@ -76,9 +84,9 @@ private:
 	const Vec2 m_subCommandWindowPos{ m_commandWindowPos.x + 384.0, m_height * 0.8 };
 
 	//矢印の三点の基本座標
-	const Vec2 m_subCursorFirstPos{ m_subCommandWindowPos.x - 256.0 + 32.0, m_subCommandWindowPos.y - 96.0 + 32.0 };
-	const Vec2 m_subCursorSecondPos{ m_subCommandWindowPos.x - 256.0 + 32.0, m_subCommandWindowPos.y - 96.0 + 48.0 };
-	const Vec2 m_subCursorThirdPos{ m_subCommandWindowPos.x - 256.0 + 32.0 + 16.0, m_subCommandWindowPos.y - 96.0 + 40.0 };
+	const Vec2 m_subCursorFirstPos{ m_subCommandWindowPos.x - 256.0 + 32.0, m_subCommandWindowPos.y - 96.0 + 38.0 };
+	const Vec2 m_subCursorSecondPos{ m_subCommandWindowPos.x - 256.0 + 32.0, m_subCommandWindowPos.y - 96.0 + 54.0 };
+	const Vec2 m_subCursorThirdPos{ m_subCommandWindowPos.x - 256.0 + 32.0 + 16.0, m_subCommandWindowPos.y - 96.0 + 46.0 };
 
 	//矢印の移動後の三点の基本座標
 	Vec2 m_subMovedFirstPos{ 0, 0 };
@@ -94,6 +102,7 @@ private:
 #pragma region Pointer
 	//バトルシステムのポインタを保持
 	BattleSystem* m_battleSystem{ nullptr };
+	Player* m_player;
 #pragma endregion
 
 };

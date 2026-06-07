@@ -1,36 +1,48 @@
 ﻿# include <Siv3D.hpp> // Siv3D v0.6.16
 # include "Common.hpp"
+# include "BootScene.hpp"
 # include "TitleScene.hpp"
 # include "BattleScene.hpp"
 
 void Main()
 {
-	//ウィンドウサイズを設定
+	// ウィンドウサイズを設定
 	const int32 windowWidth{ 1920 };
 	const int32 windowHeight{ 1080 };
-	//ウィンドウ状態を設定
+	// ウィンドウ状態を設定
 	const bool isFullscreen{ false };
 
-	//スクリーンサイズ変更
+	// スクリーンサイズ変更
 	Scene::Resize(windowWidth, windowHeight);
 
-	//ウィンドウサイズを変更
+	// ウィンドウサイズを変更
 	Window::Resize(windowWidth, windowHeight);
-	//スクリーン状態を設定
+
+	// スクリーン状態を設定
 	Window::SetFullscreen(isFullscreen);
 
+	// 背景色を黒に設定
+	Scene::SetBackground(Palette::Black);
 
-	//フォント名を定義
+	// フォント名を定義
 	FontAsset::Register(U"TitleFont", 30, Typeface::Medium);
 	FontAsset::Register(U"BattleSystem", 30, Typeface::Medium);
 	FontAsset::Register(U"HUD", 18, Typeface::Regular);
+	FontAsset::Register(U"Command", 20, Typeface::Regular);
 
-	
+	// シーン管理マネージャーの生成
 	ProjectApp manager;
 
-	//シーンを登録
+	// シーンを登録
+	manager.add<BootScene>(State::BootScene);
 	manager.add<TitleScene>(State::TitleScene);
 	manager.add<BattleScene>(State::BattleScene);
+
+	GlobalData globalData;
+	if (not globalData.LoadEnemyData())
+	{
+		System::Exit();
+	}
 
 	while (System::Update())
 	{
