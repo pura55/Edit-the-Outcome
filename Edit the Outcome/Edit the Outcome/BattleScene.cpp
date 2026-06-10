@@ -1,15 +1,13 @@
 ﻿#include "stdafx.h"
 #include "BattleScene.hpp"
 
-
-
 BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 {
 	//バトルシーンのアセットを読み込み
 	getData().globalData.imageLoader.LoadBattleAssets();
 
-
 	/// プレイヤーの生成 ///
+#pragma region GeneratePlayer
 	// 現在選ばれているキャラクターのid
 	int32 currentID = getData().globalData.currentCharacterID;
 
@@ -29,12 +27,34 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 	{
 		throw Error{ U"GameDataのplayerProgressList内に、ID: {} のプレイヤーデータが存在しません！初期化漏れの可能性があります。"_fmt(currentID) };
 	}
+#pragma endregion
 
 	/// エネミーの生成 ///
-	m_activeEnemies.clear();
-	// 「ID：２オーク」
-	m_activeEnemies.push_back(Enemy(getData().globalData.GetEnemyData(2)));
+#pragma region GenereteEnemies
+	
+	int32 numOfTimes = Random<int32>(1, 2); // 生成する回数
+	int32 generateCount = 0;                // 生成カウント
 
+	m_activeEnemies.clear(); // エネミーの配列をクリア
+
+	// 生成カウントが回数に達したら生成終了
+	while (generateCount != numOfTimes)
+	{
+		int32 generateId = Random<int32>(1, 2); // 生成するエネミーのid
+
+		// 敵の生成
+		//「ID：1スライム」,「ID：２オーク」
+		m_activeEnemies.push_back(Enemy(getData().globalData.GetEnemyData(generateId), generateCount));
+
+		generateCount++;
+	}
+
+	
+	// 「ID：２オーク」
+	//m_activeEnemies.push_back(Enemy(getData().globalData.GetEnemyData(2)));
+#pragma endregion
+
+	/// 参照渡し ///
 	if (m_player) // 中身が確実に生成されているかチェック
 	{
 		Player* playerPtr = m_player.get();
@@ -50,7 +70,7 @@ void BattleScene::update()
 	//シーン上部でスクリプトを更新
 	RunSystems();
 
-	if (battleSystem.GetBattleEnd())
+	if (battleSystem.GetBattleEnd() or KeyT.down())
 	{
 		//タイトルシーンへ遷移
 		changeScene(State::TitleScene);

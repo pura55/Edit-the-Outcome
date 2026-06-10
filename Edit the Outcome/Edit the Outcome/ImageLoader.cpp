@@ -25,6 +25,7 @@ void ImageLoader::LoadBattleAssets()
 
 	/// キャラクター ///
 	TextureAsset::Register(U"Swordsman", U"./image/player/Swordsman/Swordsman_with_shadows/Swordsman.png");
+	TextureAsset::Register(U"Slime", U"./image/enemy/Slime/Slime_with_shadows/Slime.png");
 	TextureAsset::Register(U"Orc", U"./image/enemy/Orc/Orc_with_shadows/Orc.png");
 
 	/// UI ///

@@ -37,22 +37,22 @@ private:
 #pragma region draw
 
 	// アニメーションカウントの最大値
-	const int32 maxAnimationCount{ 20 };
+	const int32 m_maxAnimationCount{ 25 };
 
 	// アニメーションの最大枚数
-	const int32 maxAnimationNum{ 6 };
+	const int32 m_maxAnimationNum{ 6 };
 
 	// プレイヤーの座標
-	Vec2 m_playerPos{ 450.0, 600.0 };
+	Vec2 m_playerPos{ 550.0, 600.0 };
 
 	// 画像取得範囲
 	Rect m_regionAtPlayer{ 0, 0, 200, 200 };
 
 	// プレイヤーのアニメーションカウンター
-	int32 playerAnimationCount{ 0 };
+	int32 m_playerAnimationCount{ 0 };
 
 	// プレイヤーのアニメーション枚数
-	int32 playerAnimationNum{ 0 };
+	int32 m_playerAnimationNum{ 0 };
 #pragma endregion
 
 	PlayerProgressData m_progress;

@@ -9,7 +9,7 @@
 class Enemy
 {
 public:
-	Enemy(const EnemyData& masterData);
+	Enemy(const EnemyData& masterData, int32 generate);
 	void update();
 	void draw() const;
 
@@ -28,23 +28,29 @@ private:
 	///　描画に関する変数 ///
 #pragma region Draw
 
+	// アセット名
+	String m_assetName;
+
 	// アニメーションカウントの最大値
-	const int32 maxAnimationCount{ 20 };
+	const int32 m_maxAnimationCount{ 25 };
 
 	// アニメーションの最大枚数
-	const int32 maxAnimationNum{ 6 };
+	const int32 m_maxAnimationNum{ 6 };
+
+	// 生成番号
+	int32 m_generateNum;
 
 	// エネミーの座標
-	Vec2 m_enemyPos{ 1350.0, 600.0 };
+	Vec2 m_enemyPos{ 1150.0, 600.0 };
 
 	// 画像取得範囲
 	Rect m_regionAtEnemy{ 0, 0, 200, 200 };
 
 	// エネミーのアニメーションカウンター
-	int32 enemyAnimationCount{ 0 };
+	int32 m_enemyAnimationCount{ 0 };
 
 	// プレイヤーのアニメーション枚数
-	int32 enemyAnimationNum{ 0 };
+	int32 m_enemyAnimationNum{ 0 };
 #pragma endregion
 
 	EnemyData m_masterData; // 敵の仕様（名前や最大HP、攻撃力など）

@@ -15,7 +15,7 @@ void Player::draw() const
 {
 	/// プレイヤー ///
 	{
-		TextureAsset(U"Swordsman")(Rect{ m_regionAtPlayer.x + (playerAnimationNum * 200), m_regionAtPlayer.y,  m_regionAtPlayer.w, m_regionAtPlayer.h }).drawAt(m_playerPos);
+		TextureAsset(U"Swordsman")(Rect{ m_regionAtPlayer.x + (m_playerAnimationNum * 200), m_regionAtPlayer.y,  m_regionAtPlayer.w, m_regionAtPlayer.h }).drawAt(m_playerPos);
 	}
 }
 
@@ -23,19 +23,19 @@ void Player::AnimationUpdate()
 {
 	// プレイヤーのアニメーションカウントが最大値以上になったら
 	// アニメーションを更新する
-	if (maxAnimationCount <= playerAnimationCount)
+	if (m_maxAnimationCount <= m_playerAnimationCount)
 	{
-		playerAnimationNum++;
+		m_playerAnimationNum++;
 
 		// アニメーション枚数が最大値以上になったら
 		// アニメーションを振り出しに戻す
-		if (maxAnimationNum <= playerAnimationNum)
+		if (m_maxAnimationNum <= m_playerAnimationNum)
 		{
-			playerAnimationNum = 0;
+			m_playerAnimationNum = 0;
 		}
 
 		// アニメーションカウントをリセット
-		playerAnimationCount = 0;
+		m_playerAnimationCount = 0;
 	}
-	playerAnimationCount++;
+	m_playerAnimationCount++;
 }

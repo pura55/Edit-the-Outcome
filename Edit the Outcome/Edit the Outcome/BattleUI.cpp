@@ -4,7 +4,7 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 
-BattleUI::BattleUI()
+BattleUI::BattleUI() :m_player{ nullptr }
 {
 }
 
@@ -37,14 +37,14 @@ void BattleUI::update()
 void BattleUI::draw() const
 {
 	/// ステータス ///
-	{
+	
 		// プレイヤーのHp
 		FontAsset(U"HUD")(U"{}"_fmt(m_battleSystem->GetCurrentPlayerHp()))
 			.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 50, Vec2{ 600, 400 });
 		// 空白の体力ゲージ
-		TextureAsset(U"EmptyHealthbar").draw(400.0, 650.0);
+		TextureAsset(U"EmptyHealthbar").draw(500.0, 650.0);
 		// 満タン状態の体力ゲージ
-		TextureAsset(U"FullHealthbar")(Rect{0,0,playerHealthPct,10}).draw(410.0, 650.0);
+		TextureAsset(U"FullHealthbar")(Rect{0,0,playerHealthPct,10}).draw(510.0, 650.0);
 
 		// エネミーのHp
 		FontAsset(U"HUD")(U"{}"_fmt(0))
@@ -53,7 +53,7 @@ void BattleUI::draw() const
 		TextureAsset(U"EmptyHealthbar").draw(1300.0, 650.0);
 		// 満タン状態の体力ゲージ
 		TextureAsset(U"FullHealthbar")(Rect{ 0,0, enemyHealthPct,10 }).draw(1310.0, 650.0);
-	}
+	
 
 	/// コマンドウィンドウ ///
 	{

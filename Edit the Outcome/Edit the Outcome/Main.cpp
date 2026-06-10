@@ -38,12 +38,6 @@ void Main()
 	manager.add<TitleScene>(State::TitleScene);
 	manager.add<BattleScene>(State::BattleScene);
 
-	GlobalData globalData;
-	if (not globalData.LoadEnemyData())
-	{
-		System::Exit();
-	}
-
 	while (System::Update())
 	{
 		if (not manager.update())

@@ -33,13 +33,14 @@ bool GlobalData::LoadPlayerData()
 {
 	const JSON json = JSON::Load(U"./json/player_data.json");
 
-	if (json)
-	{
-		// 読み込んだJSONの構造をインデント付きの綺麗なテキストにしてコンソールに吐き出す
-		Console << U"--- 読み込み成功したJSONの中身 ---";
-		Console << json.format();
-		Console << U"----------------------------------";
-	}
+	//jsonファイル読み込み確認用コード
+	//if (json)
+	//{
+	//	// 読み込んだJSONの構造をインデント付きの綺麗なテキストにしてコンソールに吐き出す
+	//	Console << U"--- 読み込み成功したJSONの中身 ---";
+	//	Console << json.format();
+	//	Console << U"----------------------------------";
+	//}
 
 	// データがない場合falseで返します
 	if (not json) return false;
