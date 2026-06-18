@@ -20,10 +20,13 @@ bool GlobalData::LoadAllData()
 	// 各データの読み込みに失敗した場合falseを返します
 	if (not LoadPlayerData()) return false;
 	if (not LoadEnemyData()) return false;
+	if (not LoadCommandData()) return false;
 
 	// 初期値のプレイヤーデータを進捗用データにコピーします
 	m_playerProgress = m_playerMasterTable;
 
+	// 初期値のコマンドデータを進捗用データにコピーします
+	m_commandProgress = m_commandMasterTable;
 	
 	// データの読み込みに成功した場合trueを返します
 	return true;
@@ -109,4 +112,40 @@ const EnemyData& GlobalData::GetEnemyData(int32 id) const
 
 	// 見つからない場合はダミーエラーを返します
 	return m_enemyMasterTable[0];
+}
+
+bool GlobalData::LoadCommandData()
+{
+	// jsonファイルを読み込みます
+	const JSON json = JSON::Load(U"./json/command_data.json");
+
+	// データがない場合falseで返します
+	if (not json) return false;
+
+	// jsonファイルを確認し各要素をマスターテーブルに登録します
+	// [注釈]：型が複数存在するためautoを使用しエラーを防止
+	for (const auto& commandJson : json[U"commands"].arrayView())
+	{
+		CommandData d;
+		d.id = commandJson[U"id"].get<int32>();
+		d.name = commandJson[U"name"].get<String>();
+		d.dmg = commandJson[U"dmg"].get<int32>();
+
+		m_commandMasterTable.push_back(d);
+	}
+
+	// 登録が完了した場合trueで返します
+	return true;
+}
+
+const CommandData& GlobalData::GetCommandData(int32 id) const
+{
+	// 一致するidを検索して返します
+	for (const auto& data : m_commandMasterTable)
+	{
+		if (data.id == id) return data;
+	}
+
+	// 見つからない場合はダミーエラーを返します
+	return m_commandMasterTable[0];
 }

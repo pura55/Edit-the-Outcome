@@ -122,6 +122,7 @@
     <ClCompile Include="BootScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GlobalData.cpp" />
+    <ClCompile Include="HealthManager.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -341,10 +342,12 @@
     <ClInclude Include="BattleSystem.hpp" />
     <ClInclude Include="BattleUI.hpp" />
     <ClInclude Include="BootScene.hpp" />
+    <ClInclude Include="CommandData.hpp" />
     <ClInclude Include="Common.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="EnemyData.hpp" />
     <ClInclude Include="GlobalData.hpp" />
+    <ClInclude Include="HealthManager.hpp" />
     <ClInclude Include="ImageLoader.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="PlayerProgressData.hpp" />

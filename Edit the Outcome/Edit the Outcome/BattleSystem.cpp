@@ -47,8 +47,6 @@ void BattleSystem::update()
 
 void BattleSystem::draw() const
 {
-	FontAsset(U"BattleSystem")(m_currentStateText)
-		.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 100, Vec2{ 400, 100 });
 }
 
 void BattleSystem::SetReference(Player* player)

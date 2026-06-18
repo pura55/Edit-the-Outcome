@@ -8,11 +8,11 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 
 	/// プレイヤーの生成 ///
 #pragma region GeneratePlayer
-	// 現在選ばれているキャラクターのid
-	int32 currentID = getData().globalData.currentCharacterID;
+	
+	int32 currentID = getData().globalData.currentCharacterID; // 現在選ばれているキャラクターのid
+	bool isFound = false; // idが見つかったかどうかのフラグ
 
-	bool isFound = false;
-
+	// プレイヤーのデータから該当するidを探す
 	for (const auto& progress : getData().globalData.m_playerProgress)
 	{
 		if (progress.id == currentID)
@@ -23,6 +23,7 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 		}
 	}
 
+	// 見つからない場合の例外処理
 	if (not isFound)
 	{
 		throw Error{ U"GameDataのplayerProgressList内に、ID: {} のプレイヤーデータが存在しません！初期化漏れの可能性があります。"_fmt(currentID) };
@@ -48,21 +49,30 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 
 		generateCount++;
 	}
-
-	
-	// 「ID：２オーク」
-	//m_activeEnemies.push_back(Enemy(getData().globalData.GetEnemyData(2)));
 #pragma endregion
 
-	/// 参照渡し ///
-	if (m_player) // 中身が確実に生成されているかチェック
+	/// ポインタを渡す ///
+#pragma region PassPointer
+	if (m_player && !m_activeEnemies.empty()) // 中身が確実に生成されているかチェック
 	{
+		// プレイヤーのポインタを取得
 		Player* playerPtr = m_player.get();
 
-		// 参照（ポインタ）を安全に渡す
+		// 必要なサイズのメモリをあらかじめ確保
+		std::vector<Enemy*> enemyPtr;
+		enemyPtr.reserve(m_activeEnemies.size());
+
+		// アドレスを格納
+		for (auto& enemies : m_activeEnemies)
+		{
+			enemyPtr.push_back(&enemies);
+		}
+
+		// ポインタを渡す
 		battleSystem.SetReference(playerPtr);
-		battleUI.SetReference(battleSystem, playerPtr);
+		battleUI.SetReference(battleSystem, playerPtr,enemyPtr);
 	}
+#pragma endregion 
 }
 
 void BattleScene::update()

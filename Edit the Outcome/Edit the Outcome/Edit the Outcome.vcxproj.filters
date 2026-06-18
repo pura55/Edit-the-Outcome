@@ -179,6 +179,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>3_BattleScene</Filter>
     </ClCompile>
+    <ClCompile Include="HealthManager.cpp">
+      <Filter>3_BattleScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -884,6 +887,12 @@
       <Filter>0_System</Filter>
     </ClInclude>
     <ClInclude Include="Player.hpp">
+      <Filter>3_BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandData.hpp">
+      <Filter>0_System</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthManager.hpp">
       <Filter>3_BattleScene</Filter>
     </ClInclude>
   </ItemGroup>

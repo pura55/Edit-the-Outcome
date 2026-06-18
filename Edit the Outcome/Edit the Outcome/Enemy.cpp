@@ -4,6 +4,7 @@
 Enemy::Enemy(const EnemyData& masterData, int32 generate) : m_masterData(masterData), m_currentHp(masterData.maxHp)
 {
 	// ステータスの初期化
+	m_maxHp = m_masterData.maxHp;
 	m_currentHp = m_masterData.maxHp; 
 	m_currentAtk = m_masterData.atk;
 

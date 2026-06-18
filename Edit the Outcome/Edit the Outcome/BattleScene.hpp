@@ -24,10 +24,10 @@ private:
 	//バトルUIを保持
 	BattleUI battleUI;
 
-	//プレイヤーを保持
+	// プレイヤーを保持
 	// スマートポインタを使用しエラーを防止
 	std::unique_ptr<Player> m_player;
 
-	//エネミーを保持
+	// エネミーを保持
 	std::vector<Enemy> m_activeEnemies;
 };

@@ -3,6 +3,7 @@
 
 Player::Player(const PlayerProgressData& progress) : m_progress(progress)
 {
+	m_maxHp = m_progress.maxHp;
 	m_currentHp = m_progress.maxHp;
 	m_currentAtk = m_progress.atk;
 }

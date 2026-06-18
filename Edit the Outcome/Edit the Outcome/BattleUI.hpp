@@ -4,6 +4,7 @@
 // 前方宣言
 class BattleSystem;
 class Player;
+class Enemy;
 
 /// <summary>
 /// バトルUI
@@ -25,7 +26,7 @@ public:
 	/// </summary>
 public:
 	/// @brief 参照を取得する関数
-	void SetReference(BattleSystem& battleSystem, Player* player);
+	void SetReference(BattleSystem& battleSystem, Player* player, std::vector<Enemy*> enemy);
 
 	/// <summary>
 	/// 機能関数
@@ -52,10 +53,8 @@ private:
 
 	/// ステータス ///
 	const int32 fullHealthPct{ 100 };           // 体力の割合
-	int32 playerHealthPct{ fullHealthPct }; // プレイヤーの割合
 	int32 enemyHealthPct{ fullHealthPct };  // エネミーの割合
-	double playerHealth{ 50.0f };
-	double enemyHealth{ 20.0f };
+	double enemyHealth{ 20.0 };
 
 	///コマンドウィンドウ///
 
@@ -103,6 +102,7 @@ private:
 	//バトルシステムのポインタを保持
 	BattleSystem* m_battleSystem{ nullptr };
 	Player* m_player;
+	std::vector<Enemy*> m_enemies;
 #pragma endregion
 
 };
