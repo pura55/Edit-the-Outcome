@@ -71,6 +71,7 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 		// ポインタを渡す
 		battleSystem.SetReference(playerPtr);
 		battleUI.SetReference(battleSystem, playerPtr,enemyPtr);
+		healthManager.SetReference(playerPtr, enemyPtr);
 	}
 #pragma endregion 
 }

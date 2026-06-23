@@ -58,7 +58,7 @@ public:
 	void update() ;
 	void draw() const;
 
-	/// @brief 参照を取得する関数
+	/// @brief 外部オブジェクトへの参照を設定する関数
 	void SetReference(Player* player);
 
 	/// @brief コマンドインプットの終了状況を設定する関数

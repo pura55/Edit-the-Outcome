@@ -25,7 +25,7 @@ public:
 	/// Setter/Getter
 	/// </summary>
 public:
-	/// @brief 参照を取得する関数
+	/// @brief 外部オブジェクトへの参照を設定する関数
 	void SetReference(BattleSystem& battleSystem, Player* player, std::vector<Enemy*> enemy);
 
 	/// <summary>

@@ -5,6 +5,7 @@
 #include "BattleUI.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
+#include "HealthManager.hpp"
 
 class BattleScene : public ProjectApp::Scene
 {
@@ -23,6 +24,8 @@ private:
 	BattleBgRenderer battleBgRenderer;
 	//バトルUIを保持
 	BattleUI battleUI;
+	//ヘルスマネージャーを保持
+	HealthManager healthManager;
 
 	// プレイヤーを保持
 	// スマートポインタを使用しエラーを防止

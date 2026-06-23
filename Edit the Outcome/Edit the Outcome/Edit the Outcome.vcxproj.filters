@@ -140,6 +140,12 @@
     <Filter Include="3_BattleScene">
       <UniqueIdentifier>{a5b4c684-b114-428f-ad48-73ea7451154f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_BattleScene\Character">
+      <UniqueIdentifier>{6a6cd5fd-94ad-49da-bde8-1aba9996244c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_BattleScene\Renderer">
+      <UniqueIdentifier>{11ea0664-8af7-48ea-b365-a95baa0ed96d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -164,23 +170,23 @@
     <ClCompile Include="BattleSystem.cpp">
       <Filter>3_BattleScene</Filter>
     </ClCompile>
-    <ClCompile Include="BattleUI.cpp">
-      <Filter>3_BattleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="BattleBgRenderer.cpp">
-      <Filter>3_BattleScene</Filter>
-    </ClCompile>
     <ClCompile Include="BootScene.cpp">
       <Filter>1_BootScene</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>3_BattleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>3_BattleScene</Filter>
-    </ClCompile>
     <ClCompile Include="HealthManager.cpp">
       <Filter>3_BattleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>3_BattleScene\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>3_BattleScene\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleBgRenderer.cpp">
+      <Filter>3_BattleScene\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleUI.cpp">
+      <Filter>3_BattleScene\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -868,32 +874,32 @@
     <ClInclude Include="BattleSystem.hpp">
       <Filter>3_BattleScene</Filter>
     </ClInclude>
-    <ClInclude Include="BattleUI.hpp">
-      <Filter>3_BattleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="BattleBgRenderer.hpp">
-      <Filter>3_BattleScene</Filter>
-    </ClInclude>
     <ClInclude Include="BootScene.hpp">
       <Filter>1_BootScene</Filter>
     </ClInclude>
     <ClInclude Include="EnemyData.hpp">
       <Filter>0_System</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.hpp">
-      <Filter>3_BattleScene</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerProgressData.hpp">
       <Filter>0_System</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.hpp">
-      <Filter>3_BattleScene</Filter>
     </ClInclude>
     <ClInclude Include="CommandData.hpp">
       <Filter>0_System</Filter>
     </ClInclude>
     <ClInclude Include="HealthManager.hpp">
       <Filter>3_BattleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.hpp">
+      <Filter>3_BattleScene\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>3_BattleScene\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleBgRenderer.hpp">
+      <Filter>3_BattleScene\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleUI.hpp">
+      <Filter>3_BattleScene\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
