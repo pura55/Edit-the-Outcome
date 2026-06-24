@@ -6,6 +6,7 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "HealthManager.hpp"
+#include "CommandManager.hpp"
 
 class BattleScene : public ProjectApp::Scene
 {
@@ -18,14 +19,16 @@ public:
 	void RunSystems();
 
 private:
-	//バトルシステムを保持
+	// バトルシステムを保持
 	BattleSystem battleSystem;
-	//バトルシーンBgレンダラーを保持
+	// バトルシーンBgレンダラーを保持
 	BattleBgRenderer battleBgRenderer;
-	//バトルUIを保持
+	// バトルUIを保持
 	BattleUI battleUI;
-	//ヘルスマネージャーを保持
+	// ヘルスマネージャーを保持
 	HealthManager healthManager;
+	// コマンドマネージャーを保持
+	CommandManager commandManager;
 
 	// プレイヤーを保持
 	// スマートポインタを使用しエラーを防止

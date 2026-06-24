@@ -73,7 +73,10 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 		battleUI.SetReference(battleSystem, playerPtr,enemyPtr);
 		healthManager.SetReference(playerPtr, enemyPtr);
 	}
-#pragma endregion 
+#pragma endregion
+
+	// コマンドデータのコピーを渡す
+	commandManager.SetData(getData().globalData.m_commandMasterTable);
 }
 
 void BattleScene::update()
@@ -100,7 +103,7 @@ void BattleScene::draw() const
 void BattleScene::RunSystems()
 {
 	// バトルシステムを更新
-	battleSystem.update();
+	battleSystem.update(commandManager);
 	battleSystem.draw();
 
 	// バトルBgレンダラーを更新
@@ -119,6 +122,6 @@ void BattleScene::RunSystems()
 	}
 
 	//バトルUIを更新
-	battleUI.update();
-	battleUI.draw();
+	battleUI.update(commandManager);
+	battleUI.draw(commandManager);
 }

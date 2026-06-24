@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "BattleUI.hpp"
 #include "BattleSystem.hpp"
+#include "CommandManager.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
 
@@ -8,9 +9,9 @@ BattleUI::BattleUI() :m_player{ nullptr }
 {
 }
 
-void BattleUI::update()
+void BattleUI::update(CommandManager& commandManager)
 {
-	if (not m_battleSystem->GetIsSkillMenu())
+	if (not commandManager.GetIsSkillWindow())
 	{
 		// カーソルを更新
 		UpdateCursorPos();
@@ -30,7 +31,7 @@ void BattleUI::update()
 /// 今後描画する際は(Rect{})で代用してください。
 /// 
 /// </remarks>
-void BattleUI::draw() const
+void BattleUI::draw(CommandManager& commandManager) const
 {
 	/// ステータス ///
 	{
@@ -65,14 +66,33 @@ void BattleUI::draw() const
 		FontAsset(U"Command")(U"攻撃")
 			.draw(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), Vec2{ m_commandWindowPos.x - 70, m_commandWindowPos.y - 64 });
 		FontAsset(U"Command")(U"防御")
-			.draw(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), Vec2{ m_commandWindowPos.x - 70, m_commandWindowPos.y - 34 });
+			.draw(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), Vec2{ m_commandWindowPos.x - 70, m_commandWindowPos.y - 32 });
 		FontAsset(U"Command")(U"スキル")
 			.draw(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), Vec2{ m_commandWindowPos.x - 70, m_commandWindowPos.y });
 
-		if (m_battleSystem->GetIsSkillMenu())
+		if (commandManager.GetIsSkillWindow())
 		{
 			TextureAsset(U"SubCommandWindow").drawAt(m_subCommandWindowPos);
 			Triangle(m_subMovedFirstPos, m_subMovedSecondPos, m_subMovedThirdPos).draw(Palette::White);
+
+			std::vector<String> commandName = commandManager.GetCommandName();
+
+			for (size_t i = 0; i < commandName.size(); i++)
+			{
+				// 移動量
+				int offsetX = 1;
+				int offsetY = 0;
+
+				// 要素が5以上の時、各軸を移動
+				// x軸の処理
+				i >= 4 ? offsetX = 0 : offsetX = 1;
+				// y軸の処理
+				offsetY = i % 4;
+
+				FontAsset(U"Command")(commandName[i])
+					.draw(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), Vec2{ m_subCommandWindowPos.x - 200 * offsetX, m_subCommandWindowPos.y - 64 + (32 * offsetY) });
+				
+			}
 		}
 	}
 
@@ -91,8 +111,9 @@ void BattleUI::SetReference(BattleSystem& battleSystem, Player* player, std::vec
 void BattleUI::UpdateCursorPos()
 {
 	m_currentCommandIndex = m_battleSystem->GetCommandIndex();
+
 	//commandIndexによってカーソルの座標を移動させる
-	m_offsetCursorY = { 32.0 * m_currentCommandIndex };
+	m_offsetCursorY = ( 32.0 * m_currentCommandIndex);
 	m_movedFirstPos = m_cursorFirstPos.movedBy(0, m_offsetCursorY);
 	m_movedSecondPos = m_cursorSecondPos.movedBy(0, m_offsetCursorY);
 	m_movedThirdPos = m_cursorThirdPos.movedBy(0, m_offsetCursorY);
@@ -101,10 +122,17 @@ void BattleUI::UpdateCursorPos()
 void BattleUI::UpdateSubCursorPos()
 {
 	m_currentCommandIndex = m_battleSystem->GetCommandIndex();
-	//commandIndexによってカーソルの座標を移動させる
-	m_subOffsetCursorY = { 32.0 * m_currentCommandIndex };
-	m_subMovedFirstPos = m_subCursorFirstPos.movedBy(0, m_subOffsetCursorY);
-	m_subMovedSecondPos = m_subCursorSecondPos.movedBy(0, m_subOffsetCursorY);
-	m_subMovedThirdPos = m_subCursorThirdPos.movedBy(0, m_subOffsetCursorY);
+
+	// indexが4以上の場合x軸をずらす
+	m_currentCommandIndex >= 4 ? m_subOffsetCursorX = 200.0 : m_subOffsetCursorX = 0.0;
+	
+	// コマンドウィンドウのサイズが5行以上でy軸がはみ出すため
+	// indexが4以上の時は余りの数で座標を調整する
+	m_currentCommandIndex = m_currentCommandIndex % 4;
+	m_subOffsetCursorY = ( 32.0 * m_currentCommandIndex );
+
+	m_subMovedFirstPos = m_subCursorFirstPos.movedBy(m_subOffsetCursorX, m_subOffsetCursorY);
+	m_subMovedSecondPos = m_subCursorSecondPos.movedBy(m_subOffsetCursorX, m_subOffsetCursorY);
+	m_subMovedThirdPos = m_subCursorThirdPos.movedBy(m_subOffsetCursorX, m_subOffsetCursorY);
 }
 

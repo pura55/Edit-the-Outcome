@@ -188,6 +188,9 @@
     <ClCompile Include="BattleUI.cpp">
       <Filter>3_BattleScene\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="CommandManager.cpp">
+      <Filter>3_BattleScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -900,6 +903,9 @@
     </ClInclude>
     <ClInclude Include="BattleUI.hpp">
       <Filter>3_BattleScene\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandManager.hpp">
+      <Filter>3_BattleScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

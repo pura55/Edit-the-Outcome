@@ -3,6 +3,7 @@
 
 // 前方宣言
 class BattleSystem;
+class CommandManager;
 class Player;
 class Enemy;
 
@@ -18,8 +19,8 @@ class BattleUI
 	/// </summary>
 public:
 	BattleUI();
-	void update();
-	void draw() const;
+	void update(CommandManager& commandManager);
+	void draw(CommandManager& commandManager) const;
 
 	/// <summary>
 	/// Setter/Getter
@@ -50,11 +51,6 @@ private:
 	//シーンのサイズ
 	double m_width{ 1920.0 };
 	double m_height{ 1080.0 };
-
-	/// ステータス ///
-	const int32 fullHealthPct{ 100 };           // 体力の割合
-	int32 enemyHealthPct{ fullHealthPct };  // エネミーの割合
-	double enemyHealth{ 20.0 };
 
 	///コマンドウィンドウ///
 
@@ -93,6 +89,7 @@ private:
 	Vec2 m_subMovedThirdPos{ 0, 0 };
 
 	//矢印の変更値
+	double m_subOffsetCursorX{ 0 };
 	double m_subOffsetCursorY{ 0 };
 #pragma endregion
 

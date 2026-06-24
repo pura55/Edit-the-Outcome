@@ -120,6 +120,7 @@
     <ClCompile Include="BattleSystem.cpp" />
     <ClCompile Include="BattleUI.cpp" />
     <ClCompile Include="BootScene.cpp" />
+    <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GlobalData.cpp" />
     <ClCompile Include="HealthManager.cpp" />
@@ -343,6 +344,7 @@
     <ClInclude Include="BattleUI.hpp" />
     <ClInclude Include="BootScene.hpp" />
     <ClInclude Include="CommandData.hpp" />
+    <ClInclude Include="CommandManager.hpp" />
     <ClInclude Include="Common.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="EnemyData.hpp" />

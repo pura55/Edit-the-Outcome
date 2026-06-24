@@ -2,9 +2,9 @@
 #include <Siv3D.hpp>
 
 /// <summary>
-/// エネミーデータ
+/// コマンドデータ
 ///
-/// エネミーの情報を格納する構造体
+/// コマンドの情報を格納する構造体
 /// <summary>
 struct CommandData
 {
