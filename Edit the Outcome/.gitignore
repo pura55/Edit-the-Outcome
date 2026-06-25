@@ -439,7 +439,5 @@ FodyWeavers.xsd
 # ==========================================
 # OpenSiv3D Specific Settings
 # ==========================================
-**/App/engine/
-**/App/dll/
 **/App/AS_DEBUG/
 Intermediate/
