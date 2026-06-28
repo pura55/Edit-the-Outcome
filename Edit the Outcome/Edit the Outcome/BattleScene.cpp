@@ -72,6 +72,7 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 		battleSystem.SetReference(playerPtr);
 		battleUI.SetReference(battleSystem, playerPtr,enemyPtr);
 		healthManager.SetReference(playerPtr, enemyPtr);
+		commandManager.SetReference(targetSelectSystem, healthManager, playerPtr, enemyPtr );
 	}
 #pragma endregion
 

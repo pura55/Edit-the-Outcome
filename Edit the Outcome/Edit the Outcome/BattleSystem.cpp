@@ -13,7 +13,7 @@ void BattleSystem::update(CommandManager& commandManager)
 	switch (m_state)
 	{
 	case BattleState::Init:
-		StateInit();
+		StateInit(commandManager);
 		break;
 
 	case BattleState::Start:
@@ -59,11 +59,11 @@ void BattleSystem::SetReference(Player* player)
 	//m_enemy = &enemy;
 }
 
-void BattleSystem::StateInit()
+void BattleSystem::StateInit(CommandManager& commandManager)
 {
 	m_state = BattleState::Start;
-	//m_menuStack.push(MenuState::Base);
-	
+	// コマンドマネージャーで敵の数を登録する
+	commandManager.RegistMaxEnemiesNum();
 }
 
 bool BattleSystem::StateStart()
@@ -80,10 +80,12 @@ void BattleSystem::StateCommandInput(CommandManager& commandManager)
 	if (m_isSelected)
 	{
 		m_state = BattleState::EnemyAction;
+		commandManager.ResetVariable();
+		return;
 	}
 
 	// コマンド処理を更新
-	commandManager.UpdateCommandProcess(m_maxCommandIndex, m_currentCommandIndex, m_isSelected);
+	commandManager.UpdateCommandProcess(m_isSelected);
 }
 
 bool BattleSystem::StateEnemyAction()
@@ -97,7 +99,7 @@ bool BattleSystem::StateEnemyAction()
 
 void BattleSystem::StateTurnEnd()
 {
-	m_currentCommandIndex = 0;
+	
 	m_isSelected = false;
 	// 敵のHpが0だったらバトルを終了
 	if (Key5.down())

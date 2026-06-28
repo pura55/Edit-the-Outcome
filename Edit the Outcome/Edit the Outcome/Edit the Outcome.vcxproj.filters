@@ -146,6 +146,9 @@
     <Filter Include="3_BattleScene\Renderer">
       <UniqueIdentifier>{11ea0664-8af7-48ea-b365-a95baa0ed96d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_BattleScene\System/Magager">
+      <UniqueIdentifier>{ed4b3489-be4b-4546-8257-76f1021c165d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -167,14 +170,8 @@
     <ClCompile Include="TitleUI.cpp">
       <Filter>2_TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="BattleSystem.cpp">
-      <Filter>3_BattleScene</Filter>
-    </ClCompile>
     <ClCompile Include="BootScene.cpp">
       <Filter>1_BootScene</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthManager.cpp">
-      <Filter>3_BattleScene</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>3_BattleScene\Character</Filter>
@@ -188,8 +185,17 @@
     <ClCompile Include="BattleUI.cpp">
       <Filter>3_BattleScene\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="BattleSystem.cpp">
+      <Filter>3_BattleScene\System/Magager</Filter>
+    </ClCompile>
     <ClCompile Include="CommandManager.cpp">
-      <Filter>3_BattleScene</Filter>
+      <Filter>3_BattleScene\System/Magager</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthManager.cpp">
+      <Filter>3_BattleScene\System/Magager</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetSelectSystem.cpp">
+      <Filter>3_BattleScene\System/Magager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -874,9 +880,6 @@
     <ClInclude Include="TitleUI.hpp">
       <Filter>2_TitleScene</Filter>
     </ClInclude>
-    <ClInclude Include="BattleSystem.hpp">
-      <Filter>3_BattleScene</Filter>
-    </ClInclude>
     <ClInclude Include="BootScene.hpp">
       <Filter>1_BootScene</Filter>
     </ClInclude>
@@ -888,9 +891,6 @@
     </ClInclude>
     <ClInclude Include="CommandData.hpp">
       <Filter>0_System</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthManager.hpp">
-      <Filter>3_BattleScene</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.hpp">
       <Filter>3_BattleScene\Character</Filter>
@@ -904,8 +904,17 @@
     <ClInclude Include="BattleUI.hpp">
       <Filter>3_BattleScene\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="BattleSystem.hpp">
+      <Filter>3_BattleScene\System/Magager</Filter>
+    </ClInclude>
     <ClInclude Include="CommandManager.hpp">
-      <Filter>3_BattleScene</Filter>
+      <Filter>3_BattleScene\System/Magager</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthManager.hpp">
+      <Filter>3_BattleScene\System/Magager</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetSelectSystem.hpp">
+      <Filter>3_BattleScene\System/Magager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

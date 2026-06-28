@@ -131,6 +131,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TargetSelectSystem.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="TitleUI.cpp" />
   </ItemGroup>
@@ -354,6 +355,7 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="PlayerProgressData.hpp" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TargetSelectSystem.hpp" />
     <ClInclude Include="TitleScene.hpp" />
     <ClInclude Include="TitleUI.hpp" />
   </ItemGroup>

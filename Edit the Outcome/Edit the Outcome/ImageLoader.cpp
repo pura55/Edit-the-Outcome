@@ -33,6 +33,7 @@ void ImageLoader::LoadBattleAssets()
 	TextureAsset::Register(U"SubCommandWindow", U"./image/CommandWindow.png");
 	TextureAsset::Register(U"EmptyHealthbar", U"./image/healthbar_empty.png");
 	TextureAsset::Register(U"FullHealthbar", U"./image/healthbar_full.png");
+	TextureAsset::Register(U"SelectArrow", U"./image/Arrows_pack.png");
 }
 
 void ImageLoader::ClearBattleAssets()

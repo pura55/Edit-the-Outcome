@@ -34,10 +34,10 @@ public:
 	/// </summary>
 public:
 	/// @brief メインのカーソル座標をUpdateする関数
-	void UpdateCursorPos();
+	void UpdateCursorPos(CommandManager& commandManager);
 
 	/// @brief サブのカーソル座標をUpdateする関数
-	void UpdateSubCursorPos();
+	void UpdateSubCursorPos(CommandManager& commandManager);
 
 	/// <summary>
 	/// 一般型名変数
@@ -92,6 +92,9 @@ private:
 	double m_subOffsetCursorX{ 0 };
 	double m_subOffsetCursorY{ 0 };
 #pragma endregion
+
+	/// 選択矢印 ///
+	Vec2 m_selectArrowPos{ 1150.0, 500.0 };
 
 	/// ポインタの保持 ///
 

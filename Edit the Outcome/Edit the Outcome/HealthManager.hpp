@@ -11,12 +11,12 @@ public:
 	HealthManager();
 
 	/// @brief 外部オブジェクトへの参照を設定する関数
-	void SetReference(Player* player, std::vector<Enemy*> enemy);
+	void SetReference(Player* player, std::vector<Enemy*> enemies);
 
 	/// ダメージ関数 ///
 #pragma region Damage
 	/// @brief プレイヤーからエネミーへのダメージを計算して設定する関数
-	void PlayerAttackEnemy(int32 playerAtk, int32 enemyHp, int32 enemyGenerateNum);
+	void PlayerAttackEnemy(int32 playerAtk, int32 enemyGenerateNum);
 
 	/// @brief エネミーからプレイヤーへのダメージを計算して設定する関数
 	void EnemyAttackPlayer(int32 enemyAtk, int32 playerHp);

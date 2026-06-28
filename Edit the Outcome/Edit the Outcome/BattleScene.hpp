@@ -7,6 +7,7 @@
 #include "Enemy.hpp"
 #include "HealthManager.hpp"
 #include "CommandManager.hpp"
+#include "TargetSelectSystem.hpp"
 
 class BattleScene : public ProjectApp::Scene
 {
@@ -29,6 +30,8 @@ private:
 	HealthManager healthManager;
 	// コマンドマネージャーを保持
 	CommandManager commandManager;
+	// ターゲットセレクトシステムを保持
+	TargetSelectSystem targetSelectSystem;
 
 	// プレイヤーを保持
 	// スマートポインタを使用しエラーを防止

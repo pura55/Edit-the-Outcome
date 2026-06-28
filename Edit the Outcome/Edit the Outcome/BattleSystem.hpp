@@ -45,22 +45,13 @@ public:
 	/// @brief バトルが終了しているかを伝える関数
 	bool GetBattleEnd() { return m_isBattleEnd; }
 
-	/// @brief CommandIndexを取得する関数
-	int32 GetCommandIndex(){ return m_currentCommandIndex; }
-
-	/// @brief 現在のプレイヤーのHpを取得する関数
-	int32 GetCurrentPlayerHp() { return m_playerHp; }
-
-	/// @brief 現在のプレイヤーのHpを取得する関数
-	int32 GetCurrentEnemyHp() { return m_enemyHp; }
-
 
 	/// <summary>
 	/// private関数
 	/// </summary>
 private:
 	/// @brief ステート初期化関数
-	void StateInit();
+	void StateInit(CommandManager& commandManager);
 
 	/// @brief スタート関数
 	bool StateStart();
@@ -88,16 +79,6 @@ private:
 	BattleState m_state{ BattleState::Init };
 #pragma endregion
 
-	// メニュー内のコマンド数
-	int32 m_maxCommandIndex{ 3 };
-	int32 m_minCommandIndex{ 0 };
-	// 現在選択されているコマンドのインデックス
-	int32 m_currentCommandIndex{ m_minCommandIndex };
-
-	int32 m_playerHp{ 1 };
-
-	int32 m_enemyHp{ 1 };
-
 	// 敵の行動が狩猟したかどうかのフラグ
 	bool m_isEnemyActionEnd{ false };
 
@@ -113,7 +94,6 @@ private:
 	//バトルの状態のキュー
 	std::queue<BattleState> m_battleQueue;
 #pragma endregion
-
 
 	/// ポインタの保持 ///
 #pragma region Pointer

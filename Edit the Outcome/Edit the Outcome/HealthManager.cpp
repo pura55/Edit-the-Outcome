@@ -7,24 +7,23 @@ HealthManager::HealthManager()
 {
 }
 
-void HealthManager::SetReference(Player* player, std::vector<Enemy*> enemy)
+void HealthManager::SetReference(Player* player, std::vector<Enemy*> enemies)
 {
 	m_player = player;
-	m_enemies = enemy;
+	m_enemies = enemies;
 }
 
-void HealthManager::PlayerAttackEnemy(int32 playerAtk, int32 enemyHp, int32 enemyGenerateNum)
+void HealthManager::PlayerAttackEnemy(int32 playerAtk, int32 enemyGenerateNum)
 {
-	// エネミーのHpを修正
-	int32 replaceEnemyHp = enemyHp - playerAtk;
-	// 0以下の場合0に設定
-	if (enemyHp <= 0) replaceEnemyHp = 0;
-
 	// 生成番号から特定のエネミーを探してHpを設定
 	for (auto* enemies : m_enemies)
 	{
 		if (enemies->GetGenerateNum() == enemyGenerateNum)
 		{
+			// エネミーのHpを修正
+			int32 replaceEnemyHp = enemies->GetEnemyHp() - playerAtk;
+			// 0以下の場合0に設定
+			if (replaceEnemyHp < 0) replaceEnemyHp = 0;
 			// エネミーのHpを設定
 			enemies->SetEnemyHp(replaceEnemyHp);
 		}
