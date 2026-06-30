@@ -1,6 +1,12 @@
 ﻿#pragma once
 #include "EnemyData.hpp"
 
+enum EnemyState
+{
+	Alive, // 生きている状態
+	Dead   // 死亡状態
+};
+
 /// <summary>
 /// エネミー
 /// 
@@ -20,18 +26,30 @@ public:
 	/// @brief エネミーアニメーションの更新処理を行う関数
 	void AnimationUpdate();
 
+	void ExecuteDeadAnimation();
+
 	/// HP ///
 
-	/// @brief エネミーのHpを取得する関数
-	int32 GetEnemyHp() { return m_currentHp; }
+	/// @brief 死亡処理を行う関数
+	void DeathProcess();
+
+	bool GetIsDead() const { return m_isDead; }
+
+	/// @brief エネミーのHpを返す関数
+	int32 GetEnemyHp() const{ return m_currentHp; }
 	/// @brief エネミーのhpを設定する関数
 	void SetEnemyHp(int32 hp) { m_currentHp = hp; }
+
+	/// ATK ///
+	
+	/// @brief 敵の攻撃力を返す関数
+	int32 GetEnemyAtk() const{ return m_currentAtk; }
 
 	/// @brief エネミーのHpの割合を計算する関数
 	/// @details (詳)PctはPercentageの略です 
 	int32 CalculatePctOfHp()
 	{
-		return enemyHealthPct = fullHealthPct * (m_currentHp / m_maxHp);
+		return m_enemyHealthPct = m_fullHealthPct * (m_currentHp / m_maxHp);
 	}
 
 private:
@@ -41,27 +59,33 @@ private:
 
 	String m_assetName;  // アセット名
 
-	const int32 m_maxAnimationCount{ 25 }; // アニメーションカウントの最大値
+	const int32 m_maxAnimationFrame{ 25 }; // アニメーションフレームの最大値
 	
 	const int32 m_maxAnimationNum{ 6 };    // アニメーションの最大枚数
+
+	const int32 m_maxDeadAnimationNum{ 3 }; // 死亡アニメーションの最大枚数
 	
 	Vec2 m_enemyPos{ 1150.0, 600.0 };  // エネミーの座標
 
 	Rect m_regionAtEnemy{ 0, 0, 200, 200 };// 画像取得範囲
 
-	int32 m_enemyAnimationCount{ 0 };   // エネミーのアニメーションカウンター
+	int32 m_animationFrameCount{ 0 };   // アニメーションフレームのカウンター
 	
-	int32 m_enemyAnimationNum{ 0 };  // プレイヤーのアニメーション枚数
+	int32 m_animationNumX{ 0 };  // X軸のアニメーション枚数
+
+	int32 m_animationNumY{ 0 };  // Y軸のアニメーション枚数
 #pragma endregion
 
 	/// ステータス変数 ///
 #pragma region status
 
+	EnemyState enemyState; // エネミーの状態
+
 	int32 m_generateNum; // 生成番号
 
-	const int32 fullHealthPct{ 100 };        // 体力の最大割合
+	const int32 m_fullHealthPct{ 100 };        // 体力の最大割合
 
-	int32 enemyHealthPct{ fullHealthPct };  // プレイヤーの割合
+	int32 m_enemyHealthPct{ m_fullHealthPct };  // プレイヤーの割合
 
 	double m_maxHp;                           // 最大体力：体力の割合を計算するためdouble型
 
@@ -70,6 +94,8 @@ private:
 	int32 m_currentAtk;                      // 現在の攻撃力
 
 	EnemyData m_masterData; // 敵の仕様（名前や最大HP、攻撃力など）
+
+	bool m_isDead{ false };  // 死亡フラグ
 #pragma endregion
 	
 };

@@ -22,7 +22,7 @@ public:
 #pragma region HP
 
 	/// @brief 現在のプレイヤーのHpを取得する関数
-	int32 GetCurrentPlayerHp()const { return m_currentHp; }
+	int32 GetPlayerHp()const { return m_currentHp; }
 
 	/// @brief プレイヤーのhpを設定する関数
 	void SetPlayerHp(int32 hp) { m_currentHp = hp; }

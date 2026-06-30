@@ -122,6 +122,7 @@
     <ClCompile Include="BootScene.cpp" />
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyActionManager.cpp" />
     <ClCompile Include="GlobalData.cpp" />
     <ClCompile Include="HealthManager.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
@@ -348,6 +349,7 @@
     <ClInclude Include="CommandManager.hpp" />
     <ClInclude Include="Common.hpp" />
     <ClInclude Include="Enemy.hpp" />
+    <ClInclude Include="EnemyActionManager.hpp" />
     <ClInclude Include="EnemyData.hpp" />
     <ClInclude Include="GlobalData.hpp" />
     <ClInclude Include="HealthManager.hpp" />

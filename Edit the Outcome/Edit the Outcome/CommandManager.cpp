@@ -10,10 +10,10 @@ CommandManager::CommandManager()
 	m_menuStack.push(MenuState::Default);
 }
 
-void CommandManager::SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healhManager, Player* player, std::vector<Enemy*> enemies)
+void CommandManager::SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player* player, std::vector<Enemy*> enemies)
 {
 	m_targetSelectSystem = &targetSelectSystem;
-	m_healthManager = &healhManager;
+	m_healthManager = &healthManager;
 	m_player = player;
 	m_enemies = enemies;
 }
@@ -210,6 +210,7 @@ void CommandManager::ManageDecisionProcessing(bool& isCommandSelected)
 		}
 		else if (m_baseCommandType == BaseCommandType::Skills)
 		{
+			// 選んだコマンドindexと対応するidのコマンドのダメージをターゲットに与える
 			int32 selectCommandId = m_currentCommandIndex + 1;
 			for (size_t i = 0; i < m_commandData.size(); i++)
 			{

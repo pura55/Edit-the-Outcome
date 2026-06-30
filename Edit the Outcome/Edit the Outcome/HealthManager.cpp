@@ -30,12 +30,12 @@ void HealthManager::PlayerAttackEnemy(int32 playerAtk, int32 enemyGenerateNum)
 	}
 }
 
-void HealthManager::EnemyAttackPlayer(int32 enemyAtk, int32 playerHp)
+void HealthManager::EnemyAttackPlayer(int32 enemyAtk)
 {
 	// プレイヤーのHpを修正
-	int32 replacePlayerHp = playerHp - enemyAtk;
+	int32 replacePlayerHp = m_player->GetPlayerHp() - enemyAtk;
 	// 0以下の場合0に設定
-	if (playerHp <= 0) replacePlayerHp = 0;
+	if (replacePlayerHp <= 0) replacePlayerHp = 0;
 
 	// プレイヤーのHpを設定
 	m_player->SetPlayerHp(replacePlayerHp);

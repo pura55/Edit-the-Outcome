@@ -36,7 +36,7 @@ void BattleUI::draw(CommandManager& commandManager) const
 	/// ステータス ///
 	{
 		// プレイヤーのHp
-		FontAsset(U"HUD")(U"{}"_fmt(m_player->GetCurrentPlayerHp()))
+		FontAsset(U"HUD")(U"{}"_fmt(m_player->GetPlayerHp()))
 			.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 50, Vec2{ 600, 400 });
 		// 空白の体力ゲージ
 		TextureAsset(U"EmptyHealthbar").draw(500.0, 650.0);

@@ -19,7 +19,7 @@ public:
 	void PlayerAttackEnemy(int32 playerAtk, int32 enemyGenerateNum);
 
 	/// @brief エネミーからプレイヤーへのダメージを計算して設定する関数
-	void EnemyAttackPlayer(int32 enemyAtk, int32 playerHp);
+	void EnemyAttackPlayer(int32 enemyAtk);
 #pragma endregion
 
 private:

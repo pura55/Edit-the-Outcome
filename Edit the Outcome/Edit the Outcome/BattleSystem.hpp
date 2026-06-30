@@ -5,6 +5,7 @@
 
 // 前方宣言
 class CommandManager;
+class EnemyActionManager;
 class Player;
 class Enemy;
 
@@ -36,7 +37,7 @@ class BattleSystem
 	/// </summary>
 public:
 	BattleSystem();
-	void update(CommandManager& commandMangager) ;
+	void update(CommandManager& commandMangager, EnemyActionManager& enemyActionManager) ;
 	void draw() const;
 
 	/// @brief 外部オブジェクトへの参照を設定する関数
@@ -60,7 +61,7 @@ private:
 	void StateCommandInput(CommandManager& commandManager);
 
 	/// @brief 敵の行動関数
-	bool StateEnemyAction();
+	bool StateEnemyAction(EnemyActionManager& enemyActionManager);
 
 	/// @brief ターンエンド関数
 	void StateTurnEnd();
@@ -87,6 +88,8 @@ private:
 
 	// コマンドを選択したかどうかを表すフラグ
 	bool m_isSelected{ false };
+
+	bool m_isEnemyActed{ false };
 
 
 	/// 構造体変数 ///

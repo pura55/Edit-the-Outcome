@@ -42,7 +42,7 @@ public:
 	void SetData(std::vector<CommandData>& commandData);
 
 	/// @brief 参照を登録する関数
-	void SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healhManager, Player* player, std::vector<Enemy*> enemies);
+	void SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player* player, std::vector<Enemy*> enemies);
 
 	/// @brief エネミーの数を登録する関数
 	void RegistMaxEnemiesNum() { m_maxEnemiesNum = m_enemies.size(); }

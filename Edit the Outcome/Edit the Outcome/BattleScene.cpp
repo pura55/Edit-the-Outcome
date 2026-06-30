@@ -73,6 +73,7 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 		battleUI.SetReference(battleSystem, playerPtr,enemyPtr);
 		healthManager.SetReference(playerPtr, enemyPtr);
 		commandManager.SetReference(targetSelectSystem, healthManager, playerPtr, enemyPtr );
+		enemyActionManager.SetReference(healthManager, enemyPtr);
 	}
 #pragma endregion
 
@@ -104,7 +105,7 @@ void BattleScene::draw() const
 void BattleScene::RunSystems()
 {
 	// バトルシステムを更新
-	battleSystem.update(commandManager);
+	battleSystem.update(commandManager, enemyActionManager);
 	battleSystem.draw();
 
 	// バトルBgレンダラーを更新

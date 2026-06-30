@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "BattleSystem.hpp"
 #include "CommandManager.hpp"
+#include "EnemyActionManager.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
 
@@ -8,7 +9,7 @@ BattleSystem::BattleSystem()
 {
 }
 
-void BattleSystem::update(CommandManager& commandManager)
+void BattleSystem::update(CommandManager& commandManager, EnemyActionManager& enemyActionManager)
 {
 	switch (m_state)
 	{
@@ -30,7 +31,7 @@ void BattleSystem::update(CommandManager& commandManager)
 	case BattleState::EnemyAction:
 		//敵の行動が終わったら、TurnEndに移行する
 		//未確定の場合は留まる
-		if (StateEnemyAction())
+		if (StateEnemyAction(enemyActionManager))
 			m_state = BattleState::TurnEnd;
 		break;
 
@@ -88,19 +89,25 @@ void BattleSystem::StateCommandInput(CommandManager& commandManager)
 	commandManager.UpdateCommandProcess(m_isSelected);
 }
 
-bool BattleSystem::StateEnemyAction()
+bool BattleSystem::StateEnemyAction(EnemyActionManager& enemyActionManager)
 {
-	if (Key3.down())
+	if (m_isEnemyActed)
 	{
 		return true;
 	}
+
+	// エネミーの行動処理を実行
+	enemyActionManager.ExecuteActionProcess(m_isEnemyActed);
+
 	return false;
 }
 
 void BattleSystem::StateTurnEnd()
 {
-	
+	// 行動フラグをリセット
 	m_isSelected = false;
+	m_isEnemyActed = false;
+
 	// 敵のHpが0だったらバトルを終了
 	if (Key5.down())
 	{

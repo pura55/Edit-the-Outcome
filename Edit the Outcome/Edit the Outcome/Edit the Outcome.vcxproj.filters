@@ -197,6 +197,9 @@
     <ClCompile Include="TargetSelectSystem.cpp">
       <Filter>3_BattleScene\System/Magager</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyActionManager.cpp">
+      <Filter>3_BattleScene\System/Magager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -914,6 +917,9 @@
       <Filter>3_BattleScene\System/Magager</Filter>
     </ClInclude>
     <ClInclude Include="TargetSelectSystem.hpp">
+      <Filter>3_BattleScene\System/Magager</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyActionManager.hpp">
       <Filter>3_BattleScene\System/Magager</Filter>
     </ClInclude>
   </ItemGroup>
