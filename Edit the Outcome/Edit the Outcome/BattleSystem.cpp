@@ -51,13 +51,13 @@ void BattleSystem::draw() const
 {
 }
 
-void BattleSystem::SetReference(Player* player)
+void BattleSystem::SetReference(Player* player, std::vector<Enemy*> enemies)
 {
 	// プレイヤーの参照を取得
 	m_player = player;
 
 	// エネミーの参照を取得
-	//m_enemy = &enemy;
+	m_enemies = enemies;
 }
 
 void BattleSystem::StateInit(CommandManager& commandManager)
@@ -108,8 +108,19 @@ void BattleSystem::StateTurnEnd()
 	m_isSelected = false;
 	m_isEnemyActed = false;
 
-	// 敵のHpが0だったらバトルを終了
-	if (Key5.down())
+	bool isEnemiesDead = true;
+
+	for (auto enemies : m_enemies)
+	{
+		// エネミーが死んでいるのであれば次の処理へ
+		if (enemies->GetIsDead()) continue;
+
+		// 死亡判定がfalseで帰ってきた時はisEnemyDeadをfalse
+		isEnemiesDead = false;
+	}
+
+	// 敵が全員死亡していた場合バトルを終了
+	if (isEnemiesDead)
 	{
 		m_state = BattleState::BattleEnd;
 		return;

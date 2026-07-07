@@ -20,6 +20,9 @@ void EnemyActionManager::ExecuteActionProcess(bool& isActed)
 		// 倒されている場合このエネミーの処理を抜ける
 		if (enemies->GetIsDead()) continue;
 
+		// 敵の行動状態を設定
+		enemies->SetActionState(2);
+
 		// プレイヤーにダメージを与える
 		m_healthManager->EnemyAttackPlayer(enemies->GetEnemyAtk());
 	}

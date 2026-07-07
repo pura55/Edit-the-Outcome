@@ -1,10 +1,28 @@
 ﻿#pragma once
 #include "EnemyData.hpp"
 
-enum EnemyState
+/// <summary>
+/// ライフステート
+///
+/// 生命に関する状態
+/// </summary>
+enum LifeState
 {
 	Alive, // 生きている状態
 	Dead   // 死亡状態
+};
+
+/// <summary>
+/// アクションステート
+///
+/// 行動に関する状態
+/// </summary>
+enum ActionState
+{
+	Idle = 0, // 待機
+	Attack = 2, // 攻撃
+	ReceiveDamage = 4, // ダメージ受ける
+	Die = 5
 };
 
 /// <summary>
@@ -23,10 +41,39 @@ public:
 	int32 GetGenerateNum() { return m_generateNum; }
 
 
-	/// @brief エネミーアニメーションの更新処理を行う関数
-	void AnimationUpdate();
+	void UpdateActionState();
 
+	/// @brief 待機アニメーションの更新処理を行う関数
+	void UpdateIdleAnimation();
+
+	/// @brief 攻撃アニメーションを実行する関数
+	void ExecuteAttackAnimation();
+
+	/// @brief 被ダメージアニメーションを実行する関数
+	void ExecuteReceiveDamageAnimation();
+
+	/// @brief 死亡アニメーションをする実行する関数
 	void ExecuteDeadAnimation();
+
+	/// @brief アクションステートを設定する関数 
+	void SetActionState(const int32 actionNum)
+	{
+		switch (actionNum)
+		{
+		case ActionState::Idle:
+			m_actionState = ActionState::Idle;
+			break;
+		case ActionState::Attack:
+			m_actionState = ActionState::Attack;
+			break;
+		case ActionState::ReceiveDamage:
+			m_actionState = ActionState::ReceiveDamage;
+			break;
+		case ActionState::Die:
+			m_actionState = ActionState::Die;
+			break;
+		}
+	}
 
 	/// HP ///
 
@@ -63,8 +110,12 @@ private:
 	
 	const int32 m_maxAnimationNum{ 6 };    // アニメーションの最大枚数
 
+	const int32 m_maxAttackAnimationNum{ 5 }; // 攻撃アニメーションの最大枚数
+
+	const int32 m_maxDamageAnimationNum{ 3 }; // 被ダメージアニメーションの最大枚数
+
 	const int32 m_maxDeadAnimationNum{ 3 }; // 死亡アニメーションの最大枚数
-	
+
 	Vec2 m_enemyPos{ 1150.0, 600.0 };  // エネミーの座標
 
 	Rect m_regionAtEnemy{ 0, 0, 200, 200 };// 画像取得範囲
@@ -79,7 +130,9 @@ private:
 	/// ステータス変数 ///
 #pragma region status
 
-	EnemyState enemyState; // エネミーの状態
+	LifeState m_lifeState; // 生死の状態
+
+	ActionState m_actionState; // 行動の状態
 
 	int32 m_generateNum; // 生成番号
 
@@ -94,6 +147,10 @@ private:
 	int32 m_currentAtk;                      // 現在の攻撃力
 
 	EnemyData m_masterData; // 敵の仕様（名前や最大HP、攻撃力など）
+
+	bool m_isAttacked{ false }; // 攻撃したかどうかのフラグ
+
+	bool m_isReceivedDamage{ false }; // ダメージを受けたかどうかのフラグ
 
 	bool m_isDead{ false };  // 死亡フラグ
 #pragma endregion

@@ -69,7 +69,7 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 		}
 
 		// ポインタを渡す
-		battleSystem.SetReference(playerPtr);
+		battleSystem.SetReference(playerPtr, enemyPtr);
 		battleUI.SetReference(battleSystem, playerPtr,enemyPtr);
 		healthManager.SetReference(playerPtr, enemyPtr);
 		commandManager.SetReference(targetSelectSystem, healthManager, playerPtr, enemyPtr );
@@ -86,7 +86,7 @@ void BattleScene::update()
 	//シーン上部でスクリプトを更新
 	RunSystems();
 
-	if (battleSystem.GetBattleEnd() or KeyT.down())
+	if (battleSystem.GetBattleEnd()/*or KeyT.down()*/)
 	{
 		//タイトルシーンへ遷移
 		changeScene(State::TitleScene);

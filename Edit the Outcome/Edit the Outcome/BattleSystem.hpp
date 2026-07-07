@@ -41,7 +41,7 @@ public:
 	void draw() const;
 
 	/// @brief 外部オブジェクトへの参照を設定する関数
-	void SetReference(Player* player);
+	void SetReference(Player* player, std::vector<Enemy*> enemies);
 
 	/// @brief バトルが終了しているかを伝える関数
 	bool GetBattleEnd() { return m_isBattleEnd; }
@@ -104,7 +104,7 @@ private:
 	Player* m_player{ nullptr };
 
 	// エネミーのポインタを保持
-	Enemy* m_enemy{ nullptr };
+	std::vector<Enemy*> m_enemies{ nullptr };
 #pragma endregion
 
 };
