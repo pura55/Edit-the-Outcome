@@ -57,7 +57,7 @@ private:
 
 	const int32 m_maxAnimationNum{ 6 };      // アニメーションの最大枚数
 
-	Vec2 m_playerPos{ 550.0, 600.0 };        // プレイヤーの座標
+	Vec2 m_playerPos{ 400.0, 400.0 };        // プレイヤーの座標
 
 	Rect m_regionAtPlayer{ 0, 0, 200, 200 }; // 画像取得範囲
 

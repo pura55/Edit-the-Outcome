@@ -116,7 +116,7 @@ private:
 
 	const int32 m_maxDeadAnimationNum{ 3 }; // 死亡アニメーションの最大枚数
 
-	Vec2 m_enemyPos{ 1150.0, 600.0 };  // エネミーの座標
+	Vec2 m_enemyPos{ 750.0, 400.0 };  // エネミーの座標
 
 	Rect m_regionAtEnemy{ 0, 0, 200, 200 };// 画像取得範囲
 

@@ -37,20 +37,20 @@ void BattleUI::draw(CommandManager& commandManager) const
 	{
 		// プレイヤーのHp
 		FontAsset(U"HUD")(U"{}"_fmt(m_player->GetPlayerHp()))
-			.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 50, Vec2{ 600, 400 });
+			.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 18, Vec2{ 470.0, m_statusPosY });
 		// 空白の体力ゲージ
-		TextureAsset(U"EmptyHealthbar").draw(500.0, 650.0);
+		TextureAsset(U"EmptyHealthbar").draw(350.0, m_statusPosY);
 		// 緑色の体力ゲージ
-		TextureAsset(U"FullHealthbar")(Rect{ 0,0,m_player->CalculatePctOfHp(),10 }).draw(510.0, 650.0);
+		TextureAsset(U"FullHealthbar")(Rect{ 0,0,m_player->CalculatePctOfHp(),10 }).draw(360.0, m_statusPosY);
 
 		for (auto* enemies : m_enemies)
 		{
 			// エネミーのHp
-			FontAsset(U"HUD")(U"{}"_fmt(enemies->GetEnemyHp())).drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 18, Vec2{ 1220.0 + 200.0 * enemies->GetGenerateNum(), 650.0 });
+			FontAsset(U"HUD")(U"{}"_fmt(enemies->GetEnemyHp())).drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 18, Vec2{ 820.0 + 200.0 * enemies->GetGenerateNum(), m_statusPosY });
 			// 空白の体力ゲージ
-			TextureAsset(U"EmptyHealthbar").draw(1100.0 + 200.0 * enemies->GetGenerateNum(), 650.0);
+			TextureAsset(U"EmptyHealthbar").draw(700.0 + 200.0 * enemies->GetGenerateNum(), m_statusPosY);
 			// 緑色の体力ゲージ
-			TextureAsset(U"FullHealthbar")(Rect{ 0,0, enemies->CalculatePctOfHp(),10 }).draw(1110.0 + 200.0 * enemies->GetGenerateNum(), 650.0);
+			TextureAsset(U"FullHealthbar")(Rect{ 0,0, enemies->CalculatePctOfHp(),10 }).draw(710.0 + 200.0 * enemies->GetGenerateNum(), m_statusPosY);
 		}
 	}
 	

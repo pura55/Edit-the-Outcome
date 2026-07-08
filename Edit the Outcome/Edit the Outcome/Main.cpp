@@ -7,8 +7,8 @@
 void Main()
 {
 	// ウィンドウサイズを設定
-	const int32 windowWidth{ 1920 };
-	const int32 windowHeight{ 1080 };
+	const int32 windowWidth{ 1280 };
+	const int32 windowHeight{ 720 };
 	// ウィンドウ状態を設定
 	const bool isFullscreen{ false };
 

@@ -49,8 +49,11 @@ private:
 	bool m_isCommandDecide{ false };
 
 	//シーンのサイズ
-	double m_width{ 1920.0 };
-	double m_height{ 1080.0 };
+	double m_width{ 1280.0 };
+	double m_height{ 720.0 };
+
+	// ステータスの座標（hpなど）
+	const double m_statusPosY{ 450 };
 
 	///コマンドウィンドウ///
 
@@ -94,7 +97,7 @@ private:
 #pragma endregion
 
 	/// 選択矢印 ///
-	Vec2 m_selectArrowPos{ 1150.0, 500.0 };
+	Vec2 m_selectArrowPos{ 750.0, 325.0 };
 
 	/// ポインタの保持 ///
 

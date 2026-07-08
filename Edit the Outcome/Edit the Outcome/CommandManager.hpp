@@ -85,6 +85,10 @@ public:
 		{
 			return true;
 		}
+		else if (m_menuStack.top() == MenuState::SelectEnemy && m_baseCommandType == BaseCommandType::Skills)
+		{
+			return true;
+		}
 		else
 		{
 			return false;
@@ -106,6 +110,8 @@ private:
 
 	/// 列挙体 ///
 	BaseCommandType m_baseCommandType{ BaseCommandType::Attack };
+
+
 
 	/// 一般変数 ///
 

@@ -21,7 +21,7 @@ void ImageLoader::ClearTitleAssets()
 void ImageLoader::LoadBattleAssets()
 {
 	/// 背景 ///
-	TextureAsset::Register(U"BattleBg", U"./image/ForestBg.jpg");
+	TextureAsset::Register(U"BattleBg", U"./image/ForestBg_1280x720.jpg");
 
 	/// キャラクター ///
 	TextureAsset::Register(U"Swordsman", U"./image/player/Swordsman/Swordsman_with_shadows/Swordsman.png");

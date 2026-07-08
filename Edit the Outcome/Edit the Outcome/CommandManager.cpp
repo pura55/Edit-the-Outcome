@@ -49,7 +49,6 @@ void CommandManager::ResetVariable()
 	{
 		m_menuStack.pop();
 	}
-	m_baseCommandType = BaseCommandType::Attack;
 	m_currentCommandIndex = 0;
 	m_targetSelectIndex = 0;
 	m_isTargetSelected = false;
@@ -176,7 +175,7 @@ void CommandManager::SelectSkillCommand(bool& isSelected)
 	{
 		m_menuStack.push(MenuState::SelectEnemy);
 	}
-	if (KeyB.down())
+	if (KeyC.down())
 	{
 		m_currentCommandIndex = 0;
 		//ベースのメニューへ戻る
@@ -191,13 +190,24 @@ void CommandManager::ManageDecisionProcessing(bool& isCommandSelected)
 	// ターゲットを選択する
 	m_targetSelectSystem->TargetSelect(m_maxEnemiesNum, m_targetSelectIndex, m_isTargetSelected);
 
-	if (KeyB.down())
+	if (KeyC.down())
 	{
 		// 選択矢印を非表示
 		m_isShowArrow = false;
 
 		//一つ前のメニューへ戻る
 		m_menuStack.pop();
+
+		if (m_menuStack.top() == MenuState::Base)
+		{
+			return;
+		}
+		else
+		{
+
+		}
+
+		return;
 	}
 
 	// ターゲット選択が完了したら
