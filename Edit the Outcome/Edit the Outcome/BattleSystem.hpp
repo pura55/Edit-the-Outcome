@@ -52,7 +52,7 @@ public:
 	/// </summary>
 private:
 	/// @brief ステート初期化関数
-	void StateInit(CommandManager& commandManager);
+	void StateInit(CommandManager& commandManager, EnemyActionManager& enemyActionManager);
 
 	/// @brief スタート関数
 	bool StateStart();

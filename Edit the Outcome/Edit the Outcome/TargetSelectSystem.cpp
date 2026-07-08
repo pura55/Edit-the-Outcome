@@ -1,15 +1,18 @@
 ﻿#include "stdafx.h"
 #include "TargetSelectSystem.hpp"
+#include "Player.hpp"
 
 TargetSelectSystem::TargetSelectSystem()
 {
 }
 
-void TargetSelectSystem::TargetSelect(const int32& maxEnemiesNum, int32& selectIndex, bool& isSelected)
+void TargetSelectSystem::TargetSelect(const int32& maxEnemiesNum, int32& selectIndex, bool& isSelected, Player* player)
 {
 	if (KeySpace.down())
 	{
 		isSelected = true;
+		// 状態を攻撃へ設定
+		player->SetActionState(2);
 	}
 
 	//[W]Keyでコマンドを上に移動、[S]Keyでコマンドを下に移動

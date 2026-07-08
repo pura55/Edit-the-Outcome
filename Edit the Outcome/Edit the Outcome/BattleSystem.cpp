@@ -14,7 +14,7 @@ void BattleSystem::update(CommandManager& commandManager, EnemyActionManager& en
 	switch (m_state)
 	{
 	case BattleState::Init:
-		StateInit(commandManager);
+		StateInit(commandManager, enemyActionManager);
 		break;
 
 	case BattleState::Start:
@@ -60,11 +60,13 @@ void BattleSystem::SetReference(Player* player, std::vector<Enemy*> enemies)
 	m_enemies = enemies;
 }
 
-void BattleSystem::StateInit(CommandManager& commandManager)
+void BattleSystem::StateInit(CommandManager& commandManager, EnemyActionManager& enemyActionManager)
 {
 	m_state = BattleState::Start;
 	// コマンドマネージャーで敵の数を登録する
 	commandManager.RegistMaxEnemiesNum();
+	// エネミーをキューに入れる
+	enemyActionManager.SetEnemyQueue();
 }
 
 bool BattleSystem::StateStart()
@@ -93,6 +95,8 @@ bool BattleSystem::StateEnemyAction(EnemyActionManager& enemyActionManager)
 {
 	if (m_isEnemyActed)
 	{
+		// エネミーをキューに入れる
+		enemyActionManager.SetEnemyQueue();
 		return true;
 	}
 

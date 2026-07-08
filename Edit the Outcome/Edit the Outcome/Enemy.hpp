@@ -6,10 +6,10 @@
 ///
 /// 生命に関する状態
 /// </summary>
-enum LifeState
+enum EnemyLifeState
 {
-	Alive, // 生きている状態
-	Dead   // 死亡状態
+	EnemyAlive, // 生きている状態
+	EnemyDead   // 死亡状態
 };
 
 /// <summary>
@@ -17,12 +17,12 @@ enum LifeState
 ///
 /// 行動に関する状態
 /// </summary>
-enum ActionState
+enum EnemyActionState
 {
-	Idle = 0, // 待機
-	Attack = 2, // 攻撃
-	ReceiveDamage = 4, // ダメージ受ける
-	Die = 5
+	EnemyIdle = 0, // 待機
+	EnemyAttack = 2, // 攻撃
+	EnemyReceiveDamage = 4, // ダメージ受ける
+	EnemyDie = 5 // 死亡
 };
 
 /// <summary>
@@ -40,7 +40,7 @@ public:
 	/// @brief 生成番号を返す関数
 	int32 GetGenerateNum() { return m_generateNum; }
 
-
+	/// @brief 行動状態を更新する関数
 	void UpdateActionState();
 
 	/// @brief 待機アニメーションの更新処理を行う関数
@@ -60,26 +60,30 @@ public:
 	{
 		switch (actionNum)
 		{
-		case ActionState::Idle:
-			m_actionState = ActionState::Idle;
+		case EnemyActionState::EnemyIdle:
+			m_actionState = EnemyActionState::EnemyIdle;
 			break;
-		case ActionState::Attack:
-			m_actionState = ActionState::Attack;
+		case EnemyActionState::EnemyAttack:
+			m_actionState = EnemyActionState::EnemyAttack;
 			break;
-		case ActionState::ReceiveDamage:
-			m_actionState = ActionState::ReceiveDamage;
+		case EnemyActionState::EnemyReceiveDamage:
+			m_actionState = EnemyActionState::EnemyReceiveDamage;
 			break;
-		case ActionState::Die:
-			m_actionState = ActionState::Die;
+		case EnemyActionState::EnemyDie:
+			m_actionState = EnemyActionState::EnemyDie;
 			break;
 		}
 	}
+
+	/// @brief 攻撃アニメーションのフラグを返す関数
+	bool GetAttackingAnimation()const { return m_isAttackingAnimation; }
 
 	/// HP ///
 
 	/// @brief 死亡処理を行う関数
 	void DeathProcess();
 
+	/// @brief 死亡フラグを返す関数
 	bool GetIsDead() const { return m_isDead; }
 
 	/// @brief エネミーのHpを返す関数
@@ -98,6 +102,12 @@ public:
 	{
 		return m_enemyHealthPct = m_fullHealthPct * (m_currentHp / m_maxHp);
 	}
+
+	/// @brief 攻撃が終了のフラグを返す関数
+	bool GetFinishedAttacking()const { return m_isFinishedAttacking; }
+
+	/// @brief 攻撃が終了のフラグを返す関数
+	bool GetReceivingDamage()const { return m_isReceivingDamage; }
 
 private:
 
@@ -125,14 +135,18 @@ private:
 	int32 m_animationNumX{ 0 };  // X軸のアニメーション枚数
 
 	int32 m_animationNumY{ 0 };  // Y軸のアニメーション枚数
+
+	bool m_isAttackingAnimation{ false }; // 攻撃アニメーションの最中かどうかのフラグ
+
+	bool m_isReceivingDamage{ false }; // 被ダメージアニメーションの最中かどうかのフラグ
 #pragma endregion
 
 	/// ステータス変数 ///
 #pragma region status
 
-	LifeState m_lifeState; // 生死の状態
+	EnemyLifeState m_lifeState; // 生死の状態
 
-	ActionState m_actionState; // 行動の状態
+	EnemyActionState m_actionState; // 行動の状態
 
 	int32 m_generateNum; // 生成番号
 
@@ -148,9 +162,7 @@ private:
 
 	EnemyData m_masterData; // 敵の仕様（名前や最大HP、攻撃力など）
 
-	bool m_isAttacked{ false }; // 攻撃したかどうかのフラグ
-
-	bool m_isReceivedDamage{ false }; // ダメージを受けたかどうかのフラグ
+	bool m_isFinishedAttacking{ false }; // 攻撃が終了したかどうか
 
 	bool m_isDead{ false };  // 死亡フラグ
 #pragma endregion

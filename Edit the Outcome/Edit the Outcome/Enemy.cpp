@@ -4,8 +4,8 @@
 Enemy::Enemy(const EnemyData& masterData, int32 generate) : m_masterData(masterData), m_currentHp(masterData.maxHp)
 {
 	// ステータスの初期化
-	m_lifeState = LifeState::Alive;
-	m_actionState = ActionState::Idle;
+	m_lifeState = EnemyLifeState::EnemyAlive;
+	m_actionState = EnemyActionState::EnemyIdle;
 	m_maxHp = m_masterData.maxHp;
 	m_currentHp = m_masterData.maxHp; 
 	m_currentAtk = m_masterData.atk;
@@ -29,25 +29,12 @@ Enemy::Enemy(const EnemyData& masterData, int32 generate) : m_masterData(masterD
 
 void Enemy::update()
 {
-	//switch (enemyState)
-	//{
-	//case EnemyState::Alive:
-	//	// アニメーションの更新
-	//	AnimationUpdate();
-
-	//	// 死亡処理
-	//	DeathProcess();
-	//	break;
-
-	//case EnemyState::Dead:
-	//	break;
-	//}
 	switch (m_lifeState)
 	{
-	case LifeState::Alive:
+	case EnemyLifeState::EnemyAlive:
 		UpdateActionState();
 		break;
-	case LifeState::Dead:
+	case EnemyLifeState::EnemyDead:
 		break;
 	}
 	
@@ -66,21 +53,24 @@ void Enemy::UpdateActionState()
 {
 	switch (m_actionState)
 	{
-	case ActionState::Idle:
+	case EnemyActionState::EnemyIdle:
 		// アニメーションの更新
 		UpdateIdleAnimation();
 
+		// 攻撃終了のフラグをfalse
+		m_isFinishedAttacking = false;
+
 		DeathProcess();
 		break;
-	case ActionState::Attack:
+	case EnemyActionState::EnemyAttack:
 		// 攻撃アニメーションを実行
 		ExecuteAttackAnimation();
 		break;
-	case ActionState::ReceiveDamage:
+	case EnemyActionState::EnemyReceiveDamage:
 		// 被ダメージアニメーションを実行
 		ExecuteReceiveDamageAnimation();
 		break;
-	case ActionState::Die:
+	case EnemyActionState::EnemyDie:
 		// 死亡アニメーションを実行
 		ExecuteDeadAnimation();
 		break;
@@ -90,7 +80,7 @@ void Enemy::UpdateActionState()
 void Enemy::UpdateIdleAnimation()
 {
 	// Y軸のアニメーションを設定
-	m_animationNumY = Idle;
+	m_animationNumY = EnemyIdle;
 	// アニメーションフレームが最大値以上になったら
 	// アニメーションを更新する
 	if (m_maxAnimationFrame <= m_animationFrameCount)
@@ -112,13 +102,13 @@ void Enemy::UpdateIdleAnimation()
 
 void Enemy::ExecuteAttackAnimation()
 {
-	if (not m_isAttacked)
+	if (not m_isAttackingAnimation)
 	{
 		// フレームカウントと各軸のアニメーションを設定
 		m_animationFrameCount = 0;
 		m_animationNumX = 0;
-		m_animationNumY = Attack;
-		m_isAttacked = true;
+		m_animationNumY = EnemyAttack;
+		m_isAttackingAnimation = true;
 	}
 	// アニメーションフレームが最大値以上になったら
 	// アニメーションを更新する
@@ -131,8 +121,9 @@ void Enemy::ExecuteAttackAnimation()
 		if (m_maxAttackAnimationNum <= m_animationNumX)
 		{
 			m_animationNumX = m_maxAttackAnimationNum;
-			m_actionState = ActionState::Idle;
-			m_isAttacked = false;
+			m_actionState = EnemyActionState::EnemyIdle;
+			m_isAttackingAnimation = false;
+			m_isFinishedAttacking = true;
 			return;
 		}
 
@@ -144,13 +135,13 @@ void Enemy::ExecuteAttackAnimation()
 
 void Enemy::ExecuteReceiveDamageAnimation()
 {
-	if (not m_isReceivedDamage)
+	if (not m_isReceivingDamage)
 	{
 		// フレームカウントと各軸のアニメーションを設定
 		m_animationFrameCount = 0;
 		m_animationNumX = 0;
-		m_animationNumY = ReceiveDamage;
-		m_isReceivedDamage = true;
+		m_animationNumY = EnemyReceiveDamage;
+		m_isReceivingDamage = true;
 	}
 	// アニメーションフレームが最大値以上になったら
 	// アニメーションを更新する
@@ -163,8 +154,8 @@ void Enemy::ExecuteReceiveDamageAnimation()
 		if (m_maxDamageAnimationNum <= m_animationNumX)
 		{
 			m_animationNumX = m_maxDamageAnimationNum;
-			m_actionState = ActionState::Idle;
-			m_isReceivedDamage = false;
+			m_actionState = EnemyActionState::EnemyIdle;
+			m_isReceivingDamage = false;
 			// 死亡処理
 			DeathProcess();
 			return;
@@ -189,7 +180,7 @@ void Enemy::ExecuteDeadAnimation()
 		if (m_maxDeadAnimationNum <= m_animationNumX)
 		{
 			m_animationNumX = m_maxDeadAnimationNum;
-			m_lifeState = LifeState::Dead;
+			m_lifeState = EnemyLifeState::EnemyDead;
 			return;
 		}
 
@@ -209,11 +200,11 @@ void Enemy::DeathProcess()
 		m_animationFrameCount = 0;
 		// 各軸のアニメーションを設定
 		m_animationNumX = 0;
-		m_animationNumY = Die;
+		m_animationNumY = EnemyDie;
 	}
 
 	if (m_isDead)
 	{
-		m_actionState = ActionState::Die;
+		m_actionState = EnemyActionState::EnemyDie;
 	}
 }

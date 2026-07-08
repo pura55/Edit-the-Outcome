@@ -185,10 +185,44 @@ void CommandManager::SelectSkillCommand(bool& isSelected)
 
 void CommandManager::ManageDecisionProcessing(bool& isCommandSelected)
 {
+
+	// ターゲット選択が完了したら
+	if (m_isTargetSelected)
+	{
+		// 選択矢印を非表示
+		m_isShowArrow = false;
+
+		// プレイヤーの攻撃が終了したタイミングでダメージを反映
+		if (m_player->GetFinishedAttacking())
+		{
+			// ベースコマンドタイプによって関数の使用を分ける
+			if (m_baseCommandType == BaseCommandType::Attack)
+			{
+				m_healthManager->PlayerAttackEnemy(m_player->GetPlayerAtk(), m_targetSelectIndex);
+			}
+			else if (m_baseCommandType == BaseCommandType::Skills)
+			{
+				// 選んだコマンドindexと対応するidのコマンドのダメージをターゲットに与える
+				int32 selectCommandId = m_currentCommandIndex + 1;
+				for (size_t i = 0; i < m_commandData.size(); i++)
+				{
+					if (selectCommandId == m_commandData[i].id)
+					{
+						m_healthManager->PlayerAttackEnemy(m_commandData[i].dmg, m_targetSelectIndex);
+					}
+				}
+			}
+
+			// コマンド選択終了
+			isCommandSelected = true;
+		}
+		return;
+	}
+
 	// 選択矢印を表示
 	m_isShowArrow = true;
 	// ターゲットを選択する
-	m_targetSelectSystem->TargetSelect(m_maxEnemiesNum, m_targetSelectIndex, m_isTargetSelected);
+	m_targetSelectSystem->TargetSelect(m_maxEnemiesNum, m_targetSelectIndex, m_isTargetSelected, m_player);
 
 	if (KeyC.down())
 	{
@@ -198,42 +232,7 @@ void CommandManager::ManageDecisionProcessing(bool& isCommandSelected)
 		//一つ前のメニューへ戻る
 		m_menuStack.pop();
 
-		if (m_menuStack.top() == MenuState::Base)
-		{
-			return;
-		}
-		else
-		{
-
-		}
-
 		return;
-	}
-
-	// ターゲット選択が完了したら
-	if (m_isTargetSelected)
-	{
-		// ベースコマンドタイプによって関数の使用を分ける
-		if (m_baseCommandType == BaseCommandType::Attack)
-		{
-			m_healthManager->PlayerAttackEnemy(m_player->GetPlayerAtk(), m_targetSelectIndex);
-		}
-		else if (m_baseCommandType == BaseCommandType::Skills)
-		{
-			// 選んだコマンドindexと対応するidのコマンドのダメージをターゲットに与える
-			int32 selectCommandId = m_currentCommandIndex + 1;
-			for (size_t i = 0; i < m_commandData.size(); i++)
-			{
-				if ( selectCommandId== m_commandData[i].id)
-					m_healthManager->PlayerAttackEnemy(m_commandData[i].dmg, m_targetSelectIndex);
-			}
-		}
-
-		// 選択矢印を非表示
-		m_isShowArrow = false;
-
-		// コマンド選択終了
-		isCommandSelected = true;
 	}
 }
 

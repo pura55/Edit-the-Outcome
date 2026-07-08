@@ -22,10 +22,15 @@ void HealthManager::PlayerAttackEnemy(int32 playerAtk, int32 enemyGenerateNum)
 		{
 			// エネミーのHpを修正
 			int32 replaceEnemyHp = enemies->GetEnemyHp() - playerAtk;
+
 			// 0以下の場合0に設定
 			if (replaceEnemyHp < 0) replaceEnemyHp = 0;
+
 			// エネミーのHpを設定
 			enemies->SetEnemyHp(replaceEnemyHp);
+
+			// 行動状態を被ダメージに設定
+			enemies->SetActionState(4);
 		}
 	}
 }
@@ -39,4 +44,7 @@ void HealthManager::EnemyAttackPlayer(int32 enemyAtk)
 
 	// プレイヤーのHpを設定
 	m_player->SetPlayerHp(replacePlayerHp);
+
+	// 行動状態を被ダメージに設定
+	m_player->SetActionState(5);
 }

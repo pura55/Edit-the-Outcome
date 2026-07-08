@@ -109,8 +109,8 @@ void BattleUI::draw(CommandManager& commandManager) const
 
 
 	/// デバッグ確認用 ///
-	FontAsset(U"BattleSystem")(U"{}"_fmt(m_currentCommandIndex))
-		.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 100, Vec2{ 400, 300 });
+	//FontAsset(U"BattleSystem")(U"{}"_fmt(m_currentCommandIndex))
+	//	.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 100, Vec2{ 400, 300 });
 }
 
 void BattleUI::SetReference(BattleSystem& battleSystem, Player* player, std::vector<Enemy*> enemy)
