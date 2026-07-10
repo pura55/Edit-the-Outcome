@@ -149,6 +149,9 @@
     <Filter Include="3_BattleScene\System/Magager">
       <UniqueIdentifier>{ed4b3489-be4b-4546-8257-76f1021c165d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_LootScene">
+      <UniqueIdentifier>{d1081b67-ede9-4d07-94d3-0901d750eae2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -199,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="EnemyActionManager.cpp">
       <Filter>3_BattleScene\System/Magager</Filter>
+    </ClCompile>
+    <ClCompile Include="LootScene.cpp">
+      <Filter>4_LootScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -921,6 +927,9 @@
     </ClInclude>
     <ClInclude Include="EnemyActionManager.hpp">
       <Filter>3_BattleScene\System/Magager</Filter>
+    </ClInclude>
+    <ClInclude Include="LootScene.hpp">
+      <Filter>4_LootScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
