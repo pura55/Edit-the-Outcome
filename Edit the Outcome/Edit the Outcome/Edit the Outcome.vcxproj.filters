@@ -206,6 +206,9 @@
     <ClCompile Include="LootScene.cpp">
       <Filter>4_LootScene</Filter>
     </ClCompile>
+    <ClCompile Include="LootSystem.cpp">
+      <Filter>4_LootScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -929,6 +932,9 @@
       <Filter>3_BattleScene\System/Magager</Filter>
     </ClInclude>
     <ClInclude Include="LootScene.hpp">
+      <Filter>4_LootScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LootSystem.hpp">
       <Filter>4_LootScene</Filter>
     </ClInclude>
   </ItemGroup>

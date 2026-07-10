@@ -127,6 +127,7 @@
     <ClCompile Include="HealthManager.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="LootScene.cpp" />
+    <ClCompile Include="LootSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -356,6 +357,7 @@
     <ClInclude Include="HealthManager.hpp" />
     <ClInclude Include="ImageLoader.hpp" />
     <ClInclude Include="LootScene.hpp" />
+    <ClInclude Include="LootSystem.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="PlayerProgressData.hpp" />
     <ClInclude Include="stdafx.h" />
