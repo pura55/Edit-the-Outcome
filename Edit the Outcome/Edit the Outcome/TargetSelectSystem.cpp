@@ -6,7 +6,7 @@ TargetSelectSystem::TargetSelectSystem()
 {
 }
 
-void TargetSelectSystem::TargetSelect(const int32& maxEnemiesNum, int32& selectIndex, bool& isSelected, Player* player)
+void TargetSelectSystem::TargetSelect(const int32& maxEnemiesNum, const int32& mixEnemiesNum, const std::vector<int32>& exclusionEnemiesNum, int32& selectIndex, bool& isSelected, Player* player)
 {
 	if (KeySpace.down())
 	{

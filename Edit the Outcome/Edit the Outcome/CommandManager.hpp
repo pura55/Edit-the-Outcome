@@ -50,6 +50,8 @@ public:
     /// @brief コマンドデータ内のコマンド名を配列として登録する関数
 	void RegistCommandName();
 
+	void InitExclusionEnemy();
+
 	/// @brief 変数をリセットする関数
 	void ResetVariable();
 
@@ -123,7 +125,9 @@ private:
 
 	bool m_isTargetSelected{ false };  // ターゲットの選択がされているかどうかのフラグ
 
-	int32 m_maxEnemiesNum{0}; // エネミーの最大数
+	int32 m_maxEnemiesNum{ 0 }; // エネミーの最大数（死んでいた場合繰りさげで最大を入れ替える）
+
+	int32 m_minEnemiesNum{ 0 }; // エネミーの最小数（死んでいた場合繰り上げで最小を入れ替える）
 
 	bool m_isShowArrow{ false };
 
@@ -131,6 +135,8 @@ private:
 	std::stack<MenuState> m_menuStack; //コマンドウィンドウのスタック
 
 	std::vector<String> m_commandName; // コマンドの名前
+
+	std::vector<int32> m_exclusionEnemiesNum; // 除外する敵の番号
 
 
 	/// 参照 ///
