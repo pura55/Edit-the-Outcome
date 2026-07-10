@@ -64,7 +64,7 @@ private:
 	bool StateEnemyAction(EnemyActionManager& enemyActionManager);
 
 	/// @brief ターンエンド関数
-	void StateTurnEnd();
+	void StateTurnEnd(CommandManager& commandManager);
 
 	/// @brief バトル終了関数
 	void StateBattleEnd();

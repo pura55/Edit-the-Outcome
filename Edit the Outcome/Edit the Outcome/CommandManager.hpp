@@ -45,7 +45,7 @@ public:
 	void SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player* player, std::vector<Enemy*> enemies);
 
 	/// @brief エネミーの数を登録する関数
-	void RegistMaxEnemiesNum() { m_maxEnemiesNum = m_enemies.size(); }
+	void RegistMaxEnemiesNum() { m_maxEnemiesNum = m_enemies.size()-1; }
 
     /// @brief コマンドデータ内のコマンド名を配列として登録する関数
 	void RegistCommandName();

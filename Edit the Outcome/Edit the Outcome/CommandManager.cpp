@@ -78,16 +78,16 @@ void CommandManager::ResetVariable()
 	// 敵を除外後の最小値を設定
 	for (size_t i = 0; i < m_exclusionEnemiesNum.size(); i++)
 	{
-		// 除外設定がされていない場合、次の処理へ移る
-		if (m_exclusionEnemiesNum[i] == -1) continue;
-
 		if (not decideMinEnemy)
 		{
-			m_minEnemiesNum = m_exclusionEnemiesNum[i];
-			m_targetSelectIndex = m_minEnemiesNum;  // 最小値をターゲットインデックスに適用
-
-			decideMinEnemy = true; // 最小値設定完了
-			break;
+			// 除外設定がされていない場合その番号を最小値とする
+			if (m_exclusionEnemiesNum[i] == -1)
+			{
+				m_minEnemiesNum = i; // iと生成番号が一致しているためiを代入
+				m_targetSelectIndex = m_minEnemiesNum;  // 最小値をターゲットインデックスに適用
+				decideMinEnemy = true; // 最小値設定完了
+				break;
+			}
 		}
 	}
 
@@ -100,27 +100,27 @@ void CommandManager::ResetVariable()
 	}
 
 	// 敵を除外後の最大値を設定
-	for (size_t i = m_exclusionEnemiesNum.size()-1; i > 0; i--)
+	for (size_t i = m_exclusionEnemiesNum.size(); i > 0; i--)
 	{
 		size_t j = i - 1;
 
-		// 除外設定がされていない場合、次の処理へ移る
-		if (m_exclusionEnemiesNum[j] == -1) continue;
-
 		if (not decideMaxEnemy)
 		{
-			m_maxEnemiesNum = m_exclusionEnemiesNum[j];
+			// 除外設定がされていない場合その番号を最大値とする
+			if (m_exclusionEnemiesNum[j] == -1)
+			{
+				m_maxEnemiesNum = j; // jと生成番号が一致しているためjを代入
 
-			decideMaxEnemy = true; // 最大値設定完了
-			break;
+				decideMaxEnemy = true; // 最大値設定完了
+				break;
+			}
 		}
 	}
 
 	// 除外されていなかった場合最大値をサイズと同様
 	if (not decideMaxEnemy)
 	{
-		m_minEnemiesNum = 0;
-		m_targetSelectIndex = m_minEnemiesNum;
+		m_maxEnemiesNum = m_exclusionEnemiesNum.size() - 1;
 		decideMaxEnemy = true;
 	}
 

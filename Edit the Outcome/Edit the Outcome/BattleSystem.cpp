@@ -38,7 +38,7 @@ void BattleSystem::update(CommandManager& commandManager, EnemyActionManager& en
 	case BattleState::TurnEnd:
 		//ターン終了の処理が終わったら、PlayerInputに移行する
 		//バトルを終了する場合は、BattleEndに移行する
-		StateTurnEnd();
+		StateTurnEnd(commandManager);
 		break;
 
 	case BattleState::BattleEnd:
@@ -83,7 +83,6 @@ void BattleSystem::StateCommandInput(CommandManager& commandManager)
 	if (m_isSelected)
 	{
 		m_state = BattleState::EnemyAction;
-		commandManager.ResetVariable();
 		return;
 	}
 
@@ -106,11 +105,14 @@ bool BattleSystem::StateEnemyAction(EnemyActionManager& enemyActionManager)
 	return false;
 }
 
-void BattleSystem::StateTurnEnd()
+void BattleSystem::StateTurnEnd(CommandManager& commandManager)
 {
 	// 行動フラグをリセット
 	m_isSelected = false;
 	m_isEnemyActed = false;
+
+	// コマンドマネージャーの変数をリセット
+	commandManager.ResetVariable();
 
 	bool isEnemiesDead = true;
 

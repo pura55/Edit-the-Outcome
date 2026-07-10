@@ -33,7 +33,7 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 	/// エネミーの生成 ///
 #pragma region GenereteEnemies
 	
-	int32 numOfTimes = Random<int32>(1, 2); // 生成する回数
+	int32 numOfTimes = Random<int32>(1, 3); // 生成する回数
 	int32 generateCount = 0;                // 生成カウント
 
 	m_activeEnemies.clear(); // エネミーの配列をクリア
