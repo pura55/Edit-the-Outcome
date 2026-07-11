@@ -3,6 +3,7 @@
 
 class HealthManager;
 class Enemy;
+class Player;
 
 class EnemyActionManager
 {
@@ -16,7 +17,7 @@ public:
 	void SetEnemyQueue();
 
 	/// @brief エネミーの行動処理を実行する関数
-	void ExecuteActionProcess(bool& isActed);
+	void ExecuteActionProcess(bool& isActed, const Player* player);
 
 private:
 	HealthManager* m_healthManager{ nullptr }; // ヘルスマネージャーの参照

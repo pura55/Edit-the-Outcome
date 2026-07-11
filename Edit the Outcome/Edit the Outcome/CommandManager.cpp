@@ -21,11 +21,11 @@ void CommandManager::SetReference(TargetSelectSystem& targetSelectSystem, Health
 void CommandManager::SetData(std::vector<CommandData>& commandData)
 {
 	m_commandData = commandData;
-	RegistCommandName();
+	RegistCommandData();
 	InitExclusionEnemy();
 }
 
-void CommandManager::RegistCommandName()
+void CommandManager::RegistCommandData()
 {
 	//　例外処理
 	if (m_commandData.size() == 0)
@@ -33,13 +33,41 @@ void CommandManager::RegistCommandName()
 		throw Error{ U"要素が入っていません" };
 	}
 
+	int32 currentGetCommand = 0; // 現在獲得しているコマンドの個数
+
+	// 獲得しているコマンドがある場合個数を増やす
+	for (size_t i = 0; i < m_commandData.size(); i++)
+	{
+		if (m_commandData[i].isGet == false) continue;
+
+		currentGetCommand++;
+	}
+
 	// 容量を確保
-	m_commandName.resize(m_commandData.size());
+	m_currentCommandData.resize(currentGetCommand);
+
+	int32 commandDataNum = 0;// 格納するコマンドデータの番号
 
 	// 名前の登録
 	for (size_t i = 0; i < m_commandData.size(); i++)
 	{
-		m_commandName[i] = m_commandData[i].name;
+		if (m_commandData[i].isGet == false) continue;
+
+		// 獲得している各データを格納
+		m_currentCommandData[commandDataNum].id = m_commandData[i].id;
+		m_currentCommandData[commandDataNum].name = m_commandData[i].name;
+		m_currentCommandData[commandDataNum].dmg = m_commandData[i].dmg;
+
+		commandDataNum++;
+	}
+
+	// コマンド名の配列のサイズを確保
+	m_commandName.resize(m_currentCommandData.size());
+
+	// 現在獲得してるコマンドデータから名前を格納
+	for (size_t i = 0; i < m_commandName.size(); i++)
+	{
+		m_commandName[i] = m_currentCommandData[i].name;
 	}
 }
 
@@ -217,37 +245,42 @@ void CommandManager::SelectBaseCommand(bool& isCommandSelected)
 
 void CommandManager::SelectSkillCommand(bool& isSelected)
 {
-	//[W]Keyでコマンドを上に移動、[S]Keyでコマンドを下に移動
-	if (KeyW.down())
+	// 獲得してるコマンドがない場合は入力操作を行わない
+	if (m_currentCommandData.size() != 0)
 	{
-		//コマンドのインデックスを減らす
-		m_currentCommandIndex -= 1;
-
-		//コマンドのインデックスが0未満にならないようにする
-		if (m_currentCommandIndex < 0)
+		//[W]Keyでコマンドを上に移動、[S]Keyでコマンドを下に移動
+		if (KeyW.down())
 		{
-			m_currentCommandIndex = 0;
+			//コマンドのインデックスを減らす
+			m_currentCommandIndex -= 1;
+
+			//コマンドのインデックスが0未満にならないようにする
+			if (m_currentCommandIndex < 0)
+			{
+				m_currentCommandIndex = 0;
+			}
+		}
+		if (KeyS.down())
+		{
+			//コマンドのインデックスを増やす
+			m_currentCommandIndex += 1;
+
+			// コマンドの要素数からコマンドのインデックスの最大値を決める
+			int32 maxIndex = m_currentCommandData.size() - 1;
+
+			//コマンドのインデックスが最大値より大きくならないようにする
+			if (m_currentCommandIndex > maxIndex)
+			{
+				m_currentCommandIndex = maxIndex;
+			}
+		}
+
+		if (KeySpace.down())
+		{
+			m_menuStack.push(MenuState::SelectEnemy);
 		}
 	}
-	if (KeyS.down())
-	{
-		//コマンドのインデックスを増やす
-		m_currentCommandIndex += 1;
-
-		// コマンドの要素数からコマンドのインデックスの最大値を決める
-		int32 maxIndex = m_commandData.size() -1;
-
-		//コマンドのインデックスが最大値より大きくならないようにする
-		if (m_currentCommandIndex > maxIndex)
-		{
-			m_currentCommandIndex = maxIndex;
-		}
-	}
-
-	if (KeySpace.down())
-	{
-		m_menuStack.push(MenuState::SelectEnemy);
-	}
+	
 	if (KeyC.down())
 	{
 		m_currentCommandIndex = 0;
@@ -275,13 +308,12 @@ void CommandManager::ManageDecisionProcessing(bool& isCommandSelected)
 			}
 			else if (m_baseCommandType == BaseCommandType::Skills)
 			{
-				// 選んだコマンドindexと対応するidのコマンドのダメージをターゲットに与える
-				int32 selectCommandId = m_currentCommandIndex + 1;
-				for (size_t i = 0; i < m_commandData.size(); i++)
+				// 選んだコマンドindexと対応するコマンドのダメージをターゲットに与える
+				for (size_t i = 0; i < m_currentCommandData.size(); i++)
 				{
-					if (selectCommandId == m_commandData[i].id)
+					if (m_currentCommandIndex == i)
 					{
-						m_healthManager->PlayerAttackEnemy(m_commandData[i].dmg, m_targetSelectIndex);
+						m_healthManager->PlayerAttackEnemy(m_currentCommandData[i].dmg, m_targetSelectIndex);
 					}
 				}
 			}

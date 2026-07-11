@@ -15,6 +15,17 @@ void LootScene::update()
 	{
 		changeScene(State::BattleScene);
 	}
+
+	// デバックコード（コマンドを入力操作で獲得
+	if (KeyG.down())
+	{
+		getData().globalData.m_commandProgress[0].isGet = true;
+		getData().globalData.m_commandProgress[1].isGet = true;
+		getData().globalData.m_commandProgress[2].isGet = true;
+		getData().globalData.m_commandProgress[3].isGet = true;
+		getData().globalData.m_commandProgress[4].isGet = true;
+		getData().globalData.m_commandProgress[5].isGet = true;
+	}
 }
 
 void LootScene::RunSystems()

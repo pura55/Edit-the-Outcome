@@ -74,11 +74,17 @@ void BattleUI::draw(CommandManager& commandManager) const
 
 			if (commandManager.GetIsSkillWindow())
 			{
-				TextureAsset(U"SubCommandWindow").drawAt(m_subCommandWindowPos);
-				Triangle(m_subMovedFirstPos, m_subMovedSecondPos, m_subMovedThirdPos).draw(Palette::White);
-
+				// コマンド名を登録
 				std::vector<String> commandName = commandManager.GetCommandName();
 
+				TextureAsset(U"SubCommandWindow").drawAt(m_subCommandWindowPos);
+
+				// コマンドがない場合はカーソルの描画を行わない
+				if (commandName.size() != 0)
+				{
+					Triangle(m_subMovedFirstPos, m_subMovedSecondPos, m_subMovedThirdPos).draw(Palette::White);
+				}
+		
 				for (size_t i = 0; i < commandName.size(); i++)
 				{
 					// 移動量

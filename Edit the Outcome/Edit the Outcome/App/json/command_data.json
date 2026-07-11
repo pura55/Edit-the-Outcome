@@ -4,32 +4,38 @@
         {
             "id": 1,
             "name": "ファイアー",
-            "dmg": 3
+            "dmg": 3,
+            "isGet": false
         },
         {
             "id": 2,
             "name": "サンダー",
-            "dmg": 5
+            "dmg": 5,
+            "isGet": false
         },
         {
             "id": 3,
             "name": "ポイズン",
-            "dmg": 2
+            "dmg": 2,
+            "isGet": false
         },
         {
             "id": 4,
             "name": "業火の裁断",
-            "dmg": 25
+            "dmg": 25,
+            "isGet": false
         },
         {
             "id": 5,
             "name": "天功",
-            "dmg": 10
+            "dmg": 10,
+            "isGet": false
         },
         {
             "id": 6,
             "name": "夜行",
-            "dmg": 44
+            "dmg": 44,
+            "isGet": false
         }
     ]
 }

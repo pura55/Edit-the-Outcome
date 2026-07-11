@@ -77,8 +77,11 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 	}
 #pragma endregion
 
-	// コマンドデータのコピーを渡す
-	commandManager.SetData(getData().globalData.m_commandMasterTable);
+	// コマンドマスターデータの参照を渡す
+	// 現在は使う予定はないが一度コメントアウトする
+	/*commandManager.SetData(getData().globalData.m_commandMasterTable);*/
+	// コマンドの進捗データの参照を渡す
+	commandManager.SetData(getData().globalData.m_commandProgress);
 }
 
 void BattleScene::update()
@@ -86,11 +89,20 @@ void BattleScene::update()
 	//シーン上部でスクリプトを更新
 	RunSystems();
 
-	if (battleSystem.GetBattleEnd()/*or KeyT.down()*/)
+	if (battleSystem.GetBattleEnd())
 	{
-		//タイトルシーンへ遷移
-		changeScene(State::TitleScene);
+		// 敗北時はタイトルシーンへ遷移
+		if (battleSystem.GetIsLose())
+		{
+			changeScene(State::TitleScene);
+		}
+		// 勝利時はルートシーンへ遷移
+		if (battleSystem.GetIsWin())
+		{
+			changeScene(State::LootScene);
+		}
 	}
+	
 	if (KeyEscape.down())
 	{
 		//ゲームを終了

@@ -11,5 +11,6 @@ struct CommandData
 	int32 id;      // ID
 	String name;   // 名前
 	int32 dmg;     // ダメージ
+	bool isGet;    // 獲得フラグ
 };
 

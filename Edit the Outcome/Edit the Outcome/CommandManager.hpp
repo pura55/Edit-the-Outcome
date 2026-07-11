@@ -47,9 +47,10 @@ public:
 	/// @brief エネミーの数を登録する関数
 	void RegistMaxEnemiesNum() { m_maxEnemiesNum = m_enemies.size()-1; }
 
-    /// @brief コマンドデータ内のコマンド名を配列として登録する関数
-	void RegistCommandName();
+    /// @brief コマンドデータ内の処理に必要な各データを配列として登録する関数
+	void RegistCommandData();
 
+	/// @vrief 除外するエネミーの初期化
 	void InitExclusionEnemy();
 
 	/// @brief 変数をリセットする関数
@@ -106,7 +107,10 @@ public:
 	bool GetIsShowArrow() { return m_isShowArrow; }
 
 	/// @brief コマンドの名前を返す関数
-	std::vector<String> GetCommandName() { return m_commandName; }
+	std::vector<String> GetCommandName()
+	{
+		return m_commandName;
+	}
 
 private:
 
@@ -133,6 +137,8 @@ private:
 
 	/// 構造体 ///
 	std::stack<MenuState> m_menuStack; //コマンドウィンドウのスタック
+
+	std::vector<CommandData> m_currentCommandData; // 現在のコマンドデータ
 
 	std::vector<String> m_commandName; // コマンドの名前
 

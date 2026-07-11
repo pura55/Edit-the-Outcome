@@ -2,6 +2,7 @@
 #include "EnemyActionManager.hpp"
 #include "HealthManager.hpp"
 #include "Enemy.hpp"
+#include "Player.hpp"
 
 EnemyActionManager::EnemyActionManager()
 {
@@ -21,12 +22,19 @@ void EnemyActionManager::SetEnemyQueue()
 	}
 }
 
-void EnemyActionManager::ExecuteActionProcess(bool& isActed)
+void EnemyActionManager::ExecuteActionProcess(bool& isActed, const Player* player)
 {
 	// エネミーがダメージを受けている最中だったら一時的に処理を抜ける
 	for (auto* enemies : m_enemies)
 	{
 		if(enemies->GetReceivingDamage()) return;
+	}
+
+	// プレイヤーが既に死亡していた場合攻撃を辞める
+	if (player->GetIsDead())
+	{
+		isActed = true;
+		return;
 	}
 
 	// キュー内の敵が全て輩出し終わったら行動を終了

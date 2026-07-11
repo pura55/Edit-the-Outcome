@@ -100,7 +100,7 @@ bool BattleSystem::StateEnemyAction(EnemyActionManager& enemyActionManager)
 	}
 
 	// エネミーの行動処理を実行
-	enemyActionManager.ExecuteActionProcess(m_isEnemyActed);
+	enemyActionManager.ExecuteActionProcess(m_isEnemyActed, m_player);
 
 	return false;
 }
@@ -129,12 +129,14 @@ void BattleSystem::StateTurnEnd(CommandManager& commandManager)
 	if (isEnemiesDead)
 	{
 		m_state = BattleState::BattleEnd;
+		m_isWin = true;
 		return;
 	}
 	// プレイヤーのHpが0だったらバトルを終了
-	if (Key6.down())
+	if (m_player->GetIsDead())
 	{
 		m_state = BattleState::BattleEnd;
+		m_isLose = true;
 		return;
 	}
 
@@ -144,12 +146,9 @@ void BattleSystem::StateTurnEnd(CommandManager& commandManager)
 
 void BattleSystem::StateBattleEnd()
 {
-	if (KeyT.down())
+	if (KeySpace.down())
 	{
 		m_isBattleEnd = true;
-	}
-	else
-	{
 	}
 }
 

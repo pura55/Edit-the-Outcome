@@ -46,6 +46,10 @@ public:
 	/// @brief バトルが終了しているかを伝える関数
 	bool GetBattleEnd() { return m_isBattleEnd; }
 
+	bool GetIsWin() { return m_isWin; }
+
+	bool GetIsLose() { return m_isLose; }
+
 
 	/// <summary>
 	/// private関数
@@ -85,10 +89,15 @@ private:
 
 	// バトルが終了したかどうかのフラグ
 	bool m_isBattleEnd{ false };
+	// 敗北フラグ
+	bool m_isLose{ false };
+	// 勝利フラグ
+	bool m_isWin{ false }; 
 
 	// コマンドを選択したかどうかを表すフラグ
 	bool m_isSelected{ false };
 
+	// エネミー行動フラグ
 	bool m_isEnemyActed{ false };
 
 

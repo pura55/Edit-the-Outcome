@@ -130,6 +130,7 @@ bool GlobalData::LoadCommandData()
 		d.id = commandJson[U"id"].get<int32>();
 		d.name = commandJson[U"name"].get<String>();
 		d.dmg = commandJson[U"dmg"].get<int32>();
+		d.isGet = commandJson[U"isGet"].get<bool>();
 
 		m_commandMasterTable.push_back(d);
 	}
