@@ -19,3 +19,4 @@
 - 画像提供:[そざいのえん](https://www.s-e-project.com/) 様
 - アセット提供:[adwitr](https://adwitr.itch.io/pixel-health-bar-asset-pack-2) 様
 - アセット提供:[Zerie](https://zerie.itch.io/tiny-rpg-character-asset-pack) 様
+- アセット提供:[kenam0](https://kenam0.itch.io/arrows-pack) 様
