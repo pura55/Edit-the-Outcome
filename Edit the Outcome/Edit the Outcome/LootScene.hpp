@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "Common.hpp"
 #include "LootSystem.hpp"
+#include "LootBg.hpp"
+#include "LootUI.hpp"
 
 class LootScene : public ProjectApp::Scene
 {
@@ -11,4 +13,6 @@ public:
 
 private:
 	LootSystem lootSystem;
+	LootBg lootBg;
+	LootUI lootUI;
 };

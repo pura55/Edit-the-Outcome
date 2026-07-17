@@ -3,6 +3,13 @@
 
 LootScene::LootScene(const InitData& init) : ProjectApp::Scene{init}
 {
+	// コマンドのデータ
+	std::vector<CommandData>& commandData = getData().globalData.m_commandProgress;
+
+	// プレイヤーのデータ
+	std::vector<PlayerProgressData>& playerData = getData().globalData.m_playerProgress;
+
+	lootSystem.SetLootData(commandData, playerData);
 }
 
 void LootScene::update()
@@ -31,4 +38,10 @@ void LootScene::update()
 void LootScene::RunSystems()
 {
 	lootSystem.update();
+
+	lootBg.update();
+	lootBg.draw();
+
+	lootUI.update();
+	lootUI.draw();
 }

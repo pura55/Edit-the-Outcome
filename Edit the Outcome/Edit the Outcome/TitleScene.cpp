@@ -21,6 +21,7 @@ void TitleScene::update()
 		//ゲームを終了
 		System::Exit();
 	}
+	
 }
 
 void TitleScene::draw() const

@@ -53,7 +53,9 @@ private:
 	double m_height{ 720.0 };
 
 	// ステータスの座標（hpなど）
-	const double m_statusPosY{ 450 };
+	const double m_statusPosY{ 450.0 };
+
+	const double m_cursorLoopCycle{ 1.5 };
 
 	///コマンドウィンドウ///
 
@@ -73,6 +75,9 @@ private:
 
 	//矢印の変更値
 	double m_offsetCursorY{ 0 };
+
+	// カーソルを動かすcos波
+	double m_cosWave{ 0 };
 #pragma endregion
 
 	///サブコマンドウィンドウ///

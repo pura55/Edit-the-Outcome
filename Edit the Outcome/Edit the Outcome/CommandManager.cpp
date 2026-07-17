@@ -84,11 +84,6 @@ void CommandManager::InitExclusionEnemy()
 
 void CommandManager::ResetVariable()
 {
-	// スタックがデフォルトになるまでpopする
-	while (m_menuStack.top() != MenuState::Default)
-	{
-		m_menuStack.pop();
-	}
 	m_currentCommandIndex = 0;
 
 	// 除外するターゲットを設定
@@ -153,6 +148,15 @@ void CommandManager::ResetVariable()
 	}
 
 	m_isTargetSelected = false;
+}
+
+void CommandManager::PopMenuState()
+{
+	// スタックがデフォルトになるまでpopする
+	while (m_menuStack.top() != MenuState::Default)
+	{
+		m_menuStack.pop();
+	}
 }
 
 void CommandManager::UpdateCommandProcess(bool& isCommandSelected)

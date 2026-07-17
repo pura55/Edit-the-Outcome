@@ -132,9 +132,14 @@ void BattleUI::UpdateCursorPos(CommandManager& commandManager)
 
 	//commandIndexによってカーソルの座標を移動させる
 	m_offsetCursorY = ( 32.0 * m_currentCommandIndex);
-	m_movedFirstPos = m_cursorFirstPos.movedBy(0, m_offsetCursorY);
-	m_movedSecondPos = m_cursorSecondPos.movedBy(0, m_offsetCursorY);
-	m_movedThirdPos = m_cursorThirdPos.movedBy(0, m_offsetCursorY);
+
+	// 時間経過によりcosを動かす
+	double cosLoopTime = Scene::Time() * 2.0;
+	m_cosWave = Math::Cos(cosLoopTime) * 10;
+
+	m_movedFirstPos = m_cursorFirstPos.movedBy(m_cosWave, m_offsetCursorY);
+	m_movedSecondPos = m_cursorSecondPos.movedBy(m_cosWave, m_offsetCursorY);
+	m_movedThirdPos = m_cursorThirdPos.movedBy(m_cosWave, m_offsetCursorY);
 }
 
 void BattleUI::UpdateSubCursorPos(CommandManager& commandManager)

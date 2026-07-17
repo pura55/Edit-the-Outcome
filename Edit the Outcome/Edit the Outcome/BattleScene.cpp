@@ -102,6 +102,11 @@ void BattleScene::update()
 			changeScene(State::LootScene);
 		}
 	}
+
+	if (KeyL.down())
+	{
+		changeScene(State::LootScene);
+	}
 	
 	if (KeyEscape.down())
 	{

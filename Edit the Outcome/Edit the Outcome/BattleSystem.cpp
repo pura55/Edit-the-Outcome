@@ -82,6 +82,7 @@ void BattleSystem::StateCommandInput(CommandManager& commandManager)
 {
 	if (m_isSelected)
 	{
+		commandManager.PopMenuState();
 		m_state = BattleState::EnemyAction;
 		return;
 	}

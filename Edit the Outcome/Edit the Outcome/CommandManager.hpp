@@ -56,6 +56,9 @@ public:
 	/// @brief 変数をリセットする関数
 	void ResetVariable();
 
+	/// @brief メニューステートをポップする関数
+	void PopMenuState();
+
 	/// @brief コマンド処理を更新する関数
 	void UpdateCommandProcess(bool& isCommandSelected);
 
