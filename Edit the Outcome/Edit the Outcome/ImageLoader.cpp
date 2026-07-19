@@ -37,8 +37,11 @@ void ImageLoader::LoadBattleAssets()
 	TextureAsset::Register(U"FullHealthbar", U"./image/healthbar_full.png");
 	TextureAsset::Register(U"SelectArrow", U"./image/Arrows_pack.png");
 	TextureAsset::Register(U"DwarfKind", U"./image/dwarf_kind.png");
-	TextureAsset::Register(U"LootFrame", U"./image/UI_wood_frame.png");
+	TextureAsset::Register(U"LootItemFrame", U"./image/UI_wood_frame.png");
+	TextureAsset::Register(U"LootCheckFrame", U"./image/UI_darkwood_frame.png");
 	TextureAsset::Register(U"SpeechFrame", U"./image/UI_wood_frameSpeech02.png");
+	TextureAsset::Register(U"LootCursor", U"./image/Icon_cursor.png");
+	TextureAsset::Register(U"CheckButton", U"./image/UI_darkwood_Button.png");
 }
 
 void ImageLoader::ClearBattleAssets()

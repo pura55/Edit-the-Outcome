@@ -10,6 +10,8 @@ LootScene::LootScene(const InitData& init) : ProjectApp::Scene{init}
 	std::vector<PlayerProgressData>& playerData = getData().globalData.m_playerProgress;
 
 	lootSystem.SetLootData(commandData, playerData);
+	
+	lootUI.SetReference(lootSystem);
 }
 
 void LootScene::update()

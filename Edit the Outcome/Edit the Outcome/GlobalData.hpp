@@ -61,8 +61,4 @@ public:
 
 	// 現在選択されているキャラクターID
 	int32 currentCharacterID{1};
-
-private:
-
-	
 };

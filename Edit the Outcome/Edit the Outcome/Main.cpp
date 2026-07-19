@@ -30,6 +30,7 @@ void Main()
 	FontAsset::Register(U"BattleSystem", 30, Typeface::Medium);
 	FontAsset::Register(U"HUD", 18, Typeface::Regular);
 	FontAsset::Register(U"Command", 20, Typeface::Regular);
+	FontAsset::Register(U"LootItemCheck", 24, Typeface::Regular);
 
 	// シーン管理マネージャーの生成
 	ProjectApp manager;
