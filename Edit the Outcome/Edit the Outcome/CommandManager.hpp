@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "CommandData.hpp"
 
+// 前方宣言
 class TargetSelectSystem;
 class HealthManager;
 class Player;
@@ -10,7 +11,7 @@ class Enemy;
 /// メニューステイト
 /// 
 /// ウィンドウメニューの状態を表す列挙型
-///  </summary>
+/// </summary>
 enum class MenuState
 {
 	Default,     // デフォルトで何も表示しない
@@ -21,7 +22,7 @@ enum class MenuState
 
 /// <summary>
 /// ベースコマンドタイプ
-///  </summary>
+/// </summary>
 enum class BaseCommandType
 {
 	Attack,    // 攻撃
@@ -31,7 +32,7 @@ enum class BaseCommandType
 
 /// <summary>
 /// コマンドマネージャー
-///  </summary>
+/// </summary>
 class CommandManager
 {
 public:

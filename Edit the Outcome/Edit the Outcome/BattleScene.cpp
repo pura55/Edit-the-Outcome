@@ -3,83 +3,22 @@
 
 BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 {
-	//バトルシーンのアセットを読み込み
+	// バトルシーンのアセットを読み込み
 	getData().globalData.imageLoader.LoadBattleAssets();
 
-	/// プレイヤーの生成 ///
-#pragma region GeneratePlayer
-	
-	int32 currentID = getData().globalData.currentCharacterID; // 現在選ばれているキャラクターのid
-	bool isFound = false; // idが見つかったかどうかのフラグ
+	// プレイヤーの生成
+	GeneratePlayer();
 
-	// プレイヤーのデータから該当するidを探す
-	for (const auto& progress : getData().globalData.m_playerProgress)
-	{
-		if (progress.id == currentID)
-		{
-			m_player = std::make_unique<Player>(progress);
-			isFound = true;
-			break;
-		}
-	}
+	// エネミーの生成
+	GenerateEnemies();
 
-	// 見つからない場合の例外処理
-	if (not isFound)
-	{
-		throw Error{ U"GameDataのplayerProgressList内に、ID: {} のプレイヤーデータが存在しません！初期化漏れの可能性があります。"_fmt(currentID) };
-	}
-#pragma endregion
-
-	/// エネミーの生成 ///
-#pragma region GenereteEnemies
-	
-	int32 numOfTimes = Random<int32>(1, 3); // 生成する回数
-	int32 generateCount = 0;                // 生成カウント
-
-	m_activeEnemies.clear(); // エネミーの配列をクリア
-
-	// 生成カウントが回数に達したら生成終了
-	while (generateCount != numOfTimes)
-	{
-		int32 generateId = Random<int32>(1, 2); // 生成するエネミーのid
-
-		// 敵の生成
-		//「ID：1スライム」,「ID：２オーク」
-		m_activeEnemies.push_back(Enemy(getData().globalData.GetEnemyData(generateId), generateCount));
-
-		generateCount++;
-	}
-#pragma endregion
-
-	/// ポインタを渡す ///
-#pragma region PassPointer
-	if (m_player && !m_activeEnemies.empty()) // 中身が確実に生成されているかチェック
-	{
-		// プレイヤーのポインタを取得
-		Player* playerPtr = m_player.get();
-
-		// 必要なサイズのメモリをあらかじめ確保
-		std::vector<Enemy*> enemyPtr;
-		enemyPtr.reserve(m_activeEnemies.size());
-
-		// アドレスを格納
-		for (auto& enemies : m_activeEnemies)
-		{
-			enemyPtr.push_back(&enemies);
-		}
-
-		// ポインタを渡す
-		battleSystem.SetReference(playerPtr, enemyPtr);
-		battleUI.SetReference(battleSystem, playerPtr,enemyPtr);
-		healthManager.SetReference(playerPtr, enemyPtr);
-		commandManager.SetReference(targetSelectSystem, healthManager, playerPtr, enemyPtr );
-		enemyActionManager.SetReference(healthManager, enemyPtr);
-	}
-#pragma endregion
+	// ポインタを渡す
+	PassReferences();
 
 	// コマンドマスターデータの参照を渡す
 	// 現在は使う予定はないが一度コメントアウトする
-	/*commandManager.SetData(getData().globalData.m_commandMasterTable);*/
+	//commandManager.SetData(getData().globalData.m_commandMasterTable);
+
 	// コマンドの進捗データの参照を渡す
 	commandManager.SetData(getData().globalData.m_commandProgress);
 }
@@ -103,11 +42,13 @@ void BattleScene::update()
 		}
 	}
 
+	// デバッグ用コード
 	if (KeyL.down())
 	{
 		changeScene(State::LootScene);
 	}
-	
+
+	// デバッグ用コード
 	if (KeyEscape.down())
 	{
 		//ゲームを終了
@@ -143,4 +84,76 @@ void BattleScene::RunSystems()
 	//バトルUIを更新
 	battleUI.update(commandManager);
 	battleUI.draw(commandManager);
+}
+
+void BattleScene::GeneratePlayer()
+{
+	int32 currentID = getData().globalData.currentCharacterID; // 現在選ばれているキャラクターのid
+	bool isFound = false; // idが見つかったかどうかのフラグ
+
+	// プレイヤーのデータから該当するidを探す
+	for (const auto& progress : getData().globalData.m_playerProgress)
+	{
+		// IDが一致している場合そのデータをプレイヤーに渡す
+		if (progress.id == currentID)
+		{
+			m_player = std::make_unique<Player>(progress);
+			isFound = true;
+			break;
+		}
+	}
+
+	// 見つからない場合の例外処理
+	if (not isFound)
+	{
+		throw Error{ U"GameDataのplayerProgressList内に、ID: {} のプレイヤーデータが存在しません！初期化漏れの可能性があります。"_fmt(currentID) };
+	}
+}
+
+void BattleScene::GenerateEnemies()
+{
+	int32 numOfTimes = Random<int32>(1, 3); // 生成する回数
+
+	m_activeEnemies.clear(); // エネミーの配列をクリア
+
+	// 生成カウントが回数に達したら生成終了
+	for (int32 generateCount = 0; generateCount < numOfTimes; generateCount++)
+	{
+		int32 generateId = Random<int32>(1, 2); // 生成するエネミーのid
+
+		// 敵の生成
+		//「ID：1スライム」,「ID：２オーク」
+		// エネミーのデータと生成番号(generateCount)を渡す
+		m_activeEnemies.push_back(Enemy(getData().globalData.GetEnemyData(generateId), generateCount));
+	}
+}
+
+void BattleScene::PassReferences()
+{
+	if (m_player && !m_activeEnemies.empty()) // 中身が確実に生成されているかチェック
+	{
+		// プレイヤーのポインタを取得
+		Player* playerPtr = m_player.get();
+
+		// 必要なサイズのメモリをあらかじめ確保
+		std::vector<Enemy*> enemyPtr;
+		enemyPtr.reserve(m_activeEnemies.size());
+
+		// アドレスを格納
+		for (auto& enemies : m_activeEnemies)
+		{
+			enemyPtr.push_back(&enemies);
+		}
+
+		// ポインタを渡す
+		battleSystem.SetReference(playerPtr, enemyPtr);
+		battleUI.SetReference(battleSystem, playerPtr, enemyPtr);
+		healthManager.SetReference(playerPtr, enemyPtr);
+		commandManager.SetReference(targetSelectSystem, healthManager, playerPtr, enemyPtr);
+		enemyActionManager.SetReference(healthManager, enemyPtr);
+	}
+	else
+	{
+		throw Error{ U"プレイヤーもしくはエネミーの生成されていません！初期化漏れの可能性があります。"};
+	}
 }

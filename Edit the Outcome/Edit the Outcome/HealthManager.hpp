@@ -5,6 +5,11 @@
 class Player;
 class Enemy;
 
+/// <summary>
+/// ヘルスマネージャー
+/// 
+/// 体力変動を管理するクラス
+/// </summary>
 class HealthManager
 {
 public:

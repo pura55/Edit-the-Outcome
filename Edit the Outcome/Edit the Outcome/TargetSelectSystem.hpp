@@ -3,6 +3,11 @@
 
 class Player;
 
+/// <summary>
+/// ターゲットセレクトシステム
+///
+/// 敵を選択する処理を行うクラス
+/// </summary>
 class TargetSelectSystem
 {
 public:

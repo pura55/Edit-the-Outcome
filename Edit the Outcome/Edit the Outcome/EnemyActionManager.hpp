@@ -1,10 +1,16 @@
 ﻿#pragma once
 #include <Siv3D.hpp>
 
+// 前方宣言
 class HealthManager;
 class Enemy;
 class Player;
 
+/// <summary>
+/// エネミーアクションマネージャー
+///
+/// 敵の攻撃を管理するクラス
+/// </summary>
 class EnemyActionManager
 {
 public:

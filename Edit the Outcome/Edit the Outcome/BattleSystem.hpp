@@ -46,8 +46,10 @@ public:
 	/// @brief バトルが終了しているかを伝える関数
 	bool GetBattleEnd() { return m_isBattleEnd; }
 
+	/// @brief 勝利フラグを返す関数
 	bool GetIsWin() { return m_isWin; }
 
+	/// @brief 敗北フラグを返す関数
 	bool GetIsLose() { return m_isLose; }
 
 
