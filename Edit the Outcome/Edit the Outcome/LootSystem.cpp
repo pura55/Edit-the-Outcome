@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "LootSystem.hpp"
 
-LootSystem::LootSystem()
+LootSystem::LootSystem():m_randomEngine(nullptr)
 {
 }
 
@@ -26,11 +26,14 @@ void LootSystem::update()
 	}
 }
 
-void LootSystem::SetLootData(std::vector<CommandData>& commandData, std::vector<PlayerProgressData>& playerData)
+void LootSystem::SetLootData(std::vector<CommandData>& commandData, std::vector<PlayerProgressData>& playerData, int32 playerID)
 {
 	// データの参照を格納
 	m_commandData = commandData;
 	m_playerData = playerData;
+
+	// IDの格納
+	m_currentPlayerID = playerID;
 }
 
 void LootSystem::LootInit()
@@ -73,7 +76,51 @@ void LootSystem::LootFinished()
 
 void LootSystem::DecideKindOfItem()
 {
+	// ルートアイテムのデータのサイズを設定
+	m_lootItemData.resize(m_itemDataSize);
 
+	int32 registItemCount = 0; // 登録アイテムのカウント
+
+	// 登録カウントがルートアイテムのサイズ未満の場合実行
+	while (registItemCount < m_itemDataSize)
+	{
+		// アイテムの確率を格納
+		double rateOfItem = m_randomEngine->RandomDouble(ItemRate::MIN, ItemRate::MAX);
+
+		
+		if (rateOfItem < ItemRate::COMMAND_APPEARING)
+		{
+			// コマンドが出現する場合
+			double rateOfCommand = m_randomEngine->RandomDouble(ItemRate::MIN, ItemRate::MAX);
+
+			if (rateOfCommand < ItemRate::COMMAND_AVG)
+			{
+
+			}
+			else if (rateOfCommand < ItemRate::COMMAND_AVG * 2)
+			{
+
+			}
+			else if (rateOfCommand < ItemRate::COMMAND_AVG * 3)
+			{
+
+			}
+			else if (rateOfCommand < ItemRate::COMMAND_AVG * 4)
+			{
+
+			}
+			else if (rateOfCommand < ItemRate::COMMAND_AVG * 5)
+			{
+
+			}
+			
+		}
+		else
+		{
+			// ステータスが出現する場合
+
+		}
+	}
 }
 
 void LootSystem::AcquireItem()

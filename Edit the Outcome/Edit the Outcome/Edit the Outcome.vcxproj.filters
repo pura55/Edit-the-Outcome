@@ -152,6 +152,15 @@
     <Filter Include="4_LootScene">
       <UniqueIdentifier>{d1081b67-ede9-4d07-94d3-0901d750eae2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_LootScene\Renderer">
+      <UniqueIdentifier>{901a6799-a182-4447-b72b-f814467bf87d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_System\Struct_ExternalData">
+      <UniqueIdentifier>{ad0c9a3b-6926-46be-b11f-c8b4031cda0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_System\GameData">
+      <UniqueIdentifier>{ea7b9a3c-d298-40e6-a1f9-caa3da9c3e26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -160,12 +169,6 @@
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>2_TitleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="GlobalData.cpp">
-      <Filter>0_System</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageLoader.cpp">
-      <Filter>0_System</Filter>
     </ClCompile>
     <ClCompile Include="BattleScene.cpp">
       <Filter>3_BattleScene</Filter>
@@ -210,10 +213,16 @@
       <Filter>4_LootScene</Filter>
     </ClCompile>
     <ClCompile Include="LootBg.cpp">
-      <Filter>4_LootScene</Filter>
+      <Filter>4_LootScene\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="LootUI.cpp">
-      <Filter>4_LootScene</Filter>
+      <Filter>4_LootScene\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalData.cpp">
+      <Filter>0_System\GameData</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageLoader.cpp">
+      <Filter>0_System\GameData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -886,12 +895,6 @@
     <ClInclude Include="TitleScene.hpp">
       <Filter>2_TitleScene</Filter>
     </ClInclude>
-    <ClInclude Include="GlobalData.hpp">
-      <Filter>0_System</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageLoader.hpp">
-      <Filter>0_System</Filter>
-    </ClInclude>
     <ClInclude Include="BattleScene.hpp">
       <Filter>3_BattleScene</Filter>
     </ClInclude>
@@ -900,15 +903,6 @@
     </ClInclude>
     <ClInclude Include="BootScene.hpp">
       <Filter>1_BootScene</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyData.hpp">
-      <Filter>0_System</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerProgressData.hpp">
-      <Filter>0_System</Filter>
-    </ClInclude>
-    <ClInclude Include="CommandData.hpp">
-      <Filter>0_System</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.hpp">
       <Filter>3_BattleScene\Character</Filter>
@@ -944,9 +938,33 @@
       <Filter>4_LootScene</Filter>
     </ClInclude>
     <ClInclude Include="LootBg.hpp">
-      <Filter>4_LootScene</Filter>
+      <Filter>4_LootScene\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="LootUI.hpp">
+      <Filter>4_LootScene\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="LootItemData.hpp">
+      <Filter>4_LootScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyData.hpp">
+      <Filter>0_System\Struct_ExternalData</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandData.hpp">
+      <Filter>0_System\Struct_ExternalData</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerProgressData.hpp">
+      <Filter>0_System\Struct_ExternalData</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalData.hpp">
+      <Filter>0_System\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageLoader.hpp">
+      <Filter>0_System\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomEngine.hpp">
+      <Filter>0_System\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRate.hpp">
       <Filter>4_LootScene</Filter>
     </ClInclude>
   </ItemGroup>

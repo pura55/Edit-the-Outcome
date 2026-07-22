@@ -358,12 +358,15 @@
     <ClInclude Include="GlobalData.hpp" />
     <ClInclude Include="HealthManager.hpp" />
     <ClInclude Include="ImageLoader.hpp" />
+    <ClInclude Include="ItemRate.hpp" />
     <ClInclude Include="LootBg.hpp" />
+    <ClInclude Include="LootItemData.hpp" />
     <ClInclude Include="LootScene.hpp" />
     <ClInclude Include="LootSystem.hpp" />
     <ClInclude Include="LootUI.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="PlayerProgressData.hpp" />
+    <ClInclude Include="RandomEngine.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TargetSelectSystem.hpp" />
     <ClInclude Include="TitleScene.hpp" />

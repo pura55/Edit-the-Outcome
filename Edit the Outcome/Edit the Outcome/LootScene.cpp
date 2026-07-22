@@ -3,15 +3,8 @@
 
 LootScene::LootScene(const InitData& init) : ProjectApp::Scene{init}
 {
-	// コマンドのデータ
-	std::vector<CommandData>& commandData = getData().globalData.m_commandProgress;
-
-	// プレイヤーのデータ
-	std::vector<PlayerProgressData>& playerData = getData().globalData.m_playerProgress;
-
-	lootSystem.SetLootData(commandData, playerData);
-	
-	lootUI.SetReference(lootSystem);
+	// 参照を必要とするクラスに参照を渡す
+	PassReferences();
 }
 
 void LootScene::update()
@@ -46,4 +39,24 @@ void LootScene::RunSystems()
 
 	lootUI.update();
 	lootUI.draw();
+}
+
+void LootScene:: PassReferences()
+{
+	// コマンドのデータ
+	std::vector<CommandData>& commandData = getData().globalData.m_commandProgress;
+
+	// プレイヤーのデータ
+	std::vector<PlayerProgressData>& playerData = getData().globalData.m_playerProgress;
+
+	// プレイヤーのID
+	int32 playerID = getData().globalData.m_currentCharacterID;
+
+	// ルートアイテムに必要なデータをルートシステムに渡す
+	lootSystem.SetLootData(commandData, playerData, playerID);
+
+	// ランダムエンジンの参照をルートシステムに渡す
+	lootSystem.SetRandomEngine(&getData().globalData.m_randomEngine);
+
+	lootUI.SetReference(lootSystem);
 }

@@ -33,25 +33,23 @@ public:
 	void PassReferences();
 
 private:
-	// バトルシステムを保持
-	BattleSystem battleSystem;
-	// バトルシーンBgレンダラーを保持
-	BattleBgRenderer battleBgRenderer;
-	// バトルUIを保持
-	BattleUI battleUI;
-	// ヘルスマネージャーを保持
-	HealthManager healthManager;
-	// コマンドマネージャーを保持
-	CommandManager commandManager;
-	// ターゲットセレクトシステムを保持
-	TargetSelectSystem targetSelectSystem;
-	// エネミーアクションマネージャーを保持
-	EnemyActionManager enemyActionManager;
+	BattleSystem battleSystem; // バトルシステムを保持
+	
+	BattleBgRenderer battleBgRenderer; // バトルシーンBgレンダラーを保持
+	
+	BattleUI battleUI; // バトルUIを保持
+
+	HealthManager healthManager; // ヘルスマネージャーを保持
+	
+	CommandManager commandManager; // コマンドマネージャーを保持
+	
+	TargetSelectSystem targetSelectSystem; // ターゲットセレクトシステムを保持
+	
+	EnemyActionManager enemyActionManager; // エネミーアクションマネージャーを保持
 
 	// プレイヤーを保持
 	// スマートポインタを使用しエラーを防止
 	std::unique_ptr<Player> m_player;
 
-	// エネミーを保持
-	std::vector<Enemy> m_activeEnemies;
+	std::vector<Enemy> m_activeEnemies; // エネミーを保持
 };

@@ -1,7 +1,8 @@
 ﻿#pragma once
 #include <Siv3D.hpp>
-#include "CommandData.hpp"
-#include "PlayerProgressData.hpp"
+#include "LootItemData.hpp"
+#include "RandomEngine.hpp"
+#include "ItemRate.hpp"
 
 /// <summary>
 /// ルートステート
@@ -40,7 +41,7 @@ public:
 	void update();
 
 	/// @brief ルートに関わるデータを格納する関数
-	void SetLootData(std::vector<CommandData>& commandData, std::vector<PlayerProgressData>& playerData);
+	void SetLootData(std::vector<CommandData>& commandData, std::vector<PlayerProgressData>& playerData, int32 playerID);
 
 	/// @brief 選択指数を返す関数
 	int32 GetSelectIndex() const { return m_selectIndex; }
@@ -66,6 +67,8 @@ public:
 
 	/// @brief ルートアイテムを選択したかどうかのフラグを返す関数
 	bool GetLootItemSelected() { return m_lootItemSelected; }
+
+	void SetRandomEngine(RandomEngine* randomEngine) { m_randomEngine = randomEngine; }
 private:
 	/// @brief 初期化の処理を行う関数
 	void LootInit();
@@ -88,6 +91,8 @@ private:
 private:
 	LootState m_lootState{ LootState::Init }; // ルートステート
 
+	size_t m_itemDataSize{ 3 };// ルートアイテムのデータサイズ
+
 	int32 m_maxSelectIndex{ 2 }; //選択指数の最大値
 
 	int32 m_selectIndex{ 0 }; // 選択指数
@@ -100,9 +105,15 @@ private:
 
 	bool m_needAcquireCheck{ false }; // アイテムを獲得するかどうかを確認するフラグ(true: 確認する, false: 確認しない）
 
+	int32 m_currentPlayerID = 0; // 現在のプレイヤーのID
+
 	std::stack<LootMenuState> m_menuStack; // メニューのスタック
 
 	std::vector<CommandData> m_commandData; // コマンドデータ
 
 	std::vector<PlayerProgressData> m_playerData; // プレイヤーデータ
+
+	std::vector<LootItemData> m_lootItemData; // ルートアイテムデータ
+
+	RandomEngine* m_randomEngine; // ランダムエンジンのポインタ
 };

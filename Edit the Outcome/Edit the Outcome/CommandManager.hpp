@@ -86,6 +86,8 @@ public:
 		}
 	}
 
+	/// @brief スキルウィンドウを表示できる状態かどうかを返す関数
+	/// @return true:可能 false:不可能
 	bool GetIsSkillWindow()
 	{
 		if (m_menuStack.top() == MenuState::Skill)

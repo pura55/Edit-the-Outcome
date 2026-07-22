@@ -12,7 +12,7 @@ BattleScene::BattleScene(const InitData& init):ProjectApp::Scene{ init }
 	// エネミーの生成
 	GenerateEnemies();
 
-	// ポインタを渡す
+	// 参照を必要とするクラスに参照を渡す
 	PassReferences();
 
 	// コマンドマスターデータの参照を渡す
@@ -88,7 +88,7 @@ void BattleScene::RunSystems()
 
 void BattleScene::GeneratePlayer()
 {
-	int32 currentID = getData().globalData.currentCharacterID; // 現在選ばれているキャラクターのid
+	int32 currentID = getData().globalData.m_currentCharacterID; // 現在選ばれているキャラクターのid
 	bool isFound = false; // idが見つかったかどうかのフラグ
 
 	// プレイヤーのデータから該当するidを探す
@@ -145,7 +145,7 @@ void BattleScene::PassReferences()
 			enemyPtr.push_back(&enemies);
 		}
 
-		// ポインタを渡す
+		// 参照関係を構築
 		battleSystem.SetReference(playerPtr, enemyPtr);
 		battleUI.SetReference(battleSystem, playerPtr, enemyPtr);
 		healthManager.SetReference(playerPtr, enemyPtr);

@@ -3,6 +3,7 @@
 #include "PlayerProgressData.hpp"
 #include "EnemyData.hpp"
 #include "CommandData.hpp"
+#include "RandomEngine.hpp"
 
 /// <summary>
 /// グローバルデータ
@@ -15,8 +16,10 @@ class GlobalData
 	/// public関数
 	/// </summary>
 public:
-	GlobalData();
-	void update();
+	/// @brief シード値をランダムエンジンに渡す
+	GlobalData():m_randomEngine(m_rngSeed){};
+
+	/// @brief 初期化をする関数
 	void init();
 
 	/// @brief 全てのデータをロードする関数
@@ -34,15 +37,18 @@ public:
     /// @brief idを指定して、特定のエネミーのデータを取得する関数
 	const EnemyData& GetEnemyData(int32 id) const;
 
-	/// @brief コマンドのデータをロードする関数 
+	/// @brief コマンドのデータをロードすdる関数 
 	bool LoadCommandData();
 
 	/// @brief  idを指定して、コマンドのデータを取得する関数
 	const CommandData& GetCommandData(int32 id) const;
 
 public:
-	/// データを保持 ///
+	// イメージローダーを保持
 	ImageLoader imageLoader;
+
+	// ランダムエンジンを保持
+	RandomEngine m_randomEngine;
 
 	// プレイヤーの進捗データを保持(変更可能)
 	std::vector<PlayerProgressData> m_playerProgress;
@@ -60,5 +66,8 @@ public:
 	std::vector<CommandData> m_commandMasterTable;
 
 	// 現在選択されているキャラクターID
-	int32 currentCharacterID{1};
+	int32 m_currentCharacterID{1};
+
+	// ランダム変数を生成するためのシード値
+	const uint32 m_rngSeed{ 1234567 }; 
 };
