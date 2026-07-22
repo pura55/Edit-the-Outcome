@@ -63,8 +63,10 @@ void BattleSystem::SetReference(Player* player, std::vector<Enemy*> enemies)
 void BattleSystem::StateInit(CommandManager& commandManager, EnemyActionManager& enemyActionManager)
 {
 	m_state = BattleState::Start;
-	// コマンドマネージャーで敵の数を登録する
-	commandManager.RegistMaxEnemiesNum();
+
+	// コマンドマネージャーの変数をリセット(初期化）
+	commandManager.ResetVariable();
+
 	// エネミーをキューに入れる
 	enemyActionManager.SetEnemyQueue();
 }

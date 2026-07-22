@@ -15,10 +15,10 @@ public:
 	/// @param min 最小値
 	/// @param max 最大値
 	/// @return 最小値以上、最大値以下の乱数
-	int32 RandomDouble(int32 min, int32 max)
+	int32 RandomInt32(int32 min, int32 max)
 	{
 		// 指定された範囲の実数（double）を等確率（一様分布）で生成する
-		std::uniform_real_distribution<int32> dist(min, max);
+		std::uniform_int_distribution<int32> dist(min, max);
 
 		return dist(rng); // 指定範囲の中からシード値に従って乱数を返す
 	}

@@ -150,6 +150,7 @@ void BattleScene::PassReferences()
 		battleUI.SetReference(battleSystem, playerPtr, enemyPtr);
 		healthManager.SetReference(playerPtr, enemyPtr);
 		commandManager.SetReference(targetSelectSystem, healthManager, playerPtr, enemyPtr);
+		targetSelectSystem.SetReference(playerPtr, enemyPtr);
 		enemyActionManager.SetReference(healthManager, enemyPtr);
 	}
 	else

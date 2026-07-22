@@ -45,14 +45,8 @@ public:
 	/// @brief 参照を登録する関数
 	void SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player* player, std::vector<Enemy*> enemies);
 
-	/// @brief エネミーの数を登録する関数
-	void RegistMaxEnemiesNum() { m_maxEnemiesNum = m_enemies.size()-1; }
-
     /// @brief コマンドデータ内の処理に必要な各データを配列として登録する関数
 	void RegistCommandData();
-
-	/// @vrief 除外するエネミーの初期化
-	void InitExclusionEnemy();
 
 	/// @brief 変数をリセットする関数
 	void ResetVariable();
@@ -107,6 +101,9 @@ public:
 	/// @brief CommandIndexを取得する関数
 	int32 GetCommandIndex() { return m_currentCommandIndex; }
 
+	/// @brief targetSelectIndexを設定する関数
+	void SetTargetSelectIndex(int32 index) { m_targetSelectIndex = index; }
+
 	/// @brief targetSelectIndexを取得する関数
 	int32 GetSelectIndex() { return m_targetSelectIndex; }
 
@@ -135,9 +132,9 @@ private:
 
 	bool m_isTargetSelected{ false };  // ターゲットの選択がされているかどうかのフラグ
 
-	int32 m_maxEnemiesNum{ 0 }; // エネミーの最大数（死んでいた場合繰りさげで最大を入れ替える）
+	//int32 m_maxEnemiesNum{ 0 }; // エネミーの最大数（死んでいた場合繰りさげで最大を入れ替える）
 
-	int32 m_minEnemiesNum{ 0 }; // エネミーの最小数（死んでいた場合繰り上げで最小を入れ替える）
+	//int32 m_minEnemiesNum{ 0 }; // エネミーの最小数（死んでいた場合繰り上げで最小を入れ替える）
 
 	bool m_isShowArrow{ false };
 
@@ -148,8 +145,6 @@ private:
 
 	std::vector<String> m_commandName; // コマンドの名前
 
-	std::vector<int32> m_exclusionEnemiesNum; // 除外する敵の番号
-
 
 	/// 参照 ///
 	std::vector<CommandData> m_commandData; // コマンドデータの参照
@@ -158,7 +153,7 @@ private:
 
 	HealthManager* m_healthManager{ nullptr }; // ヘルスマネージャーの参照
 
-	Player* m_player{ nullptr };              // プレイヤーの参照
+	Player* m_player{ nullptr }; // プレイヤーの参照
 
-	std::vector<Enemy*> m_enemies{ nullptr }; // エネミーの参照
+	std::vector<Enemy*> m_enemies; // エネミーの参照
 };

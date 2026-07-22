@@ -85,13 +85,13 @@ void LootSystem::DecideKindOfItem()
 	while (registItemCount < m_itemDataSize)
 	{
 		// アイテムの確率を格納
-		double rateOfItem = m_randomEngine->RandomDouble(ItemRate::MIN, ItemRate::MAX);
+		double rateOfItem = m_randomEngine->RandomDouble(ItemRate::DOUBLE_MIN, ItemRate::DOUBLE_MAX);
 
 		
 		if (rateOfItem < ItemRate::COMMAND_APPEARING)
 		{
 			// コマンドが出現する場合
-			double rateOfCommand = m_randomEngine->RandomDouble(ItemRate::MIN, ItemRate::MAX);
+			double rateOfCommand = m_randomEngine->RandomDouble(ItemRate::DOUBLE_MIN, ItemRate::DOUBLE_MAX);
 
 			if (rateOfCommand < ItemRate::COMMAND_AVG)
 			{

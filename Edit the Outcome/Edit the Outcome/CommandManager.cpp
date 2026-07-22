@@ -5,7 +5,7 @@
 #include "Enemy.hpp"
 #include "Player.hpp"
 
-CommandManager::CommandManager()
+CommandManager::CommandManager() : m_enemies{}
 {
 	m_menuStack.push(MenuState::Default);
 }
@@ -22,7 +22,6 @@ void CommandManager::SetData(std::vector<CommandData>& commandData)
 {
 	m_commandData = commandData;
 	RegistCommandData();
-	InitExclusionEnemy();
 }
 
 void CommandManager::RegistCommandData()
@@ -71,82 +70,13 @@ void CommandManager::RegistCommandData()
 	}
 }
 
-void CommandManager::InitExclusionEnemy()
-{
-	m_exclusionEnemiesNum.resize(m_enemies.size());// 敵の配列のサイズをコピー
-
-	// 除外する敵の番号に初期値として例外番号（-1）を格納
-	for (size_t i = 0; i < m_exclusionEnemiesNum.size(); i++)
-	{
-		m_exclusionEnemiesNum[i] = -1;
-	}
-}
-
 void CommandManager::ResetVariable()
 {
+	// ターゲットの除外処理を実行
+	m_targetSelectSystem->ExclusionEnemies(m_targetSelectIndex);
+
+	// 変数を初期状態に設定
 	m_currentCommandIndex = 0;
-
-	// 除外するターゲットを設定
-	for (size_t i = 0; i < m_exclusionEnemiesNum.size(); i++)
-	{
-		if (m_enemies[i]->GetIsDead())
-		{
-			m_exclusionEnemiesNum[i] = m_enemies[i]->GetGenerateNum();
-		}
-	}
-
-	bool decideMinEnemy = false;
-	bool decideMaxEnemy = false;
-
-	// 敵を除外後の最小値を設定
-	for (size_t i = 0; i < m_exclusionEnemiesNum.size(); i++)
-	{
-		if (not decideMinEnemy)
-		{
-			// 除外設定がされていない場合その番号を最小値とする
-			if (m_exclusionEnemiesNum[i] == -1)
-			{
-				m_minEnemiesNum = i; // iと生成番号が一致しているためiを代入
-				m_targetSelectIndex = m_minEnemiesNum;  // 最小値をターゲットインデックスに適用
-				decideMinEnemy = true; // 最小値設定完了
-				break;
-			}
-		}
-	}
-
-	// 除外されていなかった場合最小値を0
-	if (not decideMinEnemy)
-	{
-		m_minEnemiesNum = 0;
-		m_targetSelectIndex = m_minEnemiesNum;
-		decideMinEnemy = true;
-	}
-
-	// 敵を除外後の最大値を設定
-	for (size_t i = m_exclusionEnemiesNum.size(); i > 0; i--)
-	{
-		size_t j = i - 1;
-
-		if (not decideMaxEnemy)
-		{
-			// 除外設定がされていない場合その番号を最大値とする
-			if (m_exclusionEnemiesNum[j] == -1)
-			{
-				m_maxEnemiesNum = j; // jと生成番号が一致しているためjを代入
-
-				decideMaxEnemy = true; // 最大値設定完了
-				break;
-			}
-		}
-	}
-
-	// 除外されていなかった場合最大値をサイズと同様
-	if (not decideMaxEnemy)
-	{
-		m_maxEnemiesNum = m_exclusionEnemiesNum.size() - 1;
-		decideMaxEnemy = true;
-	}
-
 	m_isTargetSelected = false;
 }
 
@@ -331,7 +261,7 @@ void CommandManager::ManageDecisionProcessing(bool& isCommandSelected)
 	// 選択矢印を表示
 	m_isShowArrow = true;
 	// ターゲットを選択する
-	m_targetSelectSystem->TargetSelect(m_maxEnemiesNum, m_minEnemiesNum, m_exclusionEnemiesNum, m_targetSelectIndex, m_isTargetSelected, m_player);
+	m_targetSelectSystem->TargetSelect(m_targetSelectIndex, m_isTargetSelected);
 
 	if (KeyC.down())
 	{
