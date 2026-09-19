@@ -8,7 +8,7 @@ HealthManager::HealthManager()
 {
 }
 
-void HealthManager::SetReference(Player* player, std::vector<Enemy*> enemies, BattleUI& battleUI)
+void HealthManager::SetReference(Player* player, const std::vector<Enemy*>& enemies, BattleUI& battleUI)
 {
 	m_player = player;
 	m_enemies = enemies;

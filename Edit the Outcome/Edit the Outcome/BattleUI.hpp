@@ -33,7 +33,7 @@ public:
 	/// </summary>
 public:
 	/// @brief 外部オブジェクトへの参照を設定する関数
-	void SetReference(BattleSystem& battleSystem, CommandManager& commandManager ,TargetSelectSystem& targetSelectSystem, Player* player, std::vector<Enemy*> enemy);
+	void SetReference(BattleSystem& battleSystem, CommandManager& commandManager ,TargetSelectSystem& targetSelectSystem, Player* player, const std::vector<Enemy*>& enemy);
 
 	/// @brief ダメージ表示を配列に渡す関数
 	void PassDamageQueue(int32 damage, Vec2 position);

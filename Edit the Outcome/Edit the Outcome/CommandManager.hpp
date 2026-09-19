@@ -42,13 +42,13 @@ class CommandManager : public Selector
 public:
 	CommandManager();
 
-	void update(bool& isCommandSelected);
+	void update();
 
 	/// @brief コマンドデータの参照を設定する関数
 	void SetData(std::vector<CommandData>& commandData);
 
 	/// @brief 参照を登録する関数
-	void SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player* player, std::vector<Enemy*> enemies);
+	void SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player* player, std::vector<Enemy*>& enemies);
 
     /// @brief コマンドデータ内の処理に必要な各データを配列として登録する関数
 	void RegistCommandData();
@@ -103,16 +103,23 @@ public:
 		return m_commandName;
 	}
 
+	/// @brief コマンド選択フラグを返す関数	
+	bool GetIsCommandSelected() const { return m_isCommandSelected; }
+
+	/// @brief 
+	/// @param selected 設定するフラグ
+	void SetIsCommandSelected(bool selected) { m_isCommandSelected = selected; }
+
 
 private:
 	/// @brief ベースメニューのコマンドを選択する関数
-	void SelectBaseCommand(bool& isCommandSelected);
+	void SelectBaseCommand();
 
 	/// @brief スキルメニューのコマンドを選択する関数 
-	void SelectSkillCommand(bool& isCommandSelected);
+	void SelectSkillCommand();
 
 	/// @brief コマンドの決定処理を管理する関数
-	void ManageDecisionProcessing(bool& isCommandSelected);
+	void ManageDecisionProcessing();
 
 	/// @brief ダメージを反映させる関数
 	bool DamageReflection();
@@ -138,6 +145,8 @@ private:
 	int32 m_maxEnemiesNum{ 0 }; // エネミーの最大数（死んでいた場合繰りさげで最大を入れ替える）
 
 	bool m_isShowArrow{ false }; // 矢印をみせるかどうかのフラグ
+
+	bool m_isCommandSelected{ false }; // 選択フラグ
 
 	/// 構造体 ///
 	std::stack<MenuState> m_menuStack; //コマンドウィンドウのスタック

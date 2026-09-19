@@ -39,7 +39,7 @@ void BattleSystem::update(CommandManager& commandManager, EnemyActionManager& en
 	case BattleState::TurnEnd:
 		//ターン終了の処理が終わったら、PlayerInputに移行する
 		//バトルを終了する場合は、BattleEndに移行する
-		StateTurnEnd(commandManager, battleUI);
+		StateTurnEnd(commandManager, enemyActionManager,battleUI);
 		break;
 
 	case BattleState::BattleEnd:
@@ -48,7 +48,7 @@ void BattleSystem::update(CommandManager& commandManager, EnemyActionManager& en
 	}
 }
 
-void BattleSystem::SetReference(Player* player, std::vector<Enemy*> enemies)
+void BattleSystem::SetReference(Player* player, const std::vector<Enemy*>& enemies)
 {
 	// プレイヤーの参照を取得
 	m_player = player;
@@ -78,7 +78,7 @@ bool BattleSystem::StateStart()
 
 void BattleSystem::StateCommandInput(CommandManager& commandManager)
 {
-	if (m_isSelected)
+	if (commandManager.GetIsCommandSelected())
 	{
 		commandManager.PopMenuState();
 		m_state = BattleState::EnemyAction;
@@ -86,12 +86,12 @@ void BattleSystem::StateCommandInput(CommandManager& commandManager)
 	}
 
 	// コマンド処理を更新
-	commandManager.update(m_isSelected);
+	commandManager.update();
 }
 
 bool BattleSystem::StateEnemyAction(EnemyActionManager& enemyActionManager)
 {
-	if (m_isEnemyActed)
+	if (enemyActionManager.GetEnemyAct())
 	{
 		// エネミーをキューに入れる
 		enemyActionManager.SetEnemyQueue();
@@ -99,16 +99,16 @@ bool BattleSystem::StateEnemyAction(EnemyActionManager& enemyActionManager)
 	}
 
 	// エネミーの行動処理を実行
-	enemyActionManager.ExecuteActionProcess(m_isEnemyActed, m_player);
+	enemyActionManager.ExecuteActionProcess(m_player);
 
 	return false;
 }
 
-void BattleSystem::StateTurnEnd(CommandManager& commandManager, BattleUI& battleUI)
+void BattleSystem::StateTurnEnd(CommandManager& commandManager, EnemyActionManager& enemyActionManager, BattleUI& battleUI)
 {
 	// 行動フラグをリセット
-	m_isSelected = false;
-	m_isEnemyActed = false;
+	commandManager.SetIsCommandSelected(false);
+	enemyActionManager.SetEnemyAct(false);
 
 	// コマンドマネージャーの変数をリセット
 	commandManager.ResetVariable();

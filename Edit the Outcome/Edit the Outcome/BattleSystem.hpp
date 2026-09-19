@@ -41,7 +41,7 @@ public:
 	void update(CommandManager& commandMangager, EnemyActionManager& enemyActionManager, BattleUI& battleUI) ;
 
 	/// @brief 外部オブジェクトへの参照を設定する関数
-	void SetReference(Player* player, std::vector<Enemy*> enemies);
+	void SetReference(Player* player, const std::vector<Enemy*>& enemies);
 
 	/// @brief バトルが終了しているかを伝える関数
 	bool GetBattleEnd() { return m_isBattleEnd; }
@@ -70,7 +70,7 @@ private:
 	bool StateEnemyAction(EnemyActionManager& enemyActionManager);
 
 	/// @brief ターンエンド関数
-	void StateTurnEnd(CommandManager& commandManager, BattleUI& battleUI);
+	void StateTurnEnd(CommandManager& commandManager, EnemyActionManager& enemyActionManager, BattleUI& battleUI);
 
 	/// @brief バトル終了関数
 	void StateBattleEnd();
@@ -95,13 +95,6 @@ private:
 	bool m_isLose{ false };
 	// 勝利フラグ
 	bool m_isWin{ false }; 
-
-	// コマンドを選択したかどうかを表すフラグ
-	bool m_isSelected{ false };
-
-	// エネミー行動フラグ
-	bool m_isEnemyActed{ false };
-
 
 	/// 構造体変数 ///
 #pragma region StructureVariable

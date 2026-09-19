@@ -8,7 +8,7 @@ EnemyActionManager::EnemyActionManager()
 {
 }
 
-void EnemyActionManager::SetReference(HealthManager& healthManager, std::vector<Enemy*> enemies)
+void EnemyActionManager::SetReference(HealthManager& healthManager, std::vector<Enemy*>& enemies)
 {
 	m_healthManager = &healthManager;
 	m_enemies = enemies;
@@ -22,7 +22,7 @@ void EnemyActionManager::SetEnemyQueue()
 	}
 }
 
-void EnemyActionManager::ExecuteActionProcess(bool& isActed, const Player* player)
+void EnemyActionManager::ExecuteActionProcess(const Player* player)
 {
 	// エネミーがダメージを受けている最中だったら一時的に処理を抜ける
 	for (auto* enemies : m_enemies)
@@ -33,7 +33,7 @@ void EnemyActionManager::ExecuteActionProcess(bool& isActed, const Player* playe
 	// プレイヤーが既に死亡していた場合攻撃を辞める
 	if (player->GetIsDead())
 	{
-		isActed = true;
+		SetEnemyAct(true);
 		return;
 	}
 
@@ -41,7 +41,7 @@ void EnemyActionManager::ExecuteActionProcess(bool& isActed, const Player* playe
 	if (m_enemiesQueue.empty())
 	{
 		// フラグを行動済みに変更
-		isActed = true;
+		SetEnemyAct(true);
 		return;
 	}
 

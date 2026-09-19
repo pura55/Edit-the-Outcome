@@ -20,7 +20,7 @@ void StatusUI::update()
 /// 今後描画する際は(Rect{})で代用してください。
 /// 
 /// </remarks>
-void StatusUI::draw(Player* player, std::vector<Enemy*> enemies) const
+void StatusUI::draw(Player* player, const std::vector<Enemy*>& enemies) const
 {
 	//プレイヤー
 	{

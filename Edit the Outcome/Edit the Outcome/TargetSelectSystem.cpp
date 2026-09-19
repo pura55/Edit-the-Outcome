@@ -7,7 +7,7 @@ TargetSelectSystem::TargetSelectSystem() : m_exclusionEnemiesNum{}, m_enemies{}
 {	
 }
 
-void TargetSelectSystem::SetReference(Player* player, std::vector<Enemy*> enemies)
+void TargetSelectSystem::SetReference(Player* player, std::vector<Enemy*>& enemies)
 {
 	// 参照を登録
 	m_player = player;
@@ -19,11 +19,11 @@ void TargetSelectSystem::SetReference(Player* player, std::vector<Enemy*> enemie
 	m_maxEnemiesNum = m_enemies.size() - 1;
 }
 
-void TargetSelectSystem::TargetSelect(bool& isSelected)
+void TargetSelectSystem::TargetSelect()
 {
 	if (KeySpace.down())
 	{
-		isSelected = true;
+		SetIsTargetSelected(true);
 		// 状態を攻撃へ設定
 		m_player->SetActionState(PlayerActionState::PlayerAttack);
 		return;
@@ -36,11 +36,11 @@ void TargetSelectSystem::TargetSelect(bool& isSelected)
 	RightCursor(m_maxEnemiesNum, m_targetSelectIndex, m_exclusionEnemiesNum);
 }
 
-void TargetSelectSystem::TargetSelect(bool& isSelected, int32 skillID)
+void TargetSelectSystem::TargetSelect(int32 skillID)
 {
 	if (KeySpace.down())
 	{
-		isSelected = true;
+		SetIsTargetSelected(true);
 
 		// スキルIDによってアニメーションを変更
 		switch (skillID)

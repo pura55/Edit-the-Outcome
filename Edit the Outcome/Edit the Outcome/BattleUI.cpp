@@ -67,7 +67,7 @@ void BattleUI::draw() const
 	}
 }
 
-void BattleUI::SetReference(BattleSystem& battleSystem,CommandManager& commandManager,TargetSelectSystem& targetSelectSystem, Player* player, std::vector<Enemy*> enemy)
+void BattleUI::SetReference(BattleSystem& battleSystem,CommandManager& commandManager,TargetSelectSystem& targetSelectSystem, Player* player, const std::vector<Enemy*>& enemy)
 {
 	m_battleSystem = &battleSystem;
 	m_commandManager = &commandManager;

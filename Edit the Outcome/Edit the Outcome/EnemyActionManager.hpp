@@ -17,13 +17,20 @@ public:
 	EnemyActionManager();
 
 	/// @brief 参照を登録する関数
-	void SetReference(HealthManager& healhManager, std::vector<Enemy*> enemies);
+	void SetReference(HealthManager& healhManager, std::vector<Enemy*>& enemies);
 
 	/// @brief エネミーをキューに入れる関数
 	void SetEnemyQueue();
 
 	/// @brief エネミーの行動処理を実行する関数
-	void ExecuteActionProcess(bool& isActed, const Player* player);
+	void ExecuteActionProcess(const Player* player);
+
+	/// @brief 敵の行動フラグを返す関数
+	bool GetEnemyAct() const { return m_isEnemyAct; }
+
+	/// @brief 敵の行動フラグを設定する関数
+	/// @param act 設定するフラグ
+	void SetEnemyAct(bool act) { m_isEnemyAct = act; }
 
 private:
 	HealthManager* m_healthManager{ nullptr }; // ヘルスマネージャーの参照
@@ -31,4 +38,6 @@ private:
 	std::vector<Enemy*> m_enemies{ nullptr }; // エネミーの参照
 
 	std::queue<Enemy*> m_enemiesQueue; // エネミーのキュー
+
+	bool m_isEnemyAct{ false }; // 敵の行動フラグ
 };
