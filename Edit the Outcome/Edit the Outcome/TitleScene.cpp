@@ -3,8 +3,6 @@
 
 TitleScene::TitleScene(const InitData& init) : ProjectApp::Scene{init}
 {
-	// バトルシーンのアセットを読み込み
-	getData().globalData.imageLoader.LoadBattleAssets();
 }
 
 void TitleScene::update()
@@ -16,11 +14,13 @@ void TitleScene::update()
 	{
 		//バトルシーンへ遷移
 		changeScene(State::CutScene);
+		return;
 	}
 	if (m_ui.isEndButtonPush())
 	{
 		//ゲームを終了
 		System::Exit();
+		return;
 	}
 	
 }

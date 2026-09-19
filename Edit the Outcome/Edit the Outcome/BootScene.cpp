@@ -11,7 +11,9 @@ BootScene::BootScene(const InitData& init) : ProjectApp::Scene{init}
 	{
 		System::Exit();
 	}
-	
+
+	// アセットの読み込み
+	getData().globalData.imageLoader.LoadAssets();
 }
 
 void BootScene::update()
