@@ -15,7 +15,7 @@ class StatusUI
 public:
 	StatusUI();
 	void update();
-	void draw(Player* player, std::vector<Enemy*> enemies) const;
+	void draw(Player& player, std::vector<std::unique_ptr<Enemy>>& enemies) const;
 
 private:
 	Vec2 m_screenSize{ 140.0, 25.0 };

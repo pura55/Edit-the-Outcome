@@ -10,15 +10,7 @@ void ImageLoader::init()
 	
 }
 
-void ImageLoader::LoadTitleAssets()
-{
-}
-
-void ImageLoader::ClearTitleAssets()
-{
-}
-
-void ImageLoader::LoadBattleAssets()
+void ImageLoader::LoadAssets()
 {
 	/// 背景 ///
 	TextureAsset::Register(U"BattleBg", U"./image/Bg/ForestBg_1280x720.jpg");

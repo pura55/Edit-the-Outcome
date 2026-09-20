@@ -5,12 +5,12 @@
 #include "Enemy.hpp"
 #include "Player.hpp"
 
-CommandManager::CommandManager() : m_enemies{}
+CommandManager::CommandManager()
 {
 	m_menuStack.push(MenuState::Default);
 }
 
-void CommandManager::update(bool& isCommandSelected)
+void CommandManager::update()
 {
 	switch (m_menuStack.top())
 	{
@@ -18,23 +18,22 @@ void CommandManager::update(bool& isCommandSelected)
 		m_menuStack.push(MenuState::Base);
 		break;
 	case MenuState::Base: //ベースメニュー時
-		SelectBaseCommand(isCommandSelected);
+		SelectBaseCommand();
 		break;
 	case MenuState::Skill: //スキルメニュー時
-		SelectSkillCommand(isCommandSelected);
+		SelectSkillCommand();
 		break;
 	case MenuState::SelectEnemy: //敵選択時
-		ManageDecisionProcessing(isCommandSelected);
+		ManageDecisionProcessing();
 		break;
 	}
 }
 
-void CommandManager::SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player* player, std::vector<Enemy*> enemies)
+void CommandManager::SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player& player)
 {
 	m_targetSelectSystem = &targetSelectSystem;
 	m_healthManager = &healthManager;
-	m_player = player;
-	m_enemies = enemies;
+	m_player = &player;
 }
 
 void CommandManager::SetData(std::vector<CommandData>& commandData)
@@ -94,7 +93,7 @@ void CommandManager::ResetVariable()
 
 	// 変数を初期状態に設定
 	m_currentCommandIndex = 0;
-	m_isTargetSelected = false;
+	m_targetSelectSystem->SetIsTargetSelected(false);
 }
 
 void CommandManager::PopMenuState()
@@ -106,7 +105,7 @@ void CommandManager::PopMenuState()
 	}
 }
 
-void CommandManager::SelectBaseCommand(bool& isCommandSelected)
+void CommandManager::SelectBaseCommand()
 {
 	// カーソル上昇
 	UpCursor(/*最小値*/ 0, m_currentCommandIndex);
@@ -136,7 +135,6 @@ void CommandManager::SelectBaseCommand(bool& isCommandSelected)
 	case BaseCommandType::Attack: //攻撃選択時
 		if (KeySpace.down())
 		{
-			//isSelected = true; // 選択終了
 			m_menuStack.push(MenuState::SelectEnemy);
 		}
 		break;
@@ -145,7 +143,7 @@ void CommandManager::SelectBaseCommand(bool& isCommandSelected)
 		{
 			m_player->AddDefense();
 			m_currentCommandIndex = 0;
-			isCommandSelected = true; // 選択終了
+			SetIsCommandSelected(true); // 選択終了
 		}
 		break;
 	case BaseCommandType::Skills: //スキルを選択時
@@ -158,7 +156,7 @@ void CommandManager::SelectBaseCommand(bool& isCommandSelected)
 	}
 }
 
-void CommandManager::SelectSkillCommand(bool& isSelected)
+void CommandManager::SelectSkillCommand()
 {
 	// 獲得してるコマンドがない場合は入力操作を行わない
 	if (m_currentCommandData.size() != 0)
@@ -183,11 +181,11 @@ void CommandManager::SelectSkillCommand(bool& isSelected)
 	}
 }
 
-void CommandManager::ManageDecisionProcessing(bool& isCommandSelected)
+void CommandManager::ManageDecisionProcessing()
 {
 
 	// ターゲット選択が完了したら
-	if (m_isTargetSelected)
+	if (m_targetSelectSystem->GetIsTargetSelected())
 	{
 		// 選択矢印を非表示
 		m_isShowArrow = false;
@@ -196,7 +194,7 @@ void CommandManager::ManageDecisionProcessing(bool& isCommandSelected)
 		if (DamageReflection())
 		{
 			// コマンド選択終了
-			isCommandSelected = true;
+			SetIsCommandSelected(true);
 		}
 		
 		return;
@@ -273,12 +271,12 @@ void CommandManager::SelectTarget()
 	if (m_baseCommandType == BaseCommandType::Attack)
 	{
 		// ターゲットを選択する
-		m_targetSelectSystem->TargetSelect(m_isTargetSelected);
+		m_targetSelectSystem->TargetSelect();
 	}
 	else if (m_baseCommandType == BaseCommandType::Skills)
 	{
 		// ターゲットを選択する
-		m_targetSelectSystem->TargetSelect(m_isTargetSelected, m_currentCommandData[m_currentCommandIndex].id);
+		m_targetSelectSystem->TargetSelect(m_currentCommandData[m_currentCommandIndex].id);
 	}
 }
 

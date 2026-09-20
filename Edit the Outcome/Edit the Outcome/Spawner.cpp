@@ -17,12 +17,12 @@ std::unique_ptr<Player> Spawner::GeneratePlayer(const int32 id, const std::vecto
 	return nullptr;
 }
 
-std::vector<Enemy> Spawner::GenerateEnemies(const int32 round,GlobalData data, RandomEngine& randomEngine)
+std::vector<std::unique_ptr<Enemy>> Spawner::GenerateEnemies(const int32 round,GlobalData data, RandomEngine& randomEngine)
 {
 	int32 numOfTimes = randomEngine.RandomInt32(1, 3); //Random<int32>(1, 3); // 生成する回数
 
 	// エネミーの容器
-	std::vector<Enemy> enemies;
+	std::vector<std::unique_ptr<Enemy>> enemies;
 
 	// 生成カウントが回数に達したら生成終了
 	for (int32 generateCount = 0; generateCount < numOfTimes; generateCount++)
@@ -31,7 +31,7 @@ std::vector<Enemy> Spawner::GenerateEnemies(const int32 round,GlobalData data, R
 
 		// 敵の生成
 		// エネミーのデータと生成番号(generateCount)を渡す
-		enemies.push_back(Enemy(data.GetEnemyData(generateId), generateCount));
+		enemies.push_back(std::make_unique<Enemy>(data.GetEnemyData(generateId), generateCount));
 	}
 
 	// 生成したエネミーを返す

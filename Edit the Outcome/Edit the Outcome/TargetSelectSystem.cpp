@@ -7,23 +7,23 @@ TargetSelectSystem::TargetSelectSystem() : m_exclusionEnemiesNum{}, m_enemies{}
 {	
 }
 
-void TargetSelectSystem::SetReference(Player* player, std::vector<Enemy*> enemies)
+void TargetSelectSystem::SetReference(Player& player, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	// 参照を登録
-	m_player = player;
-	m_enemies = enemies;
+	m_player = &player;
+	m_enemies = &enemies;
 
 	// 敵の参照が登録された際に除外の初期設定や最大値の設定も行う
 	InitExclusionEnemies();
 	// 最大値を初期化
-	m_maxEnemiesNum = m_enemies.size() - 1;
+	m_maxEnemiesNum = m_enemies->size() - 1;
 }
 
-void TargetSelectSystem::TargetSelect(bool& isSelected)
+void TargetSelectSystem::TargetSelect()
 {
 	if (KeySpace.down())
 	{
-		isSelected = true;
+		SetIsTargetSelected(true);
 		// 状態を攻撃へ設定
 		m_player->SetActionState(PlayerActionState::PlayerAttack);
 		return;
@@ -36,11 +36,11 @@ void TargetSelectSystem::TargetSelect(bool& isSelected)
 	RightCursor(m_maxEnemiesNum, m_targetSelectIndex, m_exclusionEnemiesNum);
 }
 
-void TargetSelectSystem::TargetSelect(bool& isSelected, int32 skillID)
+void TargetSelectSystem::TargetSelect(int32 skillID)
 {
 	if (KeySpace.down())
 	{
-		isSelected = true;
+		SetIsTargetSelected(true);
 
 		// スキルIDによってアニメーションを変更
 		switch (skillID)
@@ -67,7 +67,7 @@ void TargetSelectSystem::TargetSelect(bool& isSelected, int32 skillID)
 
 void TargetSelectSystem::InitExclusionEnemies()
 {
-	m_exclusionEnemiesNum.resize(m_enemies.size());// 敵の配列の容量をコピー
+	m_exclusionEnemiesNum.resize(m_enemies->size());// 敵の配列の容量をコピー
 
 	// 除外する敵の番号に初期値として例外番号（-1）を格納
 	for (size_t i = 0; i < m_exclusionEnemiesNum.size(); i++)
@@ -81,9 +81,9 @@ void TargetSelectSystem::ExclusionEnemies()
 	// 除外するターゲットを設定
 	for (size_t i = 0; i < m_exclusionEnemiesNum.size(); i++)
 	{
-		if (m_enemies[i]->GetIsDead())
+		if ((*m_enemies)[i]->GetIsDead())
 		{
-			m_exclusionEnemiesNum[i] = m_enemies[i]->GetGenerateNum();
+			m_exclusionEnemiesNum[i] = (*m_enemies)[i]->GetGenerateNum();
 		}
 	}
 
@@ -135,7 +135,7 @@ void TargetSelectSystem::ExclusionEnemies()
 	// 除外されていなかった場合最大値をサイズと同様
 	if (not decideMaxEnemy)
 	{
-		m_maxEnemiesNum = m_enemies.size() - 1;
+		m_maxEnemiesNum = m_enemies->size() - 1;
 		decideMaxEnemy = true;
 	}
 }

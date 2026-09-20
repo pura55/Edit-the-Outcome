@@ -33,6 +33,14 @@ public:
 
 	/// @brief 表示時間をリセットする関数
 	void ResetLeftTime() { m_leftTime = m_showTime; }
+
+	/// @brief ダメージ表示フラグを返す関数
+	bool GetIsShow() { return isShowDamage; }
+
+	/// @brief ダメージ表示フラグを設定する関数
+	/// @param show 設定するフラグ
+	void SetIsShow(bool show) { isShowDamage = show; }
+
 private:
 	/// @brief 座標を移動させる関数
 	void MovePosition();
@@ -48,4 +56,6 @@ private:
 	double m_showTime{ 1.0 }; // 表示時間
 
 	double m_moveVelocity{ 20.0 }; // 移動する速度
+
+	bool isShowDamage{ false }; // ダメージを表示するフラグ
 };

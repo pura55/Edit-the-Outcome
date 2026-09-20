@@ -33,14 +33,14 @@ public:
 	/// </summary>
 public:
 	/// @brief 外部オブジェクトへの参照を設定する関数
-	void SetReference(BattleSystem& battleSystem, CommandManager& commandManager ,TargetSelectSystem& targetSelectSystem, Player* player, std::vector<Enemy*> enemy);
+	void SetReference(BattleSystem& battleSystem, CommandManager& commandManager ,TargetSelectSystem& targetSelectSystem, Player& player, std::vector<std::unique_ptr<Enemy>>& enemy);
 
-	/// @brief ダメージ表示を配列に渡す関数
-	void PassDamageQueue(int32 damage, Vec2 position);
+	/// @brief ダメージ表示する関数
+	void ShowDamage(int32 damage, Vec2 position);
 
-	/// @brief ダメージ表示を配列に渡す関数
+	/// @brief ダメージ表示する関数
 	/// @param skillNum スキルの回数
-	void PassDamageQueue(int32 damage, Vec2 position, int32 skillNums);
+	void ShowDamage(int32 damage, Vec2 position, int32 skillNums);
 
 	void SetWin() { m_isWin = true; }
 
@@ -59,10 +59,12 @@ private:
 private:
 
 	// ダメージ表示を保持する数
-	int32 m_damageDisplayNumbers{ 50 };
+	int32 m_damageDisplayNumbers{ 10 };
 
+	// 勝利フラグ
 	bool m_isWin{ false };
 
+	// 敗北フラグ
 	bool m_isLose{ false };
 
 	/// ポインタの保持 ///
@@ -74,8 +76,9 @@ private:
 
 	TargetSelectSystem* m_targetSelectSystem{ nullptr }; //ターゲットセレクトシステムシステムのポインタを保持
 
-	Player* m_player;
-	std::vector<Enemy*> m_enemies;
+	Player* m_player; // プレイヤーの参照
+
+	std::vector<std::unique_ptr<Enemy>>* m_enemies; // 敵の参照
 #pragma endregion
 
 	/// UIの保持 ///
@@ -85,8 +88,8 @@ private:
 	SelectArrow m_selectArrow; // セレクトアロー
 	Result m_result; // 結果
 
-	std::queue<DamageDisplay> m_damageDisplayQueue;
-	std::vector<DamageDisplay> m_damageDisplay;
+	std::queue<DamageDisplay*> m_damageDisplayQueue;
+	std::vector<std::unique_ptr<DamageDisplay>> m_damageDisplay;
 #pragma endregion
 
 };
