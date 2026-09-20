@@ -143,6 +143,13 @@ Resource(image/healthbar_empty.png)
 Resource(image/healthbar_full.png)
 Resource(image/bg/ForestBg_1280x720.jpg)
 
+//
+// Json
+//
+Resource(json/command_data.json)
+Resource(json/enemy_data.json)
+Resource(json/player_data.json)
+
 
 /* examples 
 
