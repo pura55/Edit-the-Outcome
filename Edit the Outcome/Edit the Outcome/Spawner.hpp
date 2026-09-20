@@ -23,7 +23,7 @@ public:
 
 	/// @brief エネミーを生成する関数
     /// @return エネミーのインスタンス
-	std::vector<Enemy> GenerateEnemies(const int32 round, GlobalData data, RandomEngine& randomEngine);
+	std::vector<std::unique_ptr<Enemy>> GenerateEnemies(const int32 round, GlobalData data, RandomEngine& randomEngine);
 
 private:
 	int32 TypeOfEnemy(const int32 round, RandomEngine& randomEngine);

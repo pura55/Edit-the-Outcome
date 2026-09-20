@@ -5,7 +5,7 @@
 #include "Enemy.hpp"
 #include "Player.hpp"
 
-CommandManager::CommandManager() : m_enemies{}
+CommandManager::CommandManager()
 {
 	m_menuStack.push(MenuState::Default);
 }
@@ -29,12 +29,11 @@ void CommandManager::update()
 	}
 }
 
-void CommandManager::SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player* player, std::vector<Enemy*>& enemies)
+void CommandManager::SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player& player)
 {
 	m_targetSelectSystem = &targetSelectSystem;
 	m_healthManager = &healthManager;
-	m_player = player;
-	m_enemies = enemies;
+	m_player = &player;
 }
 
 void CommandManager::SetData(std::vector<CommandData>& commandData)

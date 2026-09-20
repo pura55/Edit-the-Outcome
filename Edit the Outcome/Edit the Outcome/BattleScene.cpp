@@ -84,8 +84,8 @@ void BattleScene::RunSystems()
 	// エネミーを更新;
 	for (auto& enemy : m_activeEnemies)
 	{
-		enemy.update();
-		enemy.draw();
+		enemy->update();
+		enemy->draw();
 	}
 
 	//バトルUIを更新
@@ -110,26 +110,13 @@ void BattleScene::PassReferences()
 {
 	if (m_player && !m_activeEnemies.empty()) // 中身が確実に生成されているかチェック
 	{
-		// プレイヤーのポインタを取得
-		Player* playerPtr = m_player.get();
-
-		// 必要なサイズのを容量を確保
-		std::vector<Enemy*> enemyPtr;
-		enemyPtr.reserve(m_activeEnemies.size());
-
-		// アドレスを格納
-		for (auto& enemies : m_activeEnemies)
-		{
-			enemyPtr.push_back(&enemies);
-		}
-
 		// 参照関係を構築
-		m_battleSystem.SetReference(playerPtr, enemyPtr);
-		m_battleUI.SetReference(m_battleSystem, m_commandManager, m_targetSelectSystem, playerPtr, enemyPtr);
-		m_healthManager.SetReference(playerPtr, enemyPtr, m_battleUI);
-		m_commandManager.SetReference(m_targetSelectSystem, m_healthManager, playerPtr, enemyPtr);
-		m_targetSelectSystem.SetReference(playerPtr, enemyPtr);
-		m_enemyActionManager.SetReference(m_healthManager, enemyPtr);
+		m_battleSystem.SetReference(*m_player, m_activeEnemies);
+		m_battleUI.SetReference(m_battleSystem, m_commandManager, m_targetSelectSystem, *m_player, m_activeEnemies);
+		m_healthManager.SetReference(*m_player, m_activeEnemies, m_battleUI);
+		m_commandManager.SetReference(m_targetSelectSystem, m_healthManager, *m_player);
+		m_targetSelectSystem.SetReference(*m_player, m_activeEnemies);
+		m_enemyActionManager.SetReference(m_healthManager, m_activeEnemies);
 	}
 	else
 	{

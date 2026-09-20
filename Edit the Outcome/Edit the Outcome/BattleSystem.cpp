@@ -48,13 +48,13 @@ void BattleSystem::update(CommandManager& commandManager, EnemyActionManager& en
 	}
 }
 
-void BattleSystem::SetReference(Player* player, const std::vector<Enemy*>& enemies)
+void BattleSystem::SetReference(Player& player, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	// プレイヤーの参照を取得
-	m_player = player;
+	m_player = &player;
 
 	// エネミーの参照を取得
-	m_enemies = enemies;
+	m_enemies = &enemies;
 }
 
 void BattleSystem::StateInit(CommandManager& commandManager, EnemyActionManager& enemyActionManager)
@@ -115,7 +115,7 @@ void BattleSystem::StateTurnEnd(CommandManager& commandManager, EnemyActionManag
 
 	bool isEnemiesDead = true;
 
-	for (auto enemies : m_enemies)
+	for (auto& enemies : *m_enemies)
 	{
 		// エネミーが死んでいるのであれば次の処理へ
 		if (enemies->GetIsDead()) continue;

@@ -28,7 +28,7 @@ void BattleUI::draw() const
 {
 	/// ステータス ///
 	{
-		m_statusUI.draw(m_player, m_enemies);
+		m_statusUI.draw(*m_player, *m_enemies);
 	}
 	
 
@@ -43,13 +43,14 @@ void BattleUI::draw() const
 	}
 
 	{
-		// 空出ないとき
+		// 空ではないとき
 		if (not m_damageDisplay.empty())
 		{
 			// ダメージ表示
 			for (auto& damage : m_damageDisplay)
 			{
-				damage.draw();
+				// 表示フラグがtureの場合
+				if (damage->GetIsShow()) damage->draw();;
 			}
 		}
 	}
@@ -67,21 +68,28 @@ void BattleUI::draw() const
 	}
 }
 
-void BattleUI::SetReference(BattleSystem& battleSystem,CommandManager& commandManager,TargetSelectSystem& targetSelectSystem, Player* player, const std::vector<Enemy*>& enemy)
+void BattleUI::SetReference(BattleSystem& battleSystem,CommandManager& commandManager,TargetSelectSystem& targetSelectSystem, Player& player, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	m_battleSystem = &battleSystem;
 	m_commandManager = &commandManager;
 	m_targetSelectSystem = &targetSelectSystem;
-	m_player = player;
-	m_enemies = enemy;
+	m_player = &player;
+	m_enemies = &enemies;
 }
 
 void BattleUI::DamageInQueue()
 {
+
 	for (int32 i = 0; i < m_damageDisplayNumbers; i++)
 	{
+		// 生成
+		m_damageDisplay.push_back(std::make_unique<DamageDisplay>());
+	}
+
+	for (auto& disp : m_damageDisplay)
+	{
 		// ダメージ表示をインキュー
-		m_damageDisplayQueue.push(DamageDisplay());
+		m_damageDisplayQueue.push(disp.get());
 	}
 }
 
@@ -92,30 +100,38 @@ void BattleUI::UpdateDamageDisplays()
 	{
 		for (size_t i = 0; i < m_damageDisplay.size(); i++)
 		{
-			m_damageDisplay[i].update();
+			if(not m_damageDisplay[i]->GetIsShow()) continue;
+
+			m_damageDisplay[i]->update();
 		}
 	}
 }
 
-void BattleUI::PassDamageQueue(int32 damage, Vec2 position)
+void BattleUI::ShowDamage(int32 damage, Vec2 position)
 {
-	// キューの先頭にダメージを渡す
-	m_damageDisplayQueue.front().SetInformation(damage, position);
+	// 空ではない場合
+	if (m_damageDisplayQueue.empty()) { return; }
 
-	// 配列にキューの先頭を譲渡する
-	m_damageDisplay.push_back(std::move(m_damageDisplayQueue.front()));
+	// キューの先頭にダメージを渡す
+	m_damageDisplayQueue.front()->SetInformation(damage, position);
+
+	// フラグをture
+	m_damageDisplayQueue.front()->SetIsShow(true);
 
 	// キューをポップ
 	m_damageDisplayQueue.pop();
 }
 
-void BattleUI::PassDamageQueue(int32 damage, Vec2 position, int32 skillNums)
+void BattleUI::ShowDamage(int32 damage, Vec2 position, int32 skillNums)
 {
-	// キューの先頭にダメージを渡す
-	m_damageDisplayQueue.front().SetInformation(damage, position, skillNums);
+	// 空ではない場合
+	if (m_damageDisplayQueue.empty()) { return; }
 
-	// 配列にキューの先頭を譲渡する
-	m_damageDisplay.push_back(std::move(m_damageDisplayQueue.front()));
+	// キューの先頭にダメージを渡す
+	m_damageDisplayQueue.front()->SetInformation(damage, position, skillNums);
+
+	// フラグをture
+	m_damageDisplayQueue.front()->SetIsShow(true);
 
 	// キューをポップ
 	m_damageDisplayQueue.pop();
@@ -128,14 +144,20 @@ void BattleUI::ReturnDamageQueue()
 	{
 		for (size_t i = 0; i < m_damageDisplay.size(); i++)
 		{
+			// 非表示の場合は次の処理へ
+			if (not m_damageDisplay[i]->GetIsShow()) continue;
+
 			// 時間が終了していない場合次の処理へ
-			if (not m_damageDisplay[i].DecreaseLeftTime()) continue;
+			if (not m_damageDisplay[i]->DecreaseLeftTime()) continue;
+
+			// 非表示
+			m_damageDisplay[i]->SetIsShow(false);
 
 			// キューに表示が終了したダメージ表示をインキュー（譲渡）
-			m_damageDisplayQueue.push(std::move(m_damageDisplay[i]));
+			m_damageDisplayQueue.push(m_damageDisplay[i].get());
 
-			// 渡した要素を削除
-			m_damageDisplay.erase(m_damageDisplay.begin() + i);
+			// 時間をリセット
+			m_damageDisplay[i]->ResetLeftTime();
 		}
 	}
 }

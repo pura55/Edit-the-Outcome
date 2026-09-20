@@ -54,5 +54,5 @@ private:
 	// スマートポインタを使用しエラーを防止
 	std::unique_ptr<Player> m_player;
 
-	std::vector<Enemy> m_activeEnemies; // エネミーを保持
+	std::vector<std::unique_ptr<Enemy>> m_activeEnemies; // エネミーを保持
 };

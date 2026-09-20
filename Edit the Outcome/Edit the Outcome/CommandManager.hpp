@@ -48,7 +48,7 @@ public:
 	void SetData(std::vector<CommandData>& commandData);
 
 	/// @brief 参照を登録する関数
-	void SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player* player, std::vector<Enemy*>& enemies);
+	void SetReference(TargetSelectSystem& targetSelectSystem, HealthManager& healthManager, Player& player);
 
     /// @brief コマンドデータ内の処理に必要な各データを配列として登録する関数
 	void RegistCommandData();
@@ -164,6 +164,4 @@ private:
 	HealthManager* m_healthManager{ nullptr }; // ヘルスマネージャーの参照
 
 	Player* m_player{ nullptr }; // プレイヤーの参照
-
-	std::vector<Enemy*> m_enemies; // エネミーの参照
 };

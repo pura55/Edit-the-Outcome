@@ -17,7 +17,7 @@ public:
 	HealthManager();
 
 	/// @brief 外部オブジェクトへの参照を設定する関数
-	void SetReference(Player* player, const std::vector<Enemy*>& enemies, BattleUI& battleUI);
+	void SetReference(Player& player, std::vector<std::unique_ptr<Enemy>>& enemies, BattleUI& battleUI);
 
 	/// ダメージ関数 ///
 #pragma region Damage
@@ -33,7 +33,7 @@ public:
 
 private:
 	Player* m_player{ nullptr };
-	std::vector<Enemy*> m_enemies{ nullptr };
+	std::vector<std::unique_ptr<Enemy>>* m_enemies{ nullptr };
 	BattleUI* m_battleUI{ nullptr };
 
 

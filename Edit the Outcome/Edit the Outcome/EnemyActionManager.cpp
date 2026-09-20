@@ -8,24 +8,24 @@ EnemyActionManager::EnemyActionManager()
 {
 }
 
-void EnemyActionManager::SetReference(HealthManager& healthManager, std::vector<Enemy*>& enemies)
+void EnemyActionManager::SetReference(HealthManager& healthManager, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	m_healthManager = &healthManager;
-	m_enemies = enemies;
+	m_enemies = &enemies;
 }
 
 void EnemyActionManager::SetEnemyQueue()
 {
-	for (auto* enemies : m_enemies)
+	for (auto& enemies : *m_enemies)
 	{
-		m_enemiesQueue.push(enemies);
+		m_enemiesQueue.push(enemies.get());
 	}
 }
 
 void EnemyActionManager::ExecuteActionProcess(const Player* player)
 {
 	// エネミーがダメージを受けている最中だったら一時的に処理を抜ける
-	for (auto* enemies : m_enemies)
+	for (auto& enemies : *m_enemies)
 	{
 		if(enemies->GetReceivingDamage()) return;
 	}
@@ -65,3 +65,4 @@ void EnemyActionManager::ExecuteActionProcess(const Player* player)
 			m_enemiesQueue.front()->SetActionState(2); // 敵の行動状態を設定
 	}
 }
+

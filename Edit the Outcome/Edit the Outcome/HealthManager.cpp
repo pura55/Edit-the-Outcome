@@ -8,17 +8,17 @@ HealthManager::HealthManager()
 {
 }
 
-void HealthManager::SetReference(Player* player, const std::vector<Enemy*>& enemies, BattleUI& battleUI)
+void HealthManager::SetReference(Player& player, std::vector<std::unique_ptr<Enemy>>& enemies, BattleUI& battleUI)
 {
-	m_player = player;
-	m_enemies = enemies;
+	m_player = &player;
+	m_enemies = &enemies;
 	m_battleUI = &battleUI;
 }
 
 void HealthManager::PlayerAttackEnemy(int32 playerAtk, int32 enemyGenerateNum)
 {
 	// 生成番号から特定のエネミーを探してHpを設定
-	for (auto* enemies : m_enemies)
+	for (auto& enemies :* m_enemies)
 	{
 		if (enemies->GetGenerateNum() == enemyGenerateNum)
 		{
@@ -35,7 +35,7 @@ void HealthManager::PlayerAttackEnemy(int32 playerAtk, int32 enemyGenerateNum)
 			enemies->SetActionState(4);
 
 			// ダメージ表示
-			m_battleUI->PassDamageQueue(playerAtk, enemies->GetPosition());
+			m_battleUI->ShowDamage(playerAtk, enemies->GetPosition());
 
 			break;
 		}
@@ -45,7 +45,7 @@ void HealthManager::PlayerAttackEnemy(int32 playerAtk, int32 enemyGenerateNum)
 void HealthManager::PlayerSkillEnemy(int32 playerAtk, int32 enemyGenerateNum, int32 skillNums)
 {
 	// 生成番号から特定のエネミーを探してHpを設定
-	for (auto* enemies : m_enemies)
+	for (auto& enemies : *m_enemies)
 	{
 		if (enemies->GetGenerateNum() == enemyGenerateNum)
 		{
@@ -65,7 +65,7 @@ void HealthManager::PlayerSkillEnemy(int32 playerAtk, int32 enemyGenerateNum, in
 				enemies->SetActionState(4);
 
 				// ダメージ表示
-				m_battleUI->PassDamageQueue(playerAtk, enemies->GetPosition(), i);
+				m_battleUI->ShowDamage(playerAtk, enemies->GetPosition(), i);
 			}
 			break;
 		}
@@ -119,5 +119,5 @@ void HealthManager::EnemyAttackPlayer(int32 enemyAtk)
 	m_player->SetActionState(5);
 
 	// ダメージ表示
-	m_battleUI->PassDamageQueue(damage, m_player->GetPosition());
+	m_battleUI->ShowDamage(damage, m_player->GetPosition());
 }

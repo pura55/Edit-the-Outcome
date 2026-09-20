@@ -41,7 +41,7 @@ public:
 	void update(CommandManager& commandMangager, EnemyActionManager& enemyActionManager, BattleUI& battleUI) ;
 
 	/// @brief 外部オブジェクトへの参照を設定する関数
-	void SetReference(Player* player, const std::vector<Enemy*>& enemies);
+	void SetReference(Player& player, std::vector<std::unique_ptr<Enemy>>& enemies);
 
 	/// @brief バトルが終了しているかを伝える関数
 	bool GetBattleEnd() { return m_isBattleEnd; }
@@ -108,7 +108,7 @@ private:
 	Player* m_player{ nullptr };
 
 	// エネミーのポインタを保持
-	std::vector<Enemy*> m_enemies{ nullptr };
+	std::vector<std::unique_ptr<Enemy>>* m_enemies{ nullptr };
 #pragma endregion
 
 };

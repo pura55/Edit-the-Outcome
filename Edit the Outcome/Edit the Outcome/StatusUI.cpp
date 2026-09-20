@@ -20,22 +20,22 @@ void StatusUI::update()
 /// 今後描画する際は(Rect{})で代用してください。
 /// 
 /// </remarks>
-void StatusUI::draw(Player* player, const std::vector<Enemy*>& enemies) const
+void StatusUI::draw(Player& player, std::vector<std::unique_ptr<Enemy>>& enemies) const
 {
 	//プレイヤー
 	{
 		// 背景用スクリーン
 		RectF{ 345.0, m_statusPosY - m_screenSize.y / 2, m_screenSize.x, m_screenSize.y }.draw(Palette::Black);
 		// プレイヤーのHp
-		FontAsset(U"HUD")(U"{}"_fmt(player->GetPlayerHp()))
+		FontAsset(U"HUD")(U"{}"_fmt(player.GetPlayerHp()))
 			.drawAt(TextStyle::OutlineShadow(0.2, ColorF{ 0.2, 0.6, 0.2 }, Vec2{ 3, 3 }, ColorF{ 0.0, 0.5 }), 18, Vec2{ 470.0, m_statusPosY });
 
-		if (player->GetPlayerDefense() > 0)
+		if (player.GetPlayerDefense() > 0)
 		{
 			// 背景用スクリーン
 			RectF{ 480.0, m_statusPosY - m_screenSize.y / 2, 40.0, m_screenSize.y }.draw(Palette::Black);
 			// プレイヤーの守備力
-			FontAsset(U"HUD")(U"+{}"_fmt(player->GetPlayerDefense()))
+			FontAsset(U"HUD")(U"+{}"_fmt(player.GetPlayerDefense()))
 				.drawAt(Vec2{ 500.0, m_statusPosY }, Palette::Yellow);
 		}
 	}
@@ -45,9 +45,9 @@ void StatusUI::draw(Player* player, const std::vector<Enemy*>& enemies) const
 		// 空白の体力ゲージ
 		TextureAsset(U"EmptyHealthbar").draw(350.0, m_statusPosY);
 		// 緑色の体力ゲージ
-		TextureAsset(U"FullHealthbar")(Rect{ 0,0,player->CalculatePctOfHp(),10 }).draw(360.0, m_statusPosY);
+		TextureAsset(U"FullHealthbar")(Rect{ 0,0,player.CalculatePctOfHp(),10 }).draw(360.0, m_statusPosY);
 
-		for (auto* enemy : enemies)
+		for (auto& enemy : enemies)
 		{
 			RectF{ 695.0 + 200.0 * enemy->GetGenerateNum(), m_statusPosY - m_screenSize.y / 2, m_screenSize.x, m_screenSize.y }.draw(Palette::Black);
 			// エネミーのHp

@@ -15,7 +15,7 @@ public:
 	TargetSelectSystem();
 
 	/// @brief 参照を登録する関数
-	void SetReference(Player* player, std::vector<Enemy*>& enemies);
+	void SetReference(Player& player, std::vector<std::unique_ptr<Enemy>>& enemies);
 
 	/// @brief 攻撃するターゲットを選択する関数
 	void TargetSelect();
@@ -56,6 +56,6 @@ private:
 
 	Player* m_player{ nullptr }; // プレイヤーの参照
 
-	std::vector<Enemy*> m_enemies; // エネミーの参照
+	std::vector<std::unique_ptr<Enemy>>* m_enemies; // エネミーの参照
 	
 };
