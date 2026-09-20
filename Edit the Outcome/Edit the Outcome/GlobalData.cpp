@@ -73,7 +73,7 @@ const PlayerProgressData& GlobalData::GetPlayerData(int32 id) const
 bool GlobalData::LoadEnemyData()
 {
 	// jsonファイルを読み込みます
-	const JSON json = JSON::Load(U"./json/enemy_data.json");
+	const JSON json = JSON::Load(Resource(U"json/enemy_data.json"));
 
 	// データがない場合falseで返します
 	if (not json) return false;
@@ -114,7 +114,7 @@ const EnemyData& GlobalData::GetEnemyData(int32 id) const
 bool GlobalData::LoadCommandData()
 {
 	// jsonファイルを読み込みます
-	const JSON json = JSON::Load(U"./json/command_data.json");
+	const JSON json = JSON::Load(Resource(U"json/command_data.json"));
 
 	// データがない場合falseで返します
 	if (not json) return false;

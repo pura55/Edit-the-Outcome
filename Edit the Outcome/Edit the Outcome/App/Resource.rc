@@ -142,6 +142,10 @@ Resource(image/CommandWindowSmall.png)
 Resource(image/healthbar_empty.png)
 Resource(image/healthbar_full.png)
 Resource(image/bg/ForestBg_1280x720.jpg)
+Resource(image/explanation/explanation_1.png)
+Resource(image/explanation/explanation_2.png)
+Resource(image/explanation/explanation_3.png)
+Resource(image/explanation/explanation_4.png)
 
 //
 // Json
