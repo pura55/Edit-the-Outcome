@@ -29,9 +29,6 @@
 | :---: | :---: |
 | ![Screen1](Screenshots/image_1.png) | ![Screen2](Screenshots/image_2.png) |
 
-## 🎥 プレイ動画
-[動画リンク](https://www.youtube.com/watch?v=qkGjD-ePMbQ)
-
 ## 🎥 Gameplay Video / プレイ動画
 
 * [Watch the Video / 動画リンクはこちら](https://www.youtube.com/watch?v=qkGjD-ePMbQ)
