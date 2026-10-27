@@ -19,14 +19,14 @@ public:
 	/// @param position 対象の座標
 	void SetInformation(int32 damage, Vec2 position)
 	{
-		m_showDamge = damage;
+		m_showDamage = damage;
 		m_targetPosition = position;
 	}
 
 	/// @param skillNums スキルの回数
 	void SetInformation(int32 damage, Vec2 position, int32 skillNums)
 	{
-		m_showDamge = damage;
+		m_showDamage = damage;
 		m_targetPosition.x = position.x + skillNums * 5.0;
 		m_targetPosition.y = position.y + skillNums * 5.0;
 	}
@@ -49,7 +49,7 @@ private:
 	Font m_fontBackDamage{ FontMethod::MSDF, 18, Typeface::Bold };// ダメージの背景
 	Font m_fontDamage{ FontMethod::MSDF, 16, Typeface::Bold }; // ダメージのフォント
 
-	int32 m_showDamge{ 0 }; // 表示するダメージ
+	int32 m_showDamage{ 0 }; // 表示するダメージ
 
 	Vec2 m_targetPosition{ 0,0 }; // ダメージを表示する座標
 

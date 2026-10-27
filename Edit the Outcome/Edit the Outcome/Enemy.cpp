@@ -10,9 +10,9 @@ Enemy::Enemy(const EnemyData& masterData, int32 generate) : m_masterData(masterD
 	m_currentHp = m_masterData.maxHp;
 	m_currentAtk = m_masterData.atk;
 	m_maxAttackAnimationNum = m_masterData.spr_atk;
-	m_attackAnimationHight = m_masterData.spr_hight_atk;
-	m_dmgAnimationHight = m_masterData.spr_hight_dmg;
-	m_deadAnimationHight = m_masterData.spr_hight_dmg + 1;
+	m_attackAnimationHight = m_masterData.spr_height_atk;
+	m_dmgAnimationHight = m_masterData.spr_height_dmg;
+	m_deadAnimationHight = m_masterData.spr_height_dmg + 1;
 	
 
 	// idを元にアセット名を設定

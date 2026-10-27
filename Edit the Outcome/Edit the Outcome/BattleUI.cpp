@@ -49,7 +49,7 @@ void BattleUI::draw() const
 			// ダメージ表示
 			for (auto& damage : m_damageDisplay)
 			{
-				// 表示フラグがtureの場合
+				// 表示フラグがtrueの場合
 				if (damage->GetIsShow()) damage->draw();;
 			}
 		}
@@ -115,7 +115,7 @@ void BattleUI::ShowDamage(int32 damage, Vec2 position)
 	// キューの先頭にダメージを渡す
 	m_damageDisplayQueue.front()->SetInformation(damage, position);
 
-	// フラグをture
+	// フラグをtrue
 	m_damageDisplayQueue.front()->SetIsShow(true);
 
 	// キューをポップ
@@ -130,7 +130,7 @@ void BattleUI::ShowDamage(int32 damage, Vec2 position, int32 skillNums)
 	// キューの先頭にダメージを渡す
 	m_damageDisplayQueue.front()->SetInformation(damage, position, skillNums);
 
-	// フラグをture
+	// フラグをtrue
 	m_damageDisplayQueue.front()->SetIsShow(true);
 
 	// キューをポップ

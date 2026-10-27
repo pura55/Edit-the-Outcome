@@ -13,8 +13,8 @@ void DamageDisplay::update()
 
 void DamageDisplay::draw() const
 {
-	m_fontBackDamage(U"{}"_fmt(m_showDamge)).drawAt(m_targetPosition, Palette::White);
-	m_fontDamage(U"{}"_fmt(m_showDamge)).drawAt(m_targetPosition, Palette::Red);
+	m_fontBackDamage(U"{}"_fmt(m_showDamage)).drawAt(m_targetPosition, Palette::White);
+	m_fontDamage(U"{}"_fmt(m_showDamage)).drawAt(m_targetPosition, Palette::Red);
 }
 
 void DamageDisplay::MovePosition()

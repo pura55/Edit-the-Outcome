@@ -7,8 +7,8 @@
             "hp": 10,
             "atk": 2,
             "spr_atk": 5,
-            "spr_hight_atk": 2,
-            "spr_hight_dmg": 4
+            "spr_height_atk": 2,
+            "spr_height_dmg": 4
         },
         {
             "id": 2,
@@ -16,8 +16,8 @@
             "hp": 15,
             "atk": 5,
             "spr_atk": 5,
-            "spr_hight_atk": 2,
-            "spr_hight_dmg": 4
+            "spr_height_atk": 2,
+            "spr_height_dmg": 4
         },
         {
             "id": 3,
@@ -25,8 +25,8 @@
             "hp": 12,
             "atk": 10,
             "spr_atk": 5,
-            "spr_hight_atk": 1,
-            "spr_hight_dmg": 3
+            "spr_height_atk": 1,
+            "spr_height_dmg": 3
         },
         {
             "id": 4,
@@ -34,8 +34,8 @@
             "hp": 20,
             "atk": 9,
             "spr_atk": 5,
-            "spr_hight_atk": 2,
-            "spr_hight_dmg": 6
+            "spr_height_atk": 2,
+            "spr_height_dmg": 6
         },
         {
             "id": 5,
@@ -43,8 +43,8 @@
             "hp": 30,
             "atk": 15,
             "spr_atk": 8,
-            "spr_hight_atk": 2,
-            "spr_hight_dmg": 4
+            "spr_height_atk": 2,
+            "spr_height_dmg": 4
         }
     ]
 }

@@ -88,9 +88,9 @@ bool GlobalData::LoadEnemyData()
 		d.maxHp = enemyJson[U"hp"].get<int32>();
 		d.atk = enemyJson[U"atk"].get<int32>();
 		d.spr_atk = enemyJson[U"spr_atk"].get<int32>();
-		d.spr_hight_atk = enemyJson[U"spr_hight_atk"].get<int32>();
-		d.spr_hight_dmg = enemyJson[U"spr_hight_dmg"].get<int32>();
-
+		d.spr_height_atk = enemyJson[U"spr_height_atk"].get<int32>();
+		d.spr_height_dmg = enemyJson[U"spr_height_dmg"].get<int32>();
+		
 
 		m_enemyMasterTable.push_back(d);
 	}
